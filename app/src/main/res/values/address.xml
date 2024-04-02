@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="tinh_tp">
+        <item>Chọn tỉnh</item>
+        <item>Hà Nội</item>
+        <item>Hồ Chí Minh</item>
+        <item>Đà Nẵng</item>
+        <item>Hải Phòng</item>
+        <!-- Thêm các tỉnh khác vào đây nếu cần -->
+    </string-array>
+    <string-array name="quan_huyen">
+        <item>Chọn tỉnh</item>
+        <item>Hà Nội</item>
+        <item>Hồ Chí Minh</item>
+        <item>Đà Nẵng</item>
+        <item>Hải Phòng</item>
+        <!-- Thêm các tỉnh khác vào đây nếu cần -->
+    </string-array>
+
+</resources>

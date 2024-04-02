@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="form_field">
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:padding">15dp</item>
+        <item name="android:background">@drawable/field_rectangle</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="spiner_field">
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:padding">15dp</item>
+        <item name="android:background">@drawable/field_rectangle</item>
+        <item name="itemTextColor">@color/Gray</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="form_group">
+        <item name="android:layout_marginTop">20dp</item>
+    </style>
+
+    <style name="btn_fill">
+        <item name="android:textColor">@color/White</item>
+        <item name="android:background">@drawable/btn_primaty</item>
+    </style>
+
+    <style name="btn_stroke">
+        <item name="android:textColor">@color/Main</item>
+        <item name="android:background">@drawable/btn_stroke</item>
+    </style>
+</resources>

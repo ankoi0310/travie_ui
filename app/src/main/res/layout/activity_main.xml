@@ -8,12 +8,164 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/step_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="16dp"
+        android:text="Add Hotel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Form content -->
+    <LinearLayout
+        android:id="@+id/formContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@id/navigationButtons"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5">
+
+        <!-- Step 1 -->
+        <LinearLayout
+            android:id="@+id/step1Layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+            <!-- Fields for step 1 -->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Tên khách sạn"/>
+
+                <EditText
+                    android:id="@+id/name_field"
+                    style="@style/form_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Nhập tên khách sạn"/>
+
+            <LinearLayout
+                android:id="@+id/address_fields"
+                style="@style/form_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Địa chỉ"/>
+
+                <Spinner
+                    android:id="@+id/tinh_tp"
+                    style="@style/spiner_field"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Tỉnh/Thành phố"/>
+                <EditText
+                    android:id="@+id/quan_huyen"
+                    style="@style/form_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Quận/Huyện"/>
+
+            </LinearLayout>
+            <!-- Add more fields for step 1 as needed -->
+            <!-- Example: <EditText android:id="@+id/field2_step1" ... /> -->
+
+        </LinearLayout>
+
+        <!-- Step 2 -->
+        <LinearLayout
+            android:id="@+id/step2Layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <!-- Fields for step 2 -->
+            <EditText
+                android:id="@+id/field1_step2"
+                style="@style/form_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Field step 2" />
+
+            <!-- Add more fields for step 2 as needed -->
+            <!-- Example: <EditText android:id="@+id/field2_step2" ... /> -->
+
+        </LinearLayout>
+
+        <!-- Step 3 -->
+        <LinearLayout
+            android:id="@+id/step3Layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <!-- Fields for step 3 -->
+            <EditText
+                android:id="@+id/field1_step3"
+                style="@style/form_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Field 1" />
+
+            <!-- Add more fields for step 3 as needed -->
+            <!-- Example: <EditText android:id="@+id/field2_step3" ... /> -->
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Navigation buttons -->
+    <LinearLayout
+        android:id="@+id/navigationButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <!-- Previous Button -->
+        <Button
+            android:id="@+id/btnPrevious"
+            style="@style/btn_stroke"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_weight="1"
+
+            android:onClick="onPreviousClicked"
+            android:text="Previous" />
+
+        <!-- Next Button -->
+        <Button
+            android:id="@+id/btnNext"
+            style="@style/btn_fill"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_weight="1"
+            android:onClick="onNextClicked"
+            android:text="Next" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
