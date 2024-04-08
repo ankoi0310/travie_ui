@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragment_add_hotel"
+    style="@style/Form"
+    android:paddingTop="82dp"
+    android:gravity="center_vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/FormLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hotel_name_label" />
+
+    <EditText
+        android:id="@+id/name"
+        style="@style/FormEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nhập tên khách sạn" />
+
+    <TextView
+        style="@style/FormLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Địa chỉ" />
+
+    <Spinner
+        style="@style/FormSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Spinner
+        style="@style/FormSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Spinner
+        style="@style/FormSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        style="@style/FormLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Loại hình kinh doanh" />
+
+    <Spinner
+        style="@style/FormSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        style="@style/FormLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Số sao" />
+
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:progressTint="@color/main"
+        android:rating="3"
+        android:stepSize="1" />
+
+    <Button
+        android:id="@+id/button"
+        style="@style/ButtonFilled"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:text="Thêm khách sạn" />
+</LinearLayout>
