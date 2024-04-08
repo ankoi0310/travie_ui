@@ -11,7 +11,8 @@
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:padding="16dp"
-        android:src="@drawable/ic_back" />
+        android:src="@drawable/ic_back"
+        android:contentDescription="Enter to back home"/>
 
     <TextView
         android:id="@+id/textViewTitle"

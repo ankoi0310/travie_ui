@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@mipmap/ic_channel_background"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".nearestHotel.FragmentNear1">
+    android:layout_height="170dp"
+    tools:context=".detailHotel.FragmentHoDe1">
 
     <ImageButton
         android:id="@+id/iconButton"
@@ -11,8 +12,7 @@
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:padding="16dp"
-        android:src="@drawable/ic_back"
-        android:contentDescription="Enter to back home"/>
+        android:src="@drawable/ic_back" />
 
     <TextView
         android:id="@+id/textViewTitle"
@@ -22,7 +22,7 @@
         android:layout_marginTop="15dp"
         android:layout_marginEnd="100dp"
         android:gravity="center_horizontal"
-        android:text="Gần đây"
+        android:text="Chi tiết khách sạn"
         android:textSize="20sp" />
 
 </FrameLayout>

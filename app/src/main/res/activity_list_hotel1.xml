@@ -4,29 +4,22 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".mostVisitedHotel.MostVisited">
+    tools:context=".listHotel.ListHotel1">
 
     <fragment
         android:id="@+id/headertitle"
-        class="vn.edu.hcmuaf.fit.travie.mostVisitedHotel.FragmentMV1"
+        class="vn.edu.hcmuaf.fit.travie.listHotel.FragmentLH1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:layout="@layout/fragment_m_v1">
+        tools:layout="@layout/fragment_l_h1">
     </fragment>
-
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:id="@+id/rcv_mostVisited"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:layout_marginTop="60dp"-->
-<!--        tools:listitem="@layout/fragment_item"/>-->
 
     <ListView
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="60dp"
-        tools:listitem="@layout/fragment_item" />
-
+        tools:listitem="@layout/fragment_l_h2">
+    </ListView>
 
 </FrameLayout>

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".nearestHotel.FragmentNear1">
+    tools:context=".listHotel.FragmentLH1">
 
     <ImageButton
         android:id="@+id/iconButton"
@@ -11,8 +11,7 @@
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:padding="16dp"
-        android:src="@drawable/ic_back"
-        android:contentDescription="Enter to back home"/>
+        android:src="@drawable/ic_back" />
 
     <TextView
         android:id="@+id/textViewTitle"
@@ -22,7 +21,7 @@
         android:layout_marginTop="15dp"
         android:layout_marginEnd="100dp"
         android:gravity="center_horizontal"
-        android:text="Gần đây"
+        android:text="Danh sách khách sạn"
         android:textSize="20sp" />
 
 </FrameLayout>

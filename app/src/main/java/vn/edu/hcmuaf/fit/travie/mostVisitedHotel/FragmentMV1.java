@@ -1,65 +1,38 @@
 package vn.edu.hcmuaf.fit.travie.mostVisitedHotel;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import vn.edu.hcmuaf.fit.travie.Home.MainActivity;
 import vn.edu.hcmuaf.fit.travie.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FragmentMV1#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class FragmentMV1 extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public FragmentMV1() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentMV1.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FragmentMV1 newInstance(String param1, String param2) {
-        FragmentMV1 fragment = new FragmentMV1();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
+    ImageButton imageButton;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_m_v1, container, false);
+        View view = inflater.inflate(R.layout.fragment_m_v1, container, false);
+
+        // Find the TextView
+         imageButton = view.findViewById(R.id.iconButton); // Assuming your TextView has an id of textView
+
+        // Set OnClickListener to the TextView
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Navigate to the desired activity or fragment
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        return view;
     }
 }
