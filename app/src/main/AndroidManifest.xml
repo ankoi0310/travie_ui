@@ -13,6 +13,28 @@
         android:theme="@style/Theme.Travie"
         tools:targetApi="31">
         <activity
+            android:name=".mostVisited.MostVisited"
+            android:exported="false" />
+        <activity
+            android:name=".newHotel.NewHotel"
+            android:exported="false" />
+        <activity
+            android:name=".Nearest.main.NearestActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Travie" />
+        <activity
+            android:name=".Nearest"
+            android:exported="false" />
+        <activity
+            android:name=".NearestHotel"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity2"
+            android:exported="false" />
+        <activity
+            android:name=".MostVisited"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

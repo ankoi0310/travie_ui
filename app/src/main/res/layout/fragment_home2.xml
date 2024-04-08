@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    tools:context=".Home.FragmentHome2"
+    android:orientation="vertical"
+    android:layout_marginLeft="40dp"
+    android:layout_marginRight="40dp">
+
+    <TextView
+        android:id="@+id/textViewContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        android:drawableLeft="@drawable/ic_search"
+        android:drawablePadding="15dp"
+        android:background="@drawable/border_black3"
+        android:text="Tìm kiếm..."
+        android:textSize="30dp"
+        android:layout_margin="10dp"/>
+
+
+</FrameLayout>

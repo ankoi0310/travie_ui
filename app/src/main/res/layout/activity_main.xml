@@ -1,19 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/main"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".Home.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <fragment
+        android:id="@+id/header_title"
+        class="vn.edu.hcmuaf.fit.travie.Home.FragmentHome1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:layout="@layout/fragment_home1">
+    </fragment>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <fragment
+        android:id="@+id/search_bar"
+        class="vn.edu.hcmuaf.fit.travie.Home.FragmentHome2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/fragment_home2"
+        android:layout_marginTop="155dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp">
+    </fragment>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="460dp"
+        android:layout_marginTop="200dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <fragment
+                android:id="@+id/nearest"
+                class="vn.edu.hcmuaf.fit.travie.Home.FragmentHome5"
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                tools:layout="@layout/fragment_home5">
+            </fragment>
+
+            <fragment
+                android:id="@+id/Most_Visited"
+                class="vn.edu.hcmuaf.fit.travie.Home.FragmentHome3"
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                tools:layout="@layout/fragment_home3">
+            </fragment>
+
+            <fragment
+                android:id="@+id/New"
+                class="vn.edu.hcmuaf.fit.travie.Home.FragmentHome4"
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                tools:layout="@layout/fragment_home4">
+            </fragment>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+    <fragment
+        android:id="@+id/menu_bar"
+        class="vn.edu.hcmuaf.fit.travie.Home.FragmentHome6"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginTop="660dp"
+        tools:layout="@layout/fragment_home6">
+
+    </fragment>
+
+</FrameLayout>
