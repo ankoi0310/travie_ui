@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    tools:context=".detailHotel.FragmentHoDe3">
+
+    <ImageButton
+        android:id="@+id/iconButton"
+        android:layout_width="73dp"
+        android:layout_height="match_parent"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="10dp"
+
+        android:src="@drawable/ic_save" />
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="335dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        android:background="@drawable/border_fillorange"
+        android:gravity="center"
+        android:text="Chọn Khách sạn"
+        android:textSize="20sp" />
+
+</FrameLayout>
