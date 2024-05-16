@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".order.FragmentBodyOrder">
+
+    <fragment
+        android:id="@+id/body_room_info"
+        class="vn.edu.hcmuaf.fit.travie.order.FragmentRoomInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/fragment_room_info">
+    </fragment>
+
+    <fragment
+        android:id="@+id/body_user_info"
+        class="vn.edu.hcmuaf.fit.travie.order.FragmentUserInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="170dp"
+        tools:layout="@layout/fragment_user_info">
+    </fragment>
+
+    <fragment
+        android:id="@+id/body_order_detail"
+        class="vn.edu.hcmuaf.fit.travie.order.FragmentOrderDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="275dp"
+        tools:layout="@layout/fragment_order_detail">
+    </fragment>
+
+</FrameLayout>

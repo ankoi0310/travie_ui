@@ -29,11 +29,12 @@
                 android:background="@drawable/ic_map"
                 android:layout_gravity="center"/>
 
-            <TextView
+            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:text="Quận 9, Tp.Thủ Đức"/>
+                android:id="@+id/search_key_location"
+                android:hint="Quận 9, Tp.Thủ Đức"/>
 
         </LinearLayout>
 
@@ -146,12 +147,12 @@
                     android:layout_gravity="center"
                     android:background="@drawable/ic_user"/>
 
-                <TextView
+                <EditText
                     android:layout_width="20dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
-                    android:text=""/>
+                    android:id="@+id/numofprpople"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -187,12 +188,12 @@
                     android:layout_gravity="center"
                     android:background="@drawable/ic_room"/>
 
-                <TextView
+                <EditText
                     android:layout_width="20dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
-                    android:text=""/>
+                    android:id="@+id/numofroom"/>
 
                 <TextView
                     android:layout_width="wrap_content"

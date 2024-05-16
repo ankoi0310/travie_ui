@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".order.Order">
+
+    <fragment
+        android:id="@+id/headertitleOrder"
+        class="vn.edu.hcmuaf.fit.travie.order.FragmentHeadOrder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/fragment_head_order">
+    </fragment>
+
+    <fragment
+        android:id="@+id/body_order"
+        class="vn.edu.hcmuaf.fit.travie.order.FragmentBodyOrder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        tools:layout="@layout/fragment_body_order">
+    </fragment>
+
+    <fragment
+        android:id="@+id/button_order"
+        class="vn.edu.hcmuaf.fit.travie.order.FragmentButtonOrder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="665dp"
+        tools:layout="@layout/fragment_button_order">
+    </fragment>
+
+</FrameLayout>

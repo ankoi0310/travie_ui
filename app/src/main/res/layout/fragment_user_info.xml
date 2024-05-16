@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".order.FragmentUserInfo"
+    android:stretchColumns="0,1"
+    android:layout_margin="10dp">
+
+    <TextView
+        android:text="THÔNG TIN VỀ KHÁCH HÀNG"
+        android:textSize="25dp"
+        android:textStyle="bold"/>
+    <TableRow>
+        <TextView
+            android:text="Tên khách hàng"/>
+        <TextView
+            android:text="Nguyễn Văn Tùng"
+            android:textStyle="bold"
+            android:layout_column="2"/>
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:text="Email"/>
+        <TextView
+            android:text="nguyenvantung@gmail.com"
+            android:textStyle="bold"
+            android:layout_column="2"/>
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:text="Số điện thoại"/>
+        <TextView
+            android:text="0773434777"
+            android:textStyle="bold"
+            android:layout_column="2"/>
+    </TableRow>
+
+</TableLayout>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".order.FragmentRoomInfo"
+    android:stretchColumns="0,1"
+    android:layout_margin="10dp">
+
+    <TextView
+        android:text="THÔNG TIN VỀ PHÒNG"
+        android:textSize="25dp"
+        android:textStyle="bold"/>
+
+    <TableRow>
+        <TextView
+            android:text="Tên Khách sạn"/>
+        <TextView
+            android:text="Khách sạn Thủ Đức"
+            android:textStyle="bold"
+            android:layout_column="2"/>
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:text="Số phòng"/>
+        <TextView
+            android:text="325"
+            android:textStyle="bold"
+            android:layout_column="2"/>
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:text="Thời gian"/>
+        <TextView
+            android:text="3 ngày"
+            android:textStyle="bold"
+            android:layout_column="2"/>
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:text="Tiền phòng"/>
+        <TextView
+            android:text="500000 đ"
+            android:textStyle="bold"
+            android:layout_column="2"/>
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:text="Phí"/>
+        <TextView
+            android:text="100.000 đ"
+            android:textStyle="bold"
+            android:layout_column="2"/>
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:text="Tổng"
+            android:textSize="20dp" />
+        <TextView
+            android:text="1600000"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:layout_column="2"/>
+    </TableRow>
+
+</TableLayout>

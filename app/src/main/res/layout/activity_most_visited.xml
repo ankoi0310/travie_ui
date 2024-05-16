@@ -14,13 +14,6 @@
         tools:layout="@layout/fragment_m_v1">
     </fragment>
 
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:id="@+id/rcv_mostVisited"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:layout_marginTop="60dp"-->
-<!--        tools:listitem="@layout/fragment_item"/>-->
-
     <ListView
         android:id="@+id/list"
         android:layout_width="match_parent"

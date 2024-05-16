@@ -13,6 +13,12 @@
         android:theme="@style/Theme.Travie"
         tools:targetApi="31">
         <activity
+            android:name=".order.MainOrderSucess"
+            android:exported="true" />
+        <activity
+            android:name=".order.Order"
+            android:exported="true" />
+        <activity
             android:name=".search.MainSearch"
             android:exported="true" />
         <activity
