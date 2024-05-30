@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.edu.hcmuaf.fit.travie.R;
+import vn.edu.hcmuaf.fit.travie.core.utils.constant.AppConstant;
 import vn.edu.hcmuaf.fit.travie.databinding.ActivityMainBinding;
 import vn.edu.hcmuaf.fit.travie.fragment.ExploreFragment;
 import vn.edu.hcmuaf.fit.travie.fragment.HistoryFragment;
@@ -25,7 +26,6 @@ import vn.edu.hcmuaf.fit.travie.fragment.ProfileFragment;
 public class MainActivity extends AppCompatActivity {
     private final List<Fragment> mFragmentList = new ArrayList<>();
     private TabFlashyAnimator tabFlashyAnimator;
-    private final String[] mTitles = {"Home", "Explore", "History", "Profile"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,14 +54,14 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
 
         TabLayout tabLayout = findViewById(R.id.tabLayout);
-        new TabLayoutMediator(tabLayout, viewPager,
-            (tab, position) -> tab.setText(mTitles[position])).attach();
+        new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
+        }).attach();
 
         tabFlashyAnimator = new TabFlashyAnimator(tabLayout);
-        tabFlashyAnimator.addTabItem(mTitles[0], R.drawable.ic_home);
-        tabFlashyAnimator.addTabItem(mTitles[1], R.drawable.ic_explore);
-        tabFlashyAnimator.addTabItem(mTitles[2], R.drawable.ic_history);
-        tabFlashyAnimator.addTabItem(mTitles[3], R.drawable.ic_profile);
+        tabFlashyAnimator.addTabItem(AppConstant.MenuTitle.HOME, R.drawable.ic_home);
+        tabFlashyAnimator.addTabItem(AppConstant.MenuTitle.EXPLORE, R.drawable.ic_explore);
+        tabFlashyAnimator.addTabItem(AppConstant.MenuTitle.HISTORY, R.drawable.ic_history);
+        tabFlashyAnimator.addTabItem(AppConstant.MenuTitle.PROFILE, R.drawable.ic_profile);
 
         tabFlashyAnimator.highLightTab(0);
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
