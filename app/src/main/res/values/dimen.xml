@@ -2,4 +2,13 @@
 <resources>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="text_size_xsmall">8sp</dimen>
+    <!-- less important information or details -->
+    <dimen name="text_size_small">12sp</dimen>
+    <!-- general body text -->
+    <dimen name="text_size_medium">16sp</dimen>
+    <!-- titles or important information -->
+    <dimen name="text_size_large">20sp</dimen>
+    <!-- headings or very important titles -->
+    <dimen name="text_size_xlarge">24sp</dimen>
 </resources>

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "638943333995",
+    "project_id": "travie-8acf1",
+    "storage_bucket": "travie-8acf1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:638943333995:android:060a12d7423e97403d2b2e",
+        "android_client_info": {
+          "package_name": "vn.edu.hcmuaf.fit.travie"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrn-CJqHntYBOfiVmqIJIhcWrgQlqOAYE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

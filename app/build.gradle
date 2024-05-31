@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.androidApplication)
+    alias(libs.plugins.googleServices)
 }
 
 android {
@@ -33,6 +34,7 @@ android {
 }
 
 dependencies {
+    implementation platform(libs.firebase.bom)
     implementation fileTree(dir: 'libs', include: ['*.aar'])
     implementation libs.appcompat
     implementation libs.material
@@ -41,6 +43,7 @@ dependencies {
     implementation libs.glide
     implementation libs.gson
     implementation libs.firebase.database
+    implementation libs.firebase.storage
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core

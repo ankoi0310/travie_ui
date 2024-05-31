@@ -1,9 +1,11 @@
 package vn.edu.hcmuaf.fit.travie.activity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
@@ -23,7 +25,7 @@ import vn.edu.hcmuaf.fit.travie.fragment.HistoryFragment;
 import vn.edu.hcmuaf.fit.travie.fragment.HomeFragment;
 import vn.edu.hcmuaf.fit.travie.fragment.ProfileFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
     private final List<Fragment> mFragmentList = new ArrayList<>();
     private TabFlashyAnimator tabFlashyAnimator;
 
@@ -32,6 +34,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        Window window = getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//        window.setStatusBarColor(ContextCompat.getColor(this, R.color.surface));
+        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
 
         mFragmentList.add(HomeFragment.newInstance());
         mFragmentList.add(ExploreFragment.newInstance());
