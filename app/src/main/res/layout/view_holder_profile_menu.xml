@@ -19,7 +19,7 @@
         app:strokeColor="@color/transparent">
 
         <ImageView
-            android:id="@+id/icon"
+            android:id="@+id/menuIcon"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_margin="16dp"
@@ -27,7 +27,7 @@
     </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
 
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/menuTitleTxt"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"

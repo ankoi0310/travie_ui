@@ -1,42 +1,53 @@
 package vn.edu.hcmuaf.fit.travie.adapter;
 
+import android.content.Context;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import vn.edu.hcmuaf.fit.travie.core.utils.constant.AppConstant;
+import vn.edu.hcmuaf.fit.travie.core.utils.enums.ProfileMenu;
 import vn.edu.hcmuaf.fit.travie.databinding.ViewHolderProfileMenuBinding;
-import vn.edu.hcmuaf.fit.travie.domain.ProfileMenuItem;
 
 public class ProfileMenuAdapter extends RecyclerView.Adapter<ProfileMenuAdapter.ProfileMenuViewHolder> {
-    private final List<ProfileMenuItem> profileMenuItems = AppConstant.getProfileMenuItems();
+    Context context;
+    private final List<ProfileMenu> profileMenuItems = ProfileMenu.getProfileMenuItems();
 
     @NonNull
     @Override
     public ProfileMenuAdapter.ProfileMenuViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ViewHolderProfileMenuBinding binding = ViewHolderProfileMenuBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        context = parent.getContext();
+        ViewHolderProfileMenuBinding binding = ViewHolderProfileMenuBinding.inflate(LayoutInflater.from(context), parent, false);
         return new ProfileMenuViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ProfileMenuAdapter.ProfileMenuViewHolder holder, int position) {
-        ProfileMenuItem profileMenuItem = profileMenuItems.get(position);
-        holder.binding.title.setText(profileMenuItem.getTitle());
-        holder.binding.icon.setImageDrawable(ContextCompat.getDrawable(holder.binding.getRoot().getContext(), profileMenuItem.getIcon()));
-        holder.binding.cardView.setCardBackgroundColor(ContextCompat.getColor(holder.binding.getRoot().getContext(), profileMenuItem.getCardBackgroundColor()));
+        ProfileMenu profileMenu = profileMenuItems.get(position);
+        holder.binding.menuTitleTxt.setText(profileMenu.getTitle());
+        holder.binding.menuIcon.setImageDrawable(ContextCompat.getDrawable(context, profileMenu.getIcon()));
+        holder.binding.cardView.setCardBackgroundColor(ContextCompat.getColor(context, profileMenu.getCardBackgroundColor()));
 
         holder.binding.menuItem.setOnClickListener(v -> {
-            // start new activity
-            Intent intent = new Intent(v.getContext(), profileMenuItem.getActivity());
-            v.getContext().startActivity(intent);
+            switch (profileMenu) {
+                case PROFILE_DETAIL:
+                    Intent intent = new Intent(context, profileMenu.getActivity());
+                    context.startActivity(intent);
+                    break;
+                case CHANGE_PASSWORD:
+                    break;
+                case PAYMENT:
+                    break;
+                case HELP:
+                    break;
+                case LOGOUT:
+                    break;
+            }
         });
     }
 

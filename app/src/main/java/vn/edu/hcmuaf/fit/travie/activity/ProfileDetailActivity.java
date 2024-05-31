@@ -2,25 +2,20 @@ package vn.edu.hcmuaf.fit.travie.activity;
 
 import android.os.Bundle;
 
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import vn.edu.hcmuaf.fit.travie.core.utils.enums.ProfileMenu;
+import vn.edu.hcmuaf.fit.travie.databinding.ActivityProfileDetailBinding;
 
-import vn.edu.hcmuaf.fit.travie.R;
-
-public class ProfileDetailActivity extends AppCompatActivity {
+public class ProfileDetailActivity extends BaseActivity {
+    ActivityProfileDetailBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_profile_detail);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        binding = ActivityProfileDetailBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        // Set title in fragment custom app bar
+        binding.appBar.titleTxt.setText(ProfileMenu.PROFILE_DETAIL.getTitle());
+        binding.appBar.backBtn.setOnClickListener(v -> finish());
     }
 }

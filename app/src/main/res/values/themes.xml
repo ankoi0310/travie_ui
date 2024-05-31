@@ -3,7 +3,9 @@
     <style name="Base.Theme.Travie" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <item name="colorPrimary">@color/primary</item>
-        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:textColorPrimary">@color/primary</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:windowBackground">@color/surface</item>
     </style>
 
     <style name="Theme.Travie" parent="Base.Theme.Travie" />
