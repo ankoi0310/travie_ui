@@ -9,4 +9,7 @@
     <string name="explore">Explore</string>
     <string name="history">History</string>
     <string name="profile">Profile</string>
+    <string name="view_all">Xem tất cả</string>
+    <string name="near_by">Gần bạn</string>
+    <string name="popular">Nổi bật</string>
 </resources>

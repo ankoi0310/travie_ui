@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:orientation="horizontal"
         android:gravity="start|center_vertical"
-        android:paddingHorizontal="@dimen/activity_horizontal_padding"
+        android:paddingHorizontal="@dimen/padding_16"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
