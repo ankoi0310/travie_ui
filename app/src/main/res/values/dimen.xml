@@ -2,9 +2,11 @@
 <resources>
     <dimen name="padding_12">12dp</dimen>
     <dimen name="padding_16">16dp</dimen>
+    <dimen name="margin_4">4dp</dimen>
+    <dimen name="margin_8">8dp</dimen>
     <dimen name="margin_12">12dp</dimen>
     <dimen name="margin_16">16dp</dimen>
-    <dimen name="text_size_xsmall">8sp</dimen>
+    <dimen name="text_size_xsmall">10sp</dimen>
     <!-- less important information or details -->
     <dimen name="text_size_small">12sp</dimen>
     <!-- general body text -->

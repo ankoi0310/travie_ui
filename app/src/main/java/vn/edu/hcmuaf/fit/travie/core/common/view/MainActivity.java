@@ -31,7 +31,6 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        setOnApplyWindowInsetsListener(binding.main);
 
         mFragmentList.add(HomeFragment.newInstance());
         mFragmentList.add(ExploreFragment.newInstance());
@@ -58,10 +57,10 @@ public class MainActivity extends BaseActivity {
         }).attach();
 
         tabFlashyAnimator = new TabFlashyAnimator(tabLayout, R.color.primary);
-        tabFlashyAnimator.addTabItem(AppConstant.MenuTitle.HOME, R.drawable.ic_home);
-        tabFlashyAnimator.addTabItem(AppConstant.MenuTitle.EXPLORE, R.drawable.ic_explore);
-        tabFlashyAnimator.addTabItem(AppConstant.MenuTitle.HISTORY, R.drawable.ic_history);
-        tabFlashyAnimator.addTabItem(AppConstant.MenuTitle.PROFILE, R.drawable.ic_profile);
+        tabFlashyAnimator.addTabItem(AppConstant.MenuTitle.HOME, R.drawable.home);
+        tabFlashyAnimator.addTabItem(AppConstant.MenuTitle.EXPLORE, R.drawable.location);
+        tabFlashyAnimator.addTabItem(AppConstant.MenuTitle.HISTORY, R.drawable.clock);
+        tabFlashyAnimator.addTabItem(AppConstant.MenuTitle.PROFILE, R.drawable.user);
 
         tabFlashyAnimator.highLightTab(0);
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {

@@ -23,7 +23,7 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_margin="16dp"
-            android:src="@drawable/ic_profile" />
+            android:src="@drawable/user" />
     </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
 
     <TextView
@@ -44,7 +44,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:src="@drawable/ic_arrow_right"
+        android:src="@drawable/arrow_right_1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

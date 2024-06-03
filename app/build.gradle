@@ -51,6 +51,7 @@ dependencies {
     implementation libs.arrow.core
     implementation libs.arrow.fx.coroutines
     implementation libs.android.image.slider
+    implementation libs.markwon.core
 
 //    implementation fileTree(dir: 'libs', include: ['*.aar'])
     implementation project(':flashytabbar')

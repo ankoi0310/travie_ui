@@ -1,4 +1,4 @@
-package vn.edu.hcmuaf.fit.travie.user.domain.model;
+package vn.edu.hcmuaf.fit.travie.user.data.model;
 
 import lombok.Getter;
 import lombok.Setter;

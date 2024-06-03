@@ -62,10 +62,9 @@
                         android:layout_height="wrap_content"
                         android:text="@string/profile"
                         android:textColor="#282e81"
-                        android:textSize="16dp" />
+                        android:textSize="@dimen/text_size_normal" />
 
                     <TextView
-                        android:id="@+id/textView2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="TextView" />

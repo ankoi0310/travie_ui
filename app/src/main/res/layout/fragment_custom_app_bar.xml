@@ -23,7 +23,7 @@
             android:layout_gravity="center"
             android:layout_marginVertical="12dp"
             android:layout_marginEnd="12dp"
-            app:srcCompat="@drawable/ic_circle_left" />
+            app:srcCompat="@drawable/circle_arrow_left" />
 
         <TextView
             android:id="@+id/titleTxt"

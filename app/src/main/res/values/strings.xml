@@ -12,4 +12,12 @@
     <string name="view_all">Xem tất cả</string>
     <string name="near_by">Gần bạn</string>
     <string name="popular">Nổi bật</string>
+    <string name="view_map">Xem bản đồ</string>
+    <string name="introduction">Giới thiệu</string>
+    <string name="check_in_check_out_time">Giờ nhận phòng/trả phòng</string>
+    <string name="booking_type">Loại đặt phòng</string>
+    <string name="time">Thời gian</string>
+    <string name="from">Từ</string>
+    <string name="to">đến</string>
+    <string name="cancellation_policy">Chính sách hủy phòng</string>
 </resources>
