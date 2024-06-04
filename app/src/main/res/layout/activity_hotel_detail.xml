@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -7,473 +7,496 @@
     android:layout_height="match_parent"
     tools:context=".hotel.ui.view.HotelDetailActivity">
 
-    <ScrollView
-        android:scrollbars="none"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/coordinatorLayout">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <ScrollView
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:layout_above="@id/bottomAppBar"
+            android:scrollbars="none">
 
-            <FrameLayout
-                android:id="@+id/frameLayout"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="250dp">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-            </FrameLayout>
+                <FrameLayout
+                    android:id="@+id/frameLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:background="@color/primary">
+                </FrameLayout>
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/margin_12">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/hotelInfoCardView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="@dimen/padding_16">
+                    android:layout_marginBottom="@dimen/margin_12">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/constraintLayout"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="horizontal"
+                        android:padding="@dimen/padding_16">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/constraintLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <ImageView
+                                android:id="@+id/star"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:srcCompat="@drawable/star" />
+
+                            <TextView
+                                android:id="@+id/ratingTxt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingHorizontal="4dp"
+                                android:text="4.7"
+                                android:textStyle="bold"
+                                app:layout_constraintBottom_toBottomOf="@+id/star"
+                                app:layout_constraintStart_toEndOf="@+id/star"
+                                app:layout_constraintTop_toTopOf="@+id/star" />
+
+                            <TextView
+                                android:id="@+id/reviewCountTxt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="(2222)"
+                                android:textColor="@color/text_secondary"
+                                android:textSize="@dimen/text_size_small"
+                                app:layout_constraintBottom_toBottomOf="@+id/ratingTxt"
+                                app:layout_constraintStart_toEndOf="@+id/ratingTxt" />
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@color/lavender_100"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <TextView
+                                    android:id="@+id/discountTxt"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="8dp"
+                                    android:text="Từ 99k"
+                                    android:textColor="@color/lavender"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <TextView
+                            android:id="@+id/nameTxt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:text="Khách sạn ABC"
+                            android:textSize="@dimen/text_size_large"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="@+id/constraintLayout"
+                            app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+                        <TextView
+                            android:id="@+id/addressTxt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="2"
+                            android:text="123 Đường ABC, Quận XYZ, TP. HCM"
+                            app:layout_constraintStart_toStartOf="@+id/nameTxt"
+                            app:layout_constraintTop_toBottomOf="@+id/nameTxt" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="4dp"
+                            android:orientation="horizontal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/addressTxt">
+
+                            <TextView
+                                android:id="@+id/distanceTxt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Cách bạn 1.0km"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <include
+                                android:id="@+id/viewMap"
+                                layout="@layout/view_with_icon"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/margin_12">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="@dimen/padding_16">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="@dimen/margin_12">
+
+                            <TextView
+                                android:id="@+id/rating2Txt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="4.7"
+                                android:textSize="@dimen/text_size_xlarge"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                tools:ignore="DuplicateIds" />
+
+                            <TextView
+                                android:id="@+id/ratingStatusTxt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:text="Tuyệt vời"
+                                android:textSize="@dimen/text_size_small"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toEndOf="@+id/rating2Txt"
+                                app:layout_constraintTop_toTopOf="@+id/rating2Txt" />
+
+                            <TextView
+                                android:id="@+id/textView16"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="2222 đánh giá"
+                                android:textColor="@color/text_secondary"
+                                android:textSize="@dimen/text_size_small"
+                                app:layout_constraintStart_toStartOf="@+id/ratingStatusTxt"
+                                app:layout_constraintTop_toBottomOf="@+id/ratingStatusTxt" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/margin_12">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="@dimen/padding_16">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="12dp"
+                            android:text="@string/introduction"
+                            android:textSize="@dimen/text_size_medium"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/introductionTxt"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginHorizontal="4dp" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_12">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="@dimen/padding_16">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="12dp"
+                            android:text="@string/check_in_check_out_time"
+                            android:textSize="@dimen/text_size_medium"
+                            android:textStyle="bold" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/booking_type"
+                                android:textColor="@color/text_secondary"
+                                android:textSize="@dimen/text_size_xsmall"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/time"
+                                android:textColor="@color/text_secondary"
+                                android:textSize="@dimen/text_size_xsmall"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/bookingTypeRv"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/margin_12">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="@dimen/padding_16">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="12dp"
+                            android:text="@string/cancellation_policy"
+                            android:textSize="@dimen/text_size_medium"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/cancellationPolicyTxt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="4dp" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+        </ScrollView>
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/bottomAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true">
+
+            <com.google.android.material.bottomappbar.BottomAppBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/padding_12"
+                android:paddingBottom="@dimen/padding_12"
+                app:contentInsetEnd="0dp"
+                app:contentInsetStart="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="@dimen/padding_12">
+
+                    <LinearLayout
+                        android:id="@+id/timeInfoLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin_8"
+                        android:background="@drawable/bg_lavender"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="8dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
                         <ImageView
-                            android:id="@+id/star"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/star" />
+                            android:layout_marginEnd="8dp"
+                            app:srcCompat="@drawable/clock" />
 
                         <TextView
-                            android:id="@+id/ratingTxt"
+                            android:id="@+id/timeAmountTxt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:paddingHorizontal="4dp"
-                            android:text="4.7"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="@+id/star"
-                            app:layout_constraintStart_toEndOf="@+id/star"
-                            app:layout_constraintTop_toTopOf="@+id/star" />
+                            android:gravity="center_vertical"
+                            android:text="01 giờ"
+                            android:textSize="@dimen/text_size_small" />
 
                         <TextView
-                            android:id="@+id/reviewCountTxt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="(2222)"
-                            android:textColor="@color/text_secondary"
-                            android:textSize="@dimen/text_size_small"
-                            app:layout_constraintBottom_toBottomOf="@+id/ratingTxt"
-                            app:layout_constraintStart_toEndOf="@+id/ratingTxt" />
+                            android:layout_marginHorizontal="4dp"
+                            android:text="|" />
 
-                        <androidx.constraintlayout.widget.ConstraintLayout
+                        <TextView
+                            android:id="@+id/checkInTimeTxt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@color/lavender_100"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
+                            android:gravity="center_vertical"
+                            android:text="17:00"
+                            android:textSize="@dimen/text_size_small" />
 
-                            <TextView
-                                android:id="@+id/discountTxt"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="8dp"
-                                android:text="Từ 99k"
-                                android:textColor="@color/lavender"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-                        </androidx.constraintlayout.widget.ConstraintLayout>
+                        <ImageView
+                            android:layout_width="12dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginHorizontal="6dp"
+                            app:srcCompat="@drawable/arrow_right" />
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                        <TextView
+                            android:id="@+id/checkOutTimeTxt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:text="18:00"
+                            android:textSize="@dimen/text_size_small" />
 
-                    <TextView
-                        android:id="@+id/nameTxt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:text="Khách sạn ABC"
-                        android:textSize="@dimen/text_size_large"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="@+id/constraintLayout"
-                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="4dp"
+                            android:gravity="center_vertical"
+                            android:text=","
+                            android:textSize="@dimen/text_size_small" />
 
-                    <TextView
-                        android:id="@+id/addressTxt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:maxLines="2"
-                        android:text="123 Đường ABC, Quận XYZ, TP. HCM"
-                        app:layout_constraintStart_toStartOf="@+id/nameTxt"
-                        app:layout_constraintTop_toBottomOf="@+id/nameTxt" />
+                        <TextView
+                            android:id="@+id/dateTxt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:text="03/06"
+                            android:textSize="@dimen/text_size_small" />
+                    </LinearLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="4dp"
-                        android:orientation="horizontal"
+                        android:layout_height="wrap_content"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/addressTxt">
+                        app:layout_constraintTop_toBottomOf="@+id/timeInfoLayout">
 
                         <TextView
-                            android:id="@+id/distanceTxt"
+                            android:id="@+id/priceTitleTxt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Cách bạn 1.0km"
-                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:text="Chỉ từ"
+                            android:textStyle="bold"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <include
-                            android:id="@+id/viewMap"
-                            layout="@layout/view_with_icon"
+                        <TextView
+                            android:id="@+id/textView4"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/margin_12">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:padding="@dimen/padding_16">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="@dimen/margin_12">
+                            android:layout_marginStart="4dp"
+                            android:foreground="@drawable/strike_through_line"
+                            android:text="230.000"
+                            android:textColor="@color/text_secondary"
+                            app:layout_constraintBottom_toBottomOf="@+id/priceTitleTxt"
+                            app:layout_constraintStart_toEndOf="@+id/priceTitleTxt"
+                            app:layout_constraintTop_toTopOf="@+id/priceTitleTxt" />
 
                         <TextView
-                            android:id="@+id/rating2Txt"
+                            android:id="@+id/textView5"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="4.7"
+                            android:layout_marginTop="4dp"
+                            android:text="200.000"
                             android:textSize="@dimen/text_size_xlarge"
                             android:textStyle="bold"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            tools:ignore="DuplicateIds" />
+                            app:layout_constraintStart_toStartOf="@+id/priceTitleTxt"
+                            app:layout_constraintTop_toBottomOf="@+id/priceTitleTxt" />
 
-                        <TextView
-                            android:id="@+id/ratingStatusTxt"
+                        <Button
+                            android:id="@+id/button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
-                            android:text="Tuyệt vời"
-                            android:textSize="@dimen/text_size_small"
-                            android:textStyle="bold"
-                            app:layout_constraintStart_toEndOf="@+id/rating2Txt"
-                            app:layout_constraintTop_toTopOf="@+id/rating2Txt" />
-
-                        <TextView
-                            android:id="@+id/textView16"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="2222 đánh giá"
-                            android:textColor="@color/text_secondary"
-                            android:textSize="@dimen/text_size_small"
-                            app:layout_constraintStart_toStartOf="@+id/ratingStatusTxt"
-                            app:layout_constraintTop_toBottomOf="@+id/ratingStatusTxt" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/margin_12">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:padding="@dimen/padding_16">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
-                        android:text="@string/introduction"
-                        android:textSize="@dimen/text_size_medium"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/introductionTxt"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginHorizontal="4dp" />
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_12">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:padding="@dimen/padding_16">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
-                        android:text="@string/check_in_check_out_time"
-                        android:textSize="@dimen/text_size_medium"
-                        android:textStyle="bold" />
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/booking_type"
-                            android:textColor="@color/text_secondary"
-                            android:textSize="@dimen/text_size_xsmall"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/time"
-                            android:textColor="@color/text_secondary"
-                            android:textSize="@dimen/text_size_xsmall"
+                            android:text="Chọn phòng"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/bookingTypeRv"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/margin_12">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:padding="@dimen/padding_16">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
-                        android:text="@string/cancellation_policy"
-                        android:textSize="@dimen/text_size_medium"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/cancellationPolicyTxt"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="4dp" />
-
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
-    </ScrollView>
+                <!--            <Button-->
+                <!--                android:layout_gravity="center"-->
+                <!--                android:id="@+id/updateProfileBtn"-->
+                <!--                android:layout_marginHorizontal="@dimen/padding_16"-->
+                <!--                android:layout_width="match_parent"-->
+                <!--                android:layout_height="wrap_content"-->
+                <!--                android:paddingVertical="@dimen/padding_12"-->
+                <!--                android:text="Update Profile"-->
+                <!--                android:textSize="@dimen/text_size_large"-->
+                <!--                android:textStyle="bold"/>-->
+            </com.google.android.material.bottomappbar.BottomAppBar>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/coordinatorLayout"
+    </RelativeLayout>
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:background="@color/transparent"
+        android:fitsSystemWindows="true"
+        app:liftOnScroll="true"
+        app:liftOnScrollTargetViewId="@id/hotelInfoCardView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true">
+        android:layout_height="wrap_content">
 
-        <com.google.android.material.bottomappbar.BottomAppBar
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingTop="@dimen/padding_12"
-            android:paddingBottom="@dimen/padding_12"
-            app:contentInsetEnd="0dp"
-            app:contentInsetStart="0dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:paddingHorizontal="@dimen/padding_12">
-
-                <LinearLayout
-                    android:id="@+id/timeInfoLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin_8"
-                    android:background="@drawable/bg_lavender"
-                    android:gravity="center_vertical"
-                    android:paddingHorizontal="10dp"
-                    android:paddingVertical="8dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        app:srcCompat="@drawable/clock" />
-
-                    <TextView
-                        android:id="@+id/timeAmountTxt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:text="01 giờ"
-                        android:textSize="@dimen/text_size_small" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="4dp"
-                        android:text="|" />
-
-                    <TextView
-                        android:id="@+id/checkInTimeTxt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:text="17:00"
-                        android:textSize="@dimen/text_size_small" />
-
-                    <ImageView
-                        android:layout_width="12dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginHorizontal="6dp"
-                        app:srcCompat="@drawable/arrow_right" />
-
-                    <TextView
-                        android:id="@+id/checkOutTimeTxt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:text="18:00"
-                        android:textSize="@dimen/text_size_small" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="4dp"
-                        android:gravity="center_vertical"
-                        android:text=","
-                        android:textSize="@dimen/text_size_small" />
-
-                    <TextView
-                        android:id="@+id/dateTxt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:text="03/06"
-                        android:textSize="@dimen/text_size_small" />
-                </LinearLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/timeInfoLayout">
-
-                    <TextView
-                        android:id="@+id/priceTitleTxt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Chỉ từ"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/textView4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:foreground="@drawable/strike_through_line"
-                        android:text="230.000"
-                        android:textColor="@color/text_secondary"
-                        app:layout_constraintBottom_toBottomOf="@+id/priceTitleTxt"
-                        app:layout_constraintStart_toEndOf="@+id/priceTitleTxt"
-                        app:layout_constraintTop_toTopOf="@+id/priceTitleTxt" />
-
-                    <TextView
-                        android:id="@+id/textView5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="200.000"
-                        android:textSize="@dimen/text_size_xlarge"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="@+id/priceTitleTxt"
-                        app:layout_constraintTop_toBottomOf="@+id/priceTitleTxt" />
-
-                    <Button
-                        android:id="@+id/button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Chọn phòng"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </LinearLayout>
-
-            <!--            <Button-->
-            <!--                android:layout_gravity="center"-->
-            <!--                android:id="@+id/updateProfileBtn"-->
-            <!--                android:layout_marginHorizontal="@dimen/padding_16"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:paddingVertical="@dimen/padding_12"-->
-            <!--                android:text="Update Profile"-->
-            <!--                android:textSize="@dimen/text_size_large"-->
-            <!--                android:textStyle="bold"/>-->
-        </com.google.android.material.bottomappbar.BottomAppBar>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-</RelativeLayout>
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="@drawable/circle_arrow_left"/>
+    </com.google.android.material.appbar.AppBarLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

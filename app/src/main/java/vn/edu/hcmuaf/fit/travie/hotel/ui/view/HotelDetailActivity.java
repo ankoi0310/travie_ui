@@ -6,14 +6,21 @@ import android.view.View;
 import android.view.WindowInsets;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
+
+import com.google.android.material.appbar.AppBarLayout;
 
 import io.noties.markwon.Markwon;
 import vn.edu.hcmuaf.fit.travie.R;
 import vn.edu.hcmuaf.fit.travie.core.common.view.BaseActivity;
+import vn.edu.hcmuaf.fit.travie.core.shared.utils.AppUtil;
 import vn.edu.hcmuaf.fit.travie.databinding.ActivityHotelDetailBinding;
 
 public class HotelDetailActivity extends BaseActivity {
     ActivityHotelDetailBinding binding;
+
+    private AppBarLayout appBarLayout;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,5 +49,17 @@ public class HotelDetailActivity extends BaseActivity {
                 "công nhưng thời điểm yêu cầu huỷ không được quá giờ nhận phòng.\n" +
                 "- Không cho phép huỷ phòng với phòng Flash Sale và Ưu đãi không hoàn huỷ.";
         markwon.setMarkdown(binding.cancellationPolicyTxt, text);
+
+        appBarLayout = findViewById(R.id.appBarLayout);
+        toolbar = findViewById(R.id.toolbar);
+        final int colorStart = getColor(R.color.transparent);
+        final int colorEnd = getColor(R.color.white);
+
+        appBarLayout.setOnApplyWindowInsetsListener((v, insets) -> {
+            final WindowInsets systemWindowInsets = insets.consumeSystemWindowInsets();
+            v.setPadding(v.getPaddingLeft(), systemWindowInsets.getSystemWindowInsetTop(), v.getPaddingRight(), v.getPaddingBottom());
+            return systemWindowInsets;
+        });
+        toolbar.setNavigationOnClickListener(v -> finish());
     }
 }
