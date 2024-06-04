@@ -20,4 +20,6 @@
     <string name="from">Từ</string>
     <string name="to">đến</string>
     <string name="cancellation_policy">Chính sách hủy phòng</string>
+    <string name="action_share">Share</string>
+    <string name="action_favorite">Favorite\n</string>
 </resources>

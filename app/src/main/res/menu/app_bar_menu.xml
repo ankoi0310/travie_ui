@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_favorite"
+        android:icon="@drawable/heart_bold"
+        android:title="@string/action_favorite"
+        android:orderInCategory="100"
+        android:iconTint="@color/white"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/action_share"
+        android:icon="@drawable/send_2_bold"
+        android:title="@string/action_share"
+        android:orderInCategory="100"
+        android:iconTint="@color/white"
+        app:showAsAction="ifRoom"/>
+
+</menu>
