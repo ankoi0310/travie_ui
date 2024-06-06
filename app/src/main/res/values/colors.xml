@@ -1,10 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="transparent">#00000000</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="light_blue_600">#FF039BE5</color>
     <color name="light_blue_900">#FF01579B</color>
-    <color name="light_blue_A200">#FF40C4FF</color>
+    <color name="light_blue_A200">#4D40C4FF</color>
     <color name="light_blue_A400">#FF00B0FF</color>
-    <color name="black_overlay">#66000000</color>
+    <color name="black_overlay">#99000000</color>
+    <color name="primary">#4C4DDC</color>
+    <color name="secondary">#FFA3D3FF</color>
+    <color name="surface">#FFF5F5F5</color>
+    <color name="card">#FFFFFFFF</color>
+    <color name="text">#FF333333</color>
+    <color name="text_primary">#4C4DDC</color>
+    <color name="text_secondary">#5A5E61</color>
+    <color name="text_on_primary">#FFFFFFFF</color>
+    <color name="icon">#FF333333</color>
+    <color name="icon_primary">#4C4DDC</color>
+    <color name="icon_secondary">#5A5E61</color>
+    <color name="icon_on_primary">#FFFFFFFF</color>
+    <color name="error_100">#1AEF5454</color>
+    <color name="error">#FFEF5454</color>
+    <color name="error_secondary">#FFFF8282</color>
+    <color name="warning_100">#1AFFC046</color>
+    <color name="warning">#FFFFC046</color>
+    <color name="success_20">#D7FAE0</color>
+    <color name="success_80">#007D3A</color>
+    <color name="info_100">#1A369FFF</color>
+    <color name="info">#FF369FFF</color>
+    <color name="lavender_100">#1A707EFF</color>
+    <color name="lavender">#FF707EFF</color>
 </resources>

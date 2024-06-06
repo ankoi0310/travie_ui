@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="vn.edu.hcmuaf.fit.travie" />
+                  <option name="mobileSdkAppId" value="1:638943333995:android:060a12d7423e97403d2b2e" />
+                  <option name="projectId" value="travie-8acf1" />
+                  <option name="projectNumber" value="638943333995" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.androidApplication)
+    alias(libs.plugins.googleServices)
 }
 
 android {
@@ -8,12 +9,14 @@ android {
 
     defaultConfig {
         applicationId "vn.edu.hcmuaf.fit.travie"
-        minSdk 24
+        minSdk 28
         targetSdk 34
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "API_URL", "\"http://10.0.2.2:8080/api/\"")
     }
 
     buildTypes {
@@ -29,18 +32,36 @@ android {
 
     buildFeatures {
         viewBinding true
+        buildConfig true
     }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.aar'])
     implementation libs.appcompat
     implementation libs.material
     implementation libs.activity
     implementation libs.constraintlayout
     implementation libs.glide
     implementation libs.gson
+    implementation platform(libs.firebase.bom)
     implementation libs.firebase.database
+    implementation libs.firebase.storage
+    implementation libs.retrofit
+    implementation libs.converter.gson
+    implementation libs.okhttp
+    implementation libs.logging.interceptor
+    implementation libs.lombok
+    implementation libs.arrow.core
+    implementation libs.arrow.fx.coroutines
+    implementation libs.android.image.slider
+    implementation libs.markwon.core
+    implementation 'com.github.evrencoskun:TableView:v0.8.9.4'
+
+//    implementation fileTree(dir: 'libs', include: ['*.aar'])
+    implementation project(':flashytabbar')
+
+    annotationProcessor libs.lombok
+
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
