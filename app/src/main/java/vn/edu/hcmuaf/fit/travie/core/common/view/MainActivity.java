@@ -23,13 +23,14 @@ import vn.edu.hcmuaf.fit.travie.home.ui.view.HomeFragment;
 import vn.edu.hcmuaf.fit.travie.user.ui.view.ProfileFragment;
 
 public class MainActivity extends BaseActivity {
+    ActivityMainBinding binding;
     private final List<Fragment> mFragmentList = new ArrayList<>();
     private TabFlashyAnimator tabFlashyAnimator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         mFragmentList.add(HomeFragment.newInstance());

@@ -1,22 +1,39 @@
 package vn.edu.hcmuaf.fit.travie.home.ui.view;
 
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
-import com.smarteist.autoimageslider.SliderAnimations;
-import com.smarteist.autoimageslider.SliderView;
+import okhttp3.OkHttpClient;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.converter.gson.GsonConverterFactory;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializer;
+
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import retrofit2.Retrofit;
+import vn.edu.hcmuaf.fit.travie.BuildConfig;
 import vn.edu.hcmuaf.fit.travie.databinding.FragmentHomeBinding;
-import vn.edu.hcmuaf.fit.travie.home.ui.adapter.SliderAdapter;
+import vn.edu.hcmuaf.fit.travie.hotel.data.model.Hotel;
+import vn.edu.hcmuaf.fit.travie.home.ui.adapter.NearByHotelAdapter;
+import vn.edu.hcmuaf.fit.travie.hotel.data.datasource.network.HotelApi;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -63,8 +80,7 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
@@ -85,5 +101,49 @@ public class HomeFragment extends Fragment {
 //        sliderView.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
 //        sliderView.setAutoCycle(true);
 //        sliderView.startAutoCycle();
+
+        // set format for datetime from server
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDateTime.class, (JsonDeserializer<LocalDateTime>) (json
+                        , typeOfT, context) -> LocalDateTime.parse(json.getAsJsonPrimitive().getAsString(), formatter))
+                .registerTypeAdapter(LocalTime.class, (JsonDeserializer<LocalTime>) (json
+                        , typeOfT, context) -> LocalTime.parse(json.getAsJsonPrimitive().getAsString()))
+//                .setDateFormat("dd-MM-yyyy HH:mm:ss")
+                .create();
+
+        OkHttpClient client = new OkHttpClient.Builder()
+                .connectTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(60, TimeUnit.SECONDS)
+                .writeTimeout(60, TimeUnit.SECONDS)
+                .build();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .client(client)
+                .baseUrl(BuildConfig.API_URL)
+                .addConverterFactory(GsonConverterFactory.create(gson)).build();
+
+        HotelApi hotelApi = retrofit.create(HotelApi.class);
+        hotelApi.getHotels().enqueue(new Callback<List<Hotel>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<Hotel>> call, @NonNull Response<List<Hotel>> response) {
+                if (!response.isSuccessful()) {
+                    Log.d("HomeFragment", "onResponse: " + response.code());
+                    Gson gson = new Gson();
+                    String json = gson.toJson(response.errorBody());
+                    Log.d("HomeFragment", "onResponse: " + json);
+                    return;
+                }
+                List<Hotel> hotels = response.body();
+                NearByHotelAdapter adapter = new NearByHotelAdapter(hotels);
+                binding.nearbyRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                binding.nearbyRecyclerView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<List<Hotel>> call, @NonNull Throwable throwable) {
+                Log.d("HomeFragment", "onFailure: " + throwable.getMessage());
+            }
+        });
     }
 }

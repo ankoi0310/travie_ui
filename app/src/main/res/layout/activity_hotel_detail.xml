@@ -23,7 +23,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:paddingTop="@dimen/padding_12"
-            android:paddingBottom="@dimen/padding_12"
             app:contentInsetEnd="0dp"
             app:contentInsetStart="0dp">
 
@@ -156,17 +155,6 @@
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
-
-            <!--            <Button-->
-            <!--                android:layout_gravity="center"-->
-            <!--                android:id="@+id/updateProfileBtn"-->
-            <!--                android:layout_marginHorizontal="@dimen/padding_16"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:paddingVertical="@dimen/padding_12"-->
-            <!--                android:text="Update Profile"-->
-            <!--                android:textSize="@dimen/text_size_large"-->
-            <!--                android:textStyle="bold"/>-->
         </com.google.android.material.bottomappbar.BottomAppBar>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </RelativeLayout>

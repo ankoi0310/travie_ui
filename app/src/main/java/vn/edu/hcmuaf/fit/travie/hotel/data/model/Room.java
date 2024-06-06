@@ -1,4 +1,4 @@
-package vn.edu.hcmuaf.fit.travie.domain;
+package vn.edu.hcmuaf.fit.travie.hotel.data.model;
 
 import java.util.List;
 
@@ -6,15 +6,16 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import vn.edu.hcmuaf.fit.travie.core.domain.BaseModel;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Hotel {
+public class Room extends BaseModel {
     private String name;
-    private String address;
-    private AppUser owner;
+    private String description;
+    private int price;
     private List<Amenity> amenities;
-    private List<Room> rooms;
+    private List<RoomImage> roomImages;
 }

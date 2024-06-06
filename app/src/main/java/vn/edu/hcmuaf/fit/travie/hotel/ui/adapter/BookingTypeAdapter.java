@@ -32,7 +32,8 @@ public class BookingTypeAdapter extends RecyclerView.Adapter<BookingTypeAdapter.
     public void onBindViewHolder(@NonNull BookingTypeAdapter.BookingTypeViewHolder holder, int position) {
         BookingType bookingType = bookingTypes.get(position);
         holder.binding.nameTxt.setText(bookingType.getName());
-        holder.binding.timeTxt.setText(String.format("Từ %s đến %s", bookingType.getForm(), bookingType.getTo()));
+        holder.binding.timeTxt.setText(String.format("Từ %s đến %s", bookingType.getStartTime(),
+                bookingType.getEndTime()));
     }
 
     @Override

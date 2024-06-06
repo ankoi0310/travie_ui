@@ -33,7 +33,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
-                android:layout_marginTop="@dimen/margin_16"
                 app:menu="@menu/app_bar_menu"
                 app:navigationIcon="@drawable/circle_arrow_left"
                 app:navigationIconTint="@color/white" />

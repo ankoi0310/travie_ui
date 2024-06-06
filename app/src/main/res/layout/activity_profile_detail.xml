@@ -28,229 +28,206 @@
             android:orientation="vertical"
             android:paddingHorizontal="@dimen/padding_16">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_12"
+                android:text="@string/account_info"
+                android:textSize="@dimen/text_size_large"
+                android:textStyle="bold" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_16"
-                android:orientation="vertical">
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingVertical="@dimen/padding_4">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin_8"
-                    android:text="Label"
+                    android:id="@+id/usernameLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/username"
                     android:textSize="@dimen/text_size_medium"
                     android:textStyle="bold" />
 
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/rounded_edittext"
-                    android:enabled="true"
-                    android:hint="Hint"
-                    android:padding="@dimen/padding_16"
-                    android:text="Text"
-                    android:textColor="@color/text" />
+                <EditText
+                    android:id="@+id/usernameTxt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_transparent"
+                    android:ems="10"
+                    android:inputType="text"
+                    android:minHeight="48dp"
+                    android:text="Name"
+                    android:textColor="@color/text"
+                    android:textSize="@dimen/text_size_medium" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_16"
-                android:orientation="vertical">
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingVertical="@dimen/padding_4">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin_8"
-                    android:text="Label"
+                    android:id="@+id/phoneNumberLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/phone_number"
                     android:textSize="@dimen/text_size_medium"
                     android:textStyle="bold" />
 
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:layout_width="match_parent"
+                <EditText
+                    android:id="@+id/phoneNumberTxt"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:background="@drawable/rounded_edittext"
-                    android:enabled="true"
-                    android:hint="Hint"
-                    android:padding="@dimen/padding_16"
-                    android:text="Text"
-                    android:textColor="@color/text" />
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_transparent"
+                    android:ems="10"
+                    android:inputType="phone"
+                    android:minHeight="48dp"
+                    android:paddingVertical="@dimen/padding_4"
+                    android:text="0123456789"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="@dimen/text_size_medium" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_16"
-                android:orientation="vertical">
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingVertical="@dimen/padding_4">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin_8"
-                    android:text="Label"
+                    android:id="@+id/emailLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/email"
                     android:textSize="@dimen/text_size_medium"
                     android:textStyle="bold" />
 
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:layout_width="match_parent"
+                <EditText
+                    android:id="@+id/emailTxt"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:background="@drawable/rounded_edittext"
-                    android:enabled="true"
-                    android:hint="Hint"
-                    android:padding="@dimen/padding_16"
-                    android:text="Text"
-                    android:textColor="@color/text" />
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_transparent"
+                    android:ems="10"
+                    android:inputType="textEmailAddress"
+                    android:minHeight="48dp"
+                    android:text="abc@gmail.com"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="@dimen/text_size_medium" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_12"
+                android:layout_marginBottom="@dimen/margin_8"
+                android:text="@string/personal_info"
+                android:textSize="@dimen/text_size_large"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingVertical="@dimen/padding_12">
+
+                <TextView
+                    android:id="@+id/fullNameLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/fullname"
+                    android:textSize="@dimen/text_size_medium"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/fullNameTxt"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_transparent"
+                    android:inputType="textEmailAddress"
+                    android:minHeight="48dp"
+                    android:text="Nguyen Van A"
+                    android:textColor="@color/text"
+                    android:textSize="@dimen/text_size_medium" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_16"
-                android:orientation="vertical">
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingVertical="@dimen/padding_4">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin_8"
-                    android:text="Label"
+                    android:id="@+id/genderLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/gender"
                     android:textSize="@dimen/text_size_medium"
                     android:textStyle="bold" />
 
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/genderTxt"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:background="@drawable/rounded_edittext"
-                    android:enabled="true"
-                    android:hint="Hint"
-                    android:padding="@dimen/padding_16"
-                    android:text="Text"
-                    android:textColor="@color/text" />
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_transparent"
+                    android:gravity="center_vertical"
+                    android:minHeight="48dp"
+                    android:paddingVertical="@dimen/padding_4"
+                    android:text="Nam"
+                    android:textColor="@color/text"
+                    android:textSize="@dimen/text_size_medium" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_16"
-                android:orientation="vertical">
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingVertical="@dimen/padding_4">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin_8"
-                    android:text="Label"
+                    android:id="@+id/birthdayLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/birth_day"
                     android:textSize="@dimen/text_size_medium"
                     android:textStyle="bold" />
 
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/rounded_edittext"
-                    android:enabled="true"
-                    android:hint="Hint"
-                    android:padding="@dimen/padding_16"
-                    android:text="Text"
-                    android:textColor="@color/text" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_16"
-                android:orientation="vertical">
-
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin_8"
-                    android:text="Label"
-                    android:textSize="@dimen/text_size_medium"
-                    android:textStyle="bold" />
-
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:layout_width="match_parent"
+                    android:id="@+id/birthdayTxt"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:background="@drawable/rounded_edittext"
-                    android:enabled="true"
-                    android:hint="Hint"
-                    android:padding="@dimen/padding_16"
-                    android:text="Text"
-                    android:textColor="@color/text" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_16"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin_8"
-                    android:text="Label"
-                    android:textSize="@dimen/text_size_medium"
-                    android:textStyle="bold" />
-
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/rounded_edittext"
-                    android:enabled="true"
-                    android:hint="Hint"
-                    android:padding="@dimen/padding_16"
-                    android:text="Text"
-                    android:textColor="@color/text" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_16"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin_8"
-                    android:text="Label"
-                    android:textSize="@dimen/text_size_medium"
-                    android:textStyle="bold" />
-
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/rounded_edittext"
-                    android:enabled="true"
-                    android:hint="Hint"
-                    android:padding="@dimen/padding_16"
-                    android:text="Text"
-                    android:textColor="@color/text" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_16"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin_8"
-                    android:text="Label"
-                    android:textSize="@dimen/text_size_medium"
-                    android:textStyle="bold" />
-
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/rounded_edittext"
-                    android:enabled="true"
-                    android:hint="Hint"
-                    android:padding="@dimen/padding_16"
-                    android:text="Text"
-                    android:textColor="@color/text" />
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_transparent"
+                    android:gravity="center_vertical"
+                    android:minHeight="48dp"
+                    android:text="03/10/2001"
+                    android:textColor="@color/text"
+                    android:textSize="@dimen/text_size_medium" />
             </LinearLayout>
 
         </LinearLayout>
@@ -267,152 +244,22 @@
 
         <com.google.android.material.bottomappbar.BottomAppBar
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:contentInsetStart="0dp"
-            app:contentInsetEnd="0dp"
+            android:layout_height="wrap_content"
             android:paddingTop="@dimen/padding_12"
-            android:paddingBottom="@dimen/padding_12">
+            android:layout_gravity="bottom"
+            app:contentInsetEnd="0dp"
+            app:contentInsetStart="0dp">
 
-            <LinearLayout
+            <Button
+                android:id="@+id/updateProfileBtn"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:gravity="center"
-                android:paddingHorizontal="@dimen/padding_12"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:id="@+id/timeInfoLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_lavender"
-                    android:gravity="center_vertical"
-                    android:paddingHorizontal="10dp"
-                    android:paddingVertical="8dp"
-                    android:layout_marginBottom="@dimen/margin_8"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        app:srcCompat="@drawable/clock" />
-
-                    <TextView
-                        android:id="@+id/timeAmountTxt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:text="01 giờ"
-                        android:textSize="@dimen/text_size_small" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="4dp"
-                        android:text="|" />
-
-                    <TextView
-                        android:id="@+id/checkInTimeTxt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:text="17:00"
-                        android:textSize="@dimen/text_size_small" />
-
-                    <ImageView
-                        android:layout_width="12dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginHorizontal="6dp"
-                        app:srcCompat="@drawable/arrow_right" />
-
-                    <TextView
-                        android:id="@+id/checkOutTimeTxt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:text="18:00"
-                        android:textSize="@dimen/text_size_small" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="4dp"
-                        android:gravity="center_vertical"
-                        android:text=","
-                        android:textSize="@dimen/text_size_small" />
-
-                    <TextView
-                        android:id="@+id/dateTxt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:text="03/06"
-                        android:textSize="@dimen/text_size_small" />
-                </LinearLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/timeInfoLayout">
-
-                    <TextView
-                        android:id="@+id/priceTitleTxt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Chỉ từ"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/textView4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:foreground="@drawable/strike_through_line"
-                        android:text="230.000"
-                        android:textColor="@color/text_secondary"
-                        app:layout_constraintBottom_toBottomOf="@+id/priceTitleTxt"
-                        app:layout_constraintStart_toEndOf="@+id/priceTitleTxt"
-                        app:layout_constraintTop_toTopOf="@+id/priceTitleTxt" />
-
-                    <TextView
-                        android:id="@+id/textView5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="200.000"
-                        android:textSize="@dimen/text_size_xlarge"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="@+id/priceTitleTxt"
-                        app:layout_constraintTop_toBottomOf="@+id/priceTitleTxt" />
-
-                    <Button
-                        android:id="@+id/button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Chọn phòng"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </LinearLayout>
-
-            <!--            <Button-->
-            <!--                android:layout_gravity="center"-->
-            <!--                android:id="@+id/updateProfileBtn"-->
-            <!--                android:layout_marginHorizontal="@dimen/padding_16"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:paddingVertical="@dimen/padding_12"-->
-            <!--                android:text="Update Profile"-->
-            <!--                android:textSize="@dimen/text_size_large"-->
-            <!--                android:textStyle="bold"/>-->
+                android:layout_marginHorizontal="@dimen/padding_16"
+                android:paddingVertical="@dimen/padding_12"
+                android:text="Update Profile"
+                android:textSize="@dimen/text_size_large"
+                android:textStyle="bold" />
         </com.google.android.material.bottomappbar.BottomAppBar>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </RelativeLayout>

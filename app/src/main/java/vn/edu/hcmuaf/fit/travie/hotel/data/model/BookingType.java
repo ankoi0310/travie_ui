@@ -17,8 +17,8 @@ import vn.edu.hcmuaf.fit.travie.core.domain.BaseModel;
 public class BookingType extends BaseModel {
     private String name;
     private String description;
-    private LocalTime form;
-    private LocalTime to;
+    private LocalTime startTime;
+    private LocalTime endTime;
     private TimeUnit unit;
 
     public static List<BookingType> listDemo() {

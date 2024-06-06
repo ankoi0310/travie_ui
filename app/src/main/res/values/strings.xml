@@ -22,4 +22,12 @@
     <string name="cancellation_policy">Chính sách hủy phòng</string>
     <string name="action_share">Share</string>
     <string name="action_favorite">Favorite\n</string>
+    <string name="account_info">Thông tin tài khoản</string>
+    <string name="personal_info">Thông tin cá nhân</string>
+    <string name="email">Email</string>
+    <string name="phone_number">Số điện thoại</string>
+    <string name="username">Tên tài khoản</string>
+    <string name="fullname">Họ và tên</string>
+    <string name="birth_day">Ngày sinh</string>
+    <string name="gender">Giới tính</string>
 </resources>
