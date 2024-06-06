@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="padding_4">4dp</dimen>
+    <dimen name="padding_12">12dp</dimen>
+    <dimen name="padding_16">16dp</dimen>
+    <dimen name="margin_4">4dp</dimen>
+    <dimen name="margin_8">8dp</dimen>
+    <dimen name="margin_12">12dp</dimen>
+    <dimen name="margin_16">16dp</dimen>
+    <dimen name="text_size_xsmall">10sp</dimen>
+    <!-- less important information or details -->
+    <dimen name="text_size_small">12sp</dimen>
+    <!-- general body text -->
+    <dimen name="text_size_normal">14sp</dimen>
+    <!-- subheadings or important information -->
+    <dimen name="text_size_medium">16sp</dimen>
+    <!-- titles or important information -->
+    <dimen name="text_size_large">20sp</dimen>
+    <!-- headings or very important titles -->
+    <dimen name="text_size_xlarge">24sp</dimen>
+</resources>

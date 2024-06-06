@@ -1,3 +1,33 @@
 <resources>
     <string name="app_name">Travie</string>
+    <string name="title_activity_base">BaseActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home">Home</string>
+    <string name="explore">Explore</string>
+    <string name="history">History</string>
+    <string name="profile">Profile</string>
+    <string name="view_all">Xem tất cả</string>
+    <string name="near_by">Gần bạn</string>
+    <string name="popular">Nổi bật</string>
+    <string name="view_map">Xem bản đồ</string>
+    <string name="introduction">Giới thiệu</string>
+    <string name="check_in_check_out_time">Giờ nhận phòng/trả phòng</string>
+    <string name="booking_type">Loại đặt phòng</string>
+    <string name="time">Thời gian</string>
+    <string name="from">Từ</string>
+    <string name="to">đến</string>
+    <string name="cancellation_policy">Chính sách hủy phòng</string>
+    <string name="action_share">Share</string>
+    <string name="action_favorite">Favorite\n</string>
+    <string name="account_info">Thông tin tài khoản</string>
+    <string name="personal_info">Thông tin cá nhân</string>
+    <string name="email">Email</string>
+    <string name="phone_number">Số điện thoại</string>
+    <string name="username">Tên tài khoản</string>
+    <string name="fullname">Họ và tên</string>
+    <string name="birth_day">Ngày sinh</string>
+    <string name="gender">Giới tính</string>
 </resources>
