@@ -10,7 +10,9 @@ public interface DataError extends RootError {
         BAD_GATEWAY,
         SERVICE_UNAVAILABLE,
         GATEWAY_TIMEOUT,
-        FORBIDDEN, NOT_FOUND, UNKNOWN
+        FORBIDDEN,
+        NOT_FOUND,
+        UNKNOWN
     }
 
     enum LOCAL implements DataError {

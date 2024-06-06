@@ -1,20 +1,24 @@
 package vn.edu.hcmuaf.fit.travie.auth.data.datasource.network;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
+
+import java.util.Objects;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import retrofit2.Callback;
-import retrofit2.HttpException;
 import retrofit2.Call;
 import retrofit2.Response;
-import vn.edu.hcmuaf.fit.travie.auth.data.model.LoggedInUser;
+import vn.edu.hcmuaf.fit.travie.auth.data.model.LoginResponse;
 import vn.edu.hcmuaf.fit.travie.auth.data.model.LoginRequest;
 import vn.edu.hcmuaf.fit.travie.auth.data.service.AuthenticationService;
 import vn.edu.hcmuaf.fit.travie.core.handler.Result;
 import vn.edu.hcmuaf.fit.travie.core.handler.domain.HttpResponse;
 import vn.edu.hcmuaf.fit.travie.core.handler.error.DataError;
+import vn.edu.hcmuaf.fit.travie.core.infrastructure.ResultCallback;
 import vn.edu.hcmuaf.fit.travie.core.service.RetrofitService;
 
 @Singleton
@@ -26,43 +30,30 @@ public class AuthenticationRemoteDataSource {
         this.authenticationService = retrofitService.createService(AuthenticationService.class, null);
     }
 
-    public Result<LoggedInUser, DataError> login(LoginRequest loginRequest) {
-        try {
-            final HttpResponse<LoggedInUser>[] httpResponse = new HttpResponse[1];
-            authenticationService.login(loginRequest).enqueue(new Callback<HttpResponse<LoggedInUser>>() {
-                @Override
-                public void onResponse(@NonNull Call<HttpResponse<LoggedInUser>> call, Response<HttpResponse<LoggedInUser>> response) {
-                    if (response.isSuccessful() && response.body() != null) {
-                        httpResponse[0] = response.body();
-                    } else {
-                        httpResponse[0] = HttpResponse.<LoggedInUser>builder().success(false).message(response.message()).code(response.code()).build();
-                    }
+    public void login(LoginRequest loginRequest, final ResultCallback<LoginResponse, DataError> callback) {
+        Call<HttpResponse<LoginResponse>> call = authenticationService.login(loginRequest);
+        call.enqueue(new Callback<HttpResponse<LoginResponse>>() {
+            @Override
+            public void onResponse(@NonNull Call<HttpResponse<LoginResponse>> call, @NonNull Response<HttpResponse<LoginResponse>> response) {
+                Log.d("LoginResponse", response.toString());
+                if (!response.isSuccessful()) {
+                    callback.onComplete(new Result.Error<>(DataError.NETWORK.UNKNOWN));
                 }
 
-                @Override
-                public void onFailure(Call<HttpResponse<LoggedInUser>> call, Throwable t) {
-                    httpResponse[0] = HttpResponse.<LoggedInUser>builder().success(false).message(t.getMessage()).code(500).build();
+                if (response.body() == null || !response.body().isSuccess() || response.body().getData() == null) {
+                    callback.onComplete(new Result.Error<>(DataError.NETWORK.UNKNOWN));
                 }
-            });
 
-            if (!httpResponse[0].isSuccess()) {
-                return new Result.Error<>(DataError.NETWORK.UNKNOWN);
+                Log.d("LoginResponse", response.body().getData().getAccessToken());
+                callback.onComplete(new Result.Success<>(response.body().getData()));
             }
-            return new Result.Success<>(httpResponse[0].getData());
-        } catch (HttpException e) {
-            switch (e.code()) {
-                case 401:
-                    return new Result.Error<>(DataError.NETWORK.UNAUTHORIZED);
-                case 403:
-                    return new Result.Error<>(DataError.NETWORK.FORBIDDEN);
-                case 404:
-                    return new Result.Error<>(DataError.NETWORK.NOT_FOUND);
-                case 500:
-                    return new Result.Error<>(DataError.NETWORK.INTERNAL_SERVER_ERROR);
-                default:
-                    return new Result.Error<>(DataError.NETWORK.UNKNOWN);
+
+            @Override
+            public void onFailure(@NonNull Call<HttpResponse<LoginResponse>> call, @NonNull Throwable throwable) {
+                Log.d("LoginResponse", Objects.requireNonNull(throwable.getMessage()));
+                callback.onComplete(new Result.Error<>(DataError.NETWORK.UNKNOWN));
             }
-        }
+        });
     }
 
     public void logout() {
