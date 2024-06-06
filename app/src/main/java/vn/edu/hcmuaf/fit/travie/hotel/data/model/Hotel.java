@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import vn.edu.hcmuaf.fit.travie.core.domain.BaseModel;
+import vn.edu.hcmuaf.fit.travie.core.common.model.BaseModel;
 
 @Getter
 @Setter
@@ -23,7 +23,6 @@ public class Hotel extends BaseModel {
     private HotelStatus status;
     private double rating;
     private List<Review> reviews;
-    //    private AppUser owner;
 
     public enum HotelStatus {
         ACTIVE, INACTIVE, DELETED

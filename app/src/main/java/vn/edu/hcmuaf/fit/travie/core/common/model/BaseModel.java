@@ -1,4 +1,4 @@
-package vn.edu.hcmuaf.fit.travie.core.domain;
+package vn.edu.hcmuaf.fit.travie.core.common.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

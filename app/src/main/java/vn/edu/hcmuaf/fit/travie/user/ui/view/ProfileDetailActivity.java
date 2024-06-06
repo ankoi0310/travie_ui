@@ -2,7 +2,7 @@ package vn.edu.hcmuaf.fit.travie.user.ui.view;
 
 import android.os.Bundle;
 
-import vn.edu.hcmuaf.fit.travie.core.common.view.BaseActivity;
+import vn.edu.hcmuaf.fit.travie.core.common.ui.BaseActivity;
 import vn.edu.hcmuaf.fit.travie.core.shared.enums.ProfileMenu;
 import vn.edu.hcmuaf.fit.travie.databinding.ActivityProfileDetailBinding;
 

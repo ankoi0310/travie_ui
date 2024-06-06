@@ -55,12 +55,17 @@ dependencies {
     implementation libs.arrow.fx.coroutines
     implementation libs.android.image.slider
     implementation libs.markwon.core
-    implementation 'com.github.evrencoskun:TableView:v0.8.9.4'
+    implementation libs.tableview
+    implementation libs.dagger
 
 //    implementation fileTree(dir: 'libs', include: ['*.aar'])
     implementation project(':flashytabbar')
+    implementation libs.annotation
+    implementation libs.lifecycle.livedata.ktx
+    implementation libs.lifecycle.viewmodel.ktx
 
     annotationProcessor libs.lombok
+    annotationProcessor libs.dagger.compiler
 
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit

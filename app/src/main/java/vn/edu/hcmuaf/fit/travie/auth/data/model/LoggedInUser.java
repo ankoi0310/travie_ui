@@ -1,4 +1,4 @@
-package vn.edu.hcmuaf.fit.travie.domain;
+package vn.edu.hcmuaf.fit.travie.auth.data.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserInfo {
-    private String fullName;
-    private String avatarUrl;
+public class LoggedInUser {
+    private String token;
 }

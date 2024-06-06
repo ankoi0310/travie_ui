@@ -5,7 +5,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import vn.edu.hcmuaf.fit.travie.R;
-import vn.edu.hcmuaf.fit.travie.core.common.view.BaseActivity;
+import vn.edu.hcmuaf.fit.travie.core.common.ui.BaseActivity;
 import vn.edu.hcmuaf.fit.travie.core.shared.utils.AppUtil;
 import vn.edu.hcmuaf.fit.travie.databinding.ActivityHotelDetailBinding;
 import vn.edu.hcmuaf.fit.travie.hotel.ui.view.components.HotelDetailInfo;
