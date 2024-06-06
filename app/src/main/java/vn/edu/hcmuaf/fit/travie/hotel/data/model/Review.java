@@ -4,8 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import vn.edu.hcmuaf.fit.travie.domain.AppUser;
-import vn.edu.hcmuaf.fit.travie.hotel.data.model.Hotel;
 
 @Getter
 @Setter

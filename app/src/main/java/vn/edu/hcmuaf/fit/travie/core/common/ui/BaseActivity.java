@@ -1,4 +1,4 @@
-package vn.edu.hcmuaf.fit.travie.core.common.view;
+package vn.edu.hcmuaf.fit.travie.core.common.ui;
 
 import android.os.Bundle;
 import android.view.View;

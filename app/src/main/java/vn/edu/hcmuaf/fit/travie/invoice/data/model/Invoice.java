@@ -4,8 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import vn.edu.hcmuaf.fit.travie.core.domain.BaseModel;
-import vn.edu.hcmuaf.fit.travie.domain.AppUser;
+import vn.edu.hcmuaf.fit.travie.core.common.model.BaseModel;
 
 @Getter
 @Setter
@@ -14,7 +13,6 @@ import vn.edu.hcmuaf.fit.travie.domain.AppUser;
 public class Invoice extends BaseModel {
     private String code;
     private int totalPrice;
-    private AppUser user;
     private String paymentMethod;
     private BookingStatus bookingStatus;
     private PaymentStatus paymentStatus;
