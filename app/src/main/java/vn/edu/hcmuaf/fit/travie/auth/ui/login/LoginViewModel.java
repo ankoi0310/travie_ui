@@ -9,7 +9,7 @@ import android.util.Patterns;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import vn.edu.hcmuaf.fit.travie.auth.data.model.LoggedInUser;
+import vn.edu.hcmuaf.fit.travie.auth.data.model.LoginResponse;
 import vn.edu.hcmuaf.fit.travie.auth.data.model.LoginRequest;
 import vn.edu.hcmuaf.fit.travie.auth.domain.repository.AuthenticationRepository;
 import vn.edu.hcmuaf.fit.travie.core.handler.Result;
@@ -20,7 +20,7 @@ import vn.edu.hcmuaf.fit.travie.core.handler.error.DataError;
 public class LoginViewModel extends ViewModel {
 
     private final MutableLiveData<LoginFormState> loginFormState = new MutableLiveData<>();
-    private final MutableLiveData<LoginResult> loginResult = new MutableLiveData<>();
+    private final MutableLiveData<Result<LoginResponse, DataError>> loginResult = new MutableLiveData<>();
     private final AuthenticationRepository authenticationRepository;
 
     @Inject
@@ -32,28 +32,19 @@ public class LoginViewModel extends ViewModel {
         return loginFormState;
     }
 
-    LiveData<LoginResult> getLoginResult() {
+    LiveData<Result<LoginResponse, DataError>> getLoginResult() {
         return loginResult;
     }
 
     public void login(String username, String password) {
         // can be launched in a separate asynchronous job
-        Result<LoggedInUser, DataError> result =
-                authenticationRepository.login(new LoginRequest(username, password));
-
-        if (result instanceof Result.Success) {
-            LoggedInUser data = ((Result.Success<LoggedInUser, DataError>) result).getData();
-            loginResult.setValue(new LoginResult(new LoggedInUserView(data.getToken())));
-        } else {
-            loginResult.setValue(new LoginResult(R.string.login_failed));
-        }
+        LoginRequest loginRequest = new LoginRequest(username, password);
+        authenticationRepository.login(loginRequest, loginResult::setValue);
     }
 
     public void loginDataChanged(String username, String password) {
         if (!isUserNameValid(username)) {
             loginFormState.setValue(new LoginFormState(R.string.invalid_username, null));
-        } else if (!isPasswordValid(password)) {
-            loginFormState.setValue(new LoginFormState(null, R.string.invalid_password));
         } else {
             loginFormState.setValue(new LoginFormState(true));
         }
@@ -69,10 +60,5 @@ public class LoginViewModel extends ViewModel {
         } else {
             return !username.trim().isEmpty();
         }
-    }
-
-    // A placeholder password validation check
-    private boolean isPasswordValid(String password) {
-        return password != null && password.trim().length() > 5;
     }
 }
