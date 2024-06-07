@@ -61,8 +61,6 @@ dependencies {
 //    implementation fileTree(dir: 'libs', include: ['*.aar'])
     implementation project(':flashytabbar')
     implementation libs.annotation
-    implementation libs.lifecycle.livedata.ktx
-    implementation libs.lifecycle.viewmodel.ktx
 
     annotationProcessor libs.lombok
     annotationProcessor libs.dagger.compiler

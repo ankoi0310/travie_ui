@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.edu.hcmuaf.fit.travie.databinding.ImageSliderLayoutItemBinding;
-import vn.edu.hcmuaf.fit.travie.hotel.domain.model.SliderItem;
+import vn.edu.hcmuaf.fit.travie.hotel.ui.viewmodel.SliderItem;
 
 public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapterVH> {
 

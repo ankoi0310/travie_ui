@@ -30,7 +30,10 @@ import vn.edu.hcmuaf.fit.travie.databinding.ActivityLoginBinding;
 public class LoginActivity extends AppCompatActivity {
 
     @Inject
+    LoginViewModelFactory viewModelFactory;
+
     LoginViewModel loginViewModel;
+
     ActivityLoginBinding binding;
 
     @Override
@@ -41,8 +44,8 @@ public class LoginActivity extends AppCompatActivity {
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
-                .get(LoginViewModel.class);
+        loginViewModel =
+                new ViewModelProvider(this, viewModelFactory).get(LoginViewModel.class);
 
         final EditText usernameEditText = binding.username;
         final EditText passwordEditText = binding.password;

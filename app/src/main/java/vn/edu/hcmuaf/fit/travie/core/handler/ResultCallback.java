@@ -1,4 +1,4 @@
-package vn.edu.hcmuaf.fit.travie.core.infrastructure;
+package vn.edu.hcmuaf.fit.travie.core.handler;
 
 import vn.edu.hcmuaf.fit.travie.core.handler.Result;
 import vn.edu.hcmuaf.fit.travie.core.handler.error.DataError;

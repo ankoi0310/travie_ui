@@ -10,13 +10,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import vn.edu.hcmuaf.fit.travie.databinding.ViewHolderBookingTypeBinding;
-import vn.edu.hcmuaf.fit.travie.hotel.data.model.BookingType;
+import vn.edu.hcmuaf.fit.travie.hotel.data.model.BookingTypeModel;
 
 public class BookingTypeAdapter extends RecyclerView.Adapter<BookingTypeAdapter.BookingTypeViewHolder> {
     Context context;
-    private final List<BookingType> bookingTypes;
+    private final List<BookingTypeModel> bookingTypes;
 
-    public BookingTypeAdapter(List<BookingType> bookingTypes) {
+    public BookingTypeAdapter(List<BookingTypeModel> bookingTypes) {
         this.bookingTypes = bookingTypes;
     }
 
@@ -30,7 +30,7 @@ public class BookingTypeAdapter extends RecyclerView.Adapter<BookingTypeAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull BookingTypeAdapter.BookingTypeViewHolder holder, int position) {
-        BookingType bookingType = bookingTypes.get(position);
+        BookingTypeModel bookingType = bookingTypes.get(position);
         holder.binding.nameTxt.setText(bookingType.getName());
         holder.binding.timeTxt.setText(String.format("Từ %s đến %s", bookingType.getStartTime(),
                 bookingType.getEndTime()));

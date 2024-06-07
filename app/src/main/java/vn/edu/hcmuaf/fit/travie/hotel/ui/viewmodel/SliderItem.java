@@ -1,4 +1,4 @@
-package vn.edu.hcmuaf.fit.travie.hotel.domain.model;
+package vn.edu.hcmuaf.fit.travie.hotel.ui.viewmodel;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
