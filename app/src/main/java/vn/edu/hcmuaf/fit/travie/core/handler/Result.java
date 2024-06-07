@@ -22,9 +22,21 @@ public class Result<D, E extends RootError> {
     @Getter
     public static final class Error<D, E extends RootError> extends Result<D, E> {
         private final E error;
+        private final String message;
 
         public Error(E error) {
             this.error = error;
+            this.message = null;
+        }
+
+        public Error(E error, String message) {
+            this.error = error;
+            this.message = message;
+        }
+
+        public Error(String message) {
+            this.error = null;
+            this.message = message;
         }
     }
 }

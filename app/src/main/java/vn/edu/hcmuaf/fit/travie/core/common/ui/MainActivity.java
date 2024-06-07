@@ -14,7 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import it.koi.flashytabbar.TabFlashyAnimator;
+import vn.edu.hcmuaf.fit.travie.MyApplication;
 import vn.edu.hcmuaf.fit.travie.R;
+import vn.edu.hcmuaf.fit.travie.core.common.di.MainComponent;
 import vn.edu.hcmuaf.fit.travie.core.shared.constant.AppConstant;
 import vn.edu.hcmuaf.fit.travie.databinding.ActivityMainBinding;
 import vn.edu.hcmuaf.fit.travie.hotel.ui.view.ExploreFragment;
@@ -24,11 +26,15 @@ import vn.edu.hcmuaf.fit.travie.user.ui.view.ProfileFragment;
 
 public class MainActivity extends BaseActivity {
     ActivityMainBinding binding;
+    public MainComponent mainComponent;
     private final List<Fragment> mFragmentList = new ArrayList<>();
     private TabFlashyAnimator tabFlashyAnimator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mainComponent = ((MyApplication) getApplication()).getApplicationComponent()
+                .mainComponent().create();
+        mainComponent.inject(this);
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

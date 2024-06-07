@@ -18,7 +18,7 @@ import vn.edu.hcmuaf.fit.travie.auth.data.service.AuthenticationService;
 import vn.edu.hcmuaf.fit.travie.core.handler.Result;
 import vn.edu.hcmuaf.fit.travie.core.handler.domain.HttpResponse;
 import vn.edu.hcmuaf.fit.travie.core.handler.error.DataError;
-import vn.edu.hcmuaf.fit.travie.core.infrastructure.ResultCallback;
+import vn.edu.hcmuaf.fit.travie.core.handler.ResultCallback;
 import vn.edu.hcmuaf.fit.travie.core.service.RetrofitService;
 
 @Singleton

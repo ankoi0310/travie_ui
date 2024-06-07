@@ -11,7 +11,7 @@ import javax.inject.Singleton;
 
 import vn.edu.hcmuaf.fit.travie.auth.data.model.LoginResponse;
 import vn.edu.hcmuaf.fit.travie.auth.data.model.LoginRequest;
-import vn.edu.hcmuaf.fit.travie.auth.domain.repository.AuthenticationRepository;
+import vn.edu.hcmuaf.fit.travie.auth.data.repository.AuthenticationRepository;
 import vn.edu.hcmuaf.fit.travie.core.handler.Result;
 import vn.edu.hcmuaf.fit.travie.R;
 import vn.edu.hcmuaf.fit.travie.core.handler.error.DataError;

@@ -1,39 +1,33 @@
 package vn.edu.hcmuaf.fit.travie.home.ui.view;
 
+import android.content.Context;
+import android.graphics.Rect;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
-import okhttp3.OkHttpClient;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.converter.gson.GsonConverterFactory;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonDeserializer;
-
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-import retrofit2.Retrofit;
-import vn.edu.hcmuaf.fit.travie.BuildConfig;
+import javax.inject.Inject;
+
+import vn.edu.hcmuaf.fit.travie.core.common.ui.MainActivity;
+import vn.edu.hcmuaf.fit.travie.core.handler.Result;
+import vn.edu.hcmuaf.fit.travie.core.handler.error.DataError;
 import vn.edu.hcmuaf.fit.travie.databinding.FragmentHomeBinding;
-import vn.edu.hcmuaf.fit.travie.hotel.data.model.Hotel;
+import vn.edu.hcmuaf.fit.travie.hotel.data.model.HotelModel;
 import vn.edu.hcmuaf.fit.travie.home.ui.adapter.NearByHotelAdapter;
-import vn.edu.hcmuaf.fit.travie.hotel.data.datasource.network.HotelApi;
+import vn.edu.hcmuaf.fit.travie.hotel.ui.viewmodel.HotelViewModel;
+import vn.edu.hcmuaf.fit.travie.hotel.ui.viewmodel.HotelViewModelFactory;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,15 +36,15 @@ import vn.edu.hcmuaf.fit.travie.hotel.data.datasource.network.HotelApi;
  */
 public class HomeFragment extends Fragment {
     FragmentHomeBinding binding;
+    NearByHotelAdapter nearByHotelAdapter;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    @Inject
+    HotelViewModelFactory viewModelFactory;
+
+    HotelViewModel hotelViewModel;
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private List<HotelModel> nearByHotelList;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -71,17 +65,27 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        ((MainActivity) requireActivity()).mainComponent.inject(this);
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
+
+        hotelViewModel = new ViewModelProvider(this, viewModelFactory).get(HotelViewModel.class);
+
+        nearByHotelAdapter = new NearByHotelAdapter(nearByHotelList);
+        binding.nearbyRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
+        binding.nearbyRecyclerView.addItemDecoration(new SpaceItemDecoration(8));
+        binding.nearbyRecyclerView.setAdapter(nearByHotelAdapter);
         return binding.getRoot();
     }
 
@@ -102,48 +106,51 @@ public class HomeFragment extends Fragment {
 //        sliderView.setAutoCycle(true);
 //        sliderView.startAutoCycle();
 
-        // set format for datetime from server
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-        Gson gson = new GsonBuilder()
-                .registerTypeAdapter(LocalDateTime.class, (JsonDeserializer<LocalDateTime>) (json
-                        , typeOfT, context) -> LocalDateTime.parse(json.getAsJsonPrimitive().getAsString(), formatter))
-                .registerTypeAdapter(LocalTime.class, (JsonDeserializer<LocalTime>) (json
-                        , typeOfT, context) -> LocalTime.parse(json.getAsJsonPrimitive().getAsString()))
-//                .setDateFormat("dd-MM-yyyy HH:mm:ss")
-                .create();
-
-        OkHttpClient client = new OkHttpClient.Builder()
-                .connectTimeout(30, TimeUnit.SECONDS)
-                .readTimeout(60, TimeUnit.SECONDS)
-                .writeTimeout(60, TimeUnit.SECONDS)
-                .build();
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .client(client)
-                .baseUrl(BuildConfig.API_URL)
-                .addConverterFactory(GsonConverterFactory.create(gson)).build();
-
-        HotelApi hotelApi = retrofit.create(HotelApi.class);
-        hotelApi.getHotels().enqueue(new Callback<List<Hotel>>() {
-            @Override
-            public void onResponse(@NonNull Call<List<Hotel>> call, @NonNull Response<List<Hotel>> response) {
-                if (!response.isSuccessful()) {
-                    Log.d("HomeFragment", "onResponse: " + response.code());
-                    Gson gson = new Gson();
-                    String json = gson.toJson(response.errorBody());
-                    Log.d("HomeFragment", "onResponse: " + json);
-                    return;
-                }
-                List<Hotel> hotels = response.body();
-                NearByHotelAdapter adapter = new NearByHotelAdapter(hotels);
-                binding.nearbyRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                binding.nearbyRecyclerView.setAdapter(adapter);
+        hotelViewModel.getNearByHotelResult().observe(getViewLifecycleOwner(), result -> {
+            if (result == null) {
+                return;
             }
 
-            @Override
-            public void onFailure(@NonNull Call<List<Hotel>> call, @NonNull Throwable throwable) {
-                Log.d("HomeFragment", "onFailure: " + throwable.getMessage());
+            if (result instanceof Result.Success) {
+                nearByHotelList = ((Result.Success<List<HotelModel>, DataError>) result).getData();
+                nearByHotelAdapter.updateData(nearByHotelList);
+                showNearByHotelList();
+            } else {
+                Result.Error<List<HotelModel>, DataError> error = (Result.Error<List<HotelModel>, DataError>) result;
+                if (error.getError() != null) {
+                    Toast.makeText(getContext(), error.getError().toString(), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
         });
+
+        binding.nearbyProgressBar.setVisibility(View.VISIBLE);
+        binding.nearbyRecyclerView.setVisibility(View.GONE);
+        hotelViewModel.searchNearByHotelList();
+    }
+
+    private void showNearByHotelList() {
+        binding.nearbyProgressBar.setVisibility(View.GONE);
+        binding.nearbyRecyclerView.setVisibility(View.VISIBLE);
+    }
+
+    public static class SpaceItemDecoration extends RecyclerView.ItemDecoration {
+        private final int space;
+
+        public SpaceItemDecoration(int space) {
+            this.space = space;
+        }
+
+        @Override
+        public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+            outRect.left = space;
+            outRect.right = space;
+            outRect.bottom = space;
+
+            if (parent.getChildLayoutPosition(view) == 0) {
+                outRect.top = space;
+            }
+        }
     }
 }

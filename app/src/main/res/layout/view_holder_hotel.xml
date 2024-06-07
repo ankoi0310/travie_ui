@@ -2,163 +2,165 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="300dp"
+    android:layout_width="250dp"
+    android:layout_height="wrap_content"
     android:elevation="10dp"
     app:cardCornerRadius="16dp"
-    app:cardElevation="4dp"
-    app:cardUseCompatPadding="true"
-    android:layout_height="wrap_content">
+    app:cardElevation="4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_card"
+        android:background="@drawable/bg_rounded_card"
         android:padding="2dp">
 
-    <ImageView
-        android:id="@+id/pic"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/hotel_demo" />
-
-    <LinearLayout
-        android:id="@+id/infoLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/padding_12"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/pic">
-
-        <TextView
-            android:id="@+id/nameTxt"
+        <com.google.android.material.imageview.ShapeableImageView
+            app:shapeAppearanceOverlay="@style/TopRoundedSquare"
+            android:id="@+id/pic"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Long Den Do Hotel"
-            android:textAllCaps="true"
-            android:textSize="@dimen/text_size_medium"
-            android:textStyle="bold"
+            android:layout_height="150dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toTopOf="@id/infoLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/hotel_demo" />
+
+        <LinearLayout
+            android:id="@+id/infoLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_12"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/nameTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Long Den Do Hotel"
+                android:textAllCaps="true"
+                android:textSize="@dimen/text_size_medium"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/firstHoursTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="1 gio dau"
+                android:textSize="@dimen/text_size_xsmall"
+                app:layout_constraintStart_toStartOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/margin_4"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Chi tu"
+                    android:textSize="@dimen/text_size_xsmall"
+                    app:layout_constraintStart_toStartOf="@+id/firstHoursTxt"
+                    app:layout_constraintTop_toBottomOf="@+id/firstHoursTxt" />
+
+                <TextView
+                    android:id="@+id/priceTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:background="@drawable/strike_through_line"
+                    android:text="250000"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="@dimen/text_size_xsmall" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/locationNameTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:text="Quan 1"
+                    android:textSize="@dimen/text_size_xsmall" />
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/location" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/margin_4"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/discountPriceTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="240000"
+                    android:textSize="@dimen/text_size_medium"
+                    android:textStyle="bold" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/ratingTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4.8"
+                    android:textSize="@dimen/text_size_small"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/reviewCountTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="4dp"
+                    android:text="(5891)"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="@dimen/text_size_small" />
+
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    app:srcCompat="@drawable/star" />
+            </LinearLayout>
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/firstHoursTxt"
+            android:id="@+id/discountTag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="1 gio dau"
+            android:layout_marginStart="12dp"
+            android:layout_marginBottom="-10dp"
+            android:background="@color/primary"
+            android:gravity="center"
+            android:padding="@dimen/padding_4"
+            android:text="Từ 99k"
+            android:textColor="@android:color/white"
             android:textSize="@dimen/text_size_xsmall"
-            app:layout_constraintStart_toStartOf="@+id/textView"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/margin_4"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Chi tu"
-                android:textSize="@dimen/text_size_xsmall"
-                app:layout_constraintStart_toStartOf="@+id/firstHoursTxt"
-                app:layout_constraintTop_toBottomOf="@+id/firstHoursTxt" />
-
-            <TextView
-                android:id="@+id/priceTxt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:background="@drawable/strike_through_line"
-                android:text="250000"
-                android:textColor="@color/text_secondary"
-                android:textSize="@dimen/text_size_xsmall" />
-
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <TextView
-                android:id="@+id/locationNameTxt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="4dp"
-                android:text="Quan 1"
-                android:textSize="@dimen/text_size_xsmall" />
-
-            <ImageView
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:src="@drawable/location" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/margin_4"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/discountPriceTxt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="240000"
-                android:textSize="@dimen/text_size_medium"
-                android:textStyle="bold" />
-
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <TextView
-                android:id="@+id/ratingTxt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="4.8"
-                android:textSize="@dimen/text_size_small"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/reviewCountTxt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="4dp"
-                android:text="(5891)"
-                android:textColor="@color/text_secondary"
-                android:textSize="@dimen/text_size_small" />
-
-            <ImageView
-                android:layout_width="12dp"
-                android:layout_height="12dp"
-                app:srcCompat="@drawable/star" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/discountTag"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginBottom="-10dp"
-        android:background="@color/primary"
-        android:gravity="center"
-        android:padding="@dimen/padding_4"
-        android:text="Từ 99k"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/text_size_xsmall"
-        app:layout_constraintBottom_toTopOf="@+id/infoLayout"
-        app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintBottom_toTopOf="@+id/infoLayout"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

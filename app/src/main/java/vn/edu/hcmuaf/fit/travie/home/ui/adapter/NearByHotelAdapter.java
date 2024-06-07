@@ -1,6 +1,6 @@
 package vn.edu.hcmuaf.fit.travie.home.ui.adapter;
 
-import android.content.Context;
+import android.annotation.SuppressLint;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -9,15 +9,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.util.List;
 
 import vn.edu.hcmuaf.fit.travie.databinding.ViewHolderHotelBinding;
-import vn.edu.hcmuaf.fit.travie.hotel.data.model.Hotel;
+import vn.edu.hcmuaf.fit.travie.hotel.data.model.HotelModel;
 
 public class NearByHotelAdapter extends RecyclerView.Adapter<NearByHotelAdapter.NearByHotelViewHolder> {
-    private final List<Hotel> items;
-    public NearByHotelAdapter(List<Hotel> items) {
+    private List<HotelModel> items;
+    public NearByHotelAdapter(List<HotelModel> items) {
         this.items = items;
     }
 
@@ -33,7 +34,7 @@ public class NearByHotelAdapter extends RecyclerView.Adapter<NearByHotelAdapter.
         Log.d("TAG", "onBindViewHolder: " + items.get(position).getName());
         holder.binding.nameTxt.setText(items.get(position).getName());
 
-        Glide.with(holder.itemView.getContext())
+        Glide.with(holder.binding.getRoot().getContext())
                 .load(items.get(position).getImages().get(0))
                 .into(holder.binding.pic);
     }
@@ -41,6 +42,13 @@ public class NearByHotelAdapter extends RecyclerView.Adapter<NearByHotelAdapter.
     @Override
     public int getItemCount() {
         return items.size();
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void updateData(List<HotelModel> items) {
+        this.items = items;
+
+        notifyDataSetChanged();
     }
 
     public static class NearByHotelViewHolder extends RecyclerView.ViewHolder {
