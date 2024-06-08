@@ -28,20 +28,22 @@ public class RetrofitService {
                     , typeOfT, context) -> LocalDate.parse(json.getAsJsonPrimitive().getAsString(), DateTimeUtil.getSimpleDateFormat("dd-MM-yyyy")))
             .registerTypeAdapter(LocalTime.class, (JsonDeserializer<LocalTime>) (json
                     , typeOfT, context) -> LocalTime.parse(json.getAsJsonPrimitive().getAsString()));
-    private static final Retrofit.Builder builder = new Retrofit.Builder()
+    public static final Retrofit.Builder builder = new Retrofit.Builder()
             .baseUrl(BuildConfig.API_URL)
             .addConverterFactory(GsonConverterFactory.create(gsonBuilder.create()));
 
+    public static final OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder()
+            .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.HEADERS))
+            .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .readTimeout(60, TimeUnit.SECONDS)
+            .writeTimeout(60, TimeUnit.SECONDS);
+
     public static <S> S createService(Context context, @NotNull Class<S> serviceClass) {
-        OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.HEADERS))
-                .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-                .addInterceptor(new TokenAuthenticator(context))
-                .authenticator(new TokenAuthenticator(context))
-                .proxyAuthenticator(new TokenAuthenticator(context))
-                .connectTimeout(30, TimeUnit.SECONDS)
-                .readTimeout(60, TimeUnit.SECONDS)
-                .writeTimeout(60, TimeUnit.SECONDS)
+        TokenAuthenticator tokenAuthenticator = new TokenAuthenticator(context);
+        OkHttpClient client = clientBuilder
+                .addInterceptor(tokenAuthenticator)
+                .authenticator(tokenAuthenticator)
                 .build();
 
         Retrofit retrofit = builder.client(client).build();

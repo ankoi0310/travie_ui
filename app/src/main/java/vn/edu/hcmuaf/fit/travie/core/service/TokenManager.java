@@ -5,7 +5,6 @@ import static vn.edu.hcmuaf.fit.travie.core.shared.constant.AppConstant.PREFS_RE
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -30,7 +29,6 @@ public class TokenManager {
     }
 
     public String getAccessToken() {
-        Log.d("TokenManager", "getAccessToken: " + prefs.getString(PREFS_ACCESS_TOKEN_NAME, null));
         return prefs.getString(PREFS_ACCESS_TOKEN_NAME, null);
     }
 
