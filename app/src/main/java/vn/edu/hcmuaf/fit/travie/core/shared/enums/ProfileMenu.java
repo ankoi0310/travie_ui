@@ -7,7 +7,7 @@ import java.util.List;
 
 import lombok.Getter;
 import vn.edu.hcmuaf.fit.travie.R;
-import vn.edu.hcmuaf.fit.travie.user.ui.view.ProfileDetailActivity;
+import vn.edu.hcmuaf.fit.travie.user.activity.ProfileDetailActivity;
 
 @Getter
 public enum ProfileMenu {

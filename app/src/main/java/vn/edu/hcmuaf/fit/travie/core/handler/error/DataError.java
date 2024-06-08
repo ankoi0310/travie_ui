@@ -2,16 +2,17 @@ package vn.edu.hcmuaf.fit.travie.core.handler.error;
 
 public interface DataError extends RootError {
     enum NETWORK implements DataError {
+        BAD_REQUEST,
+        FORBIDDEN,
+        NOT_FOUND,
+        UNAUTHORIZED,
+        SERVICE_UNAVAILABLE,
+        INTERNAL_SERVER_ERROR,
         REQUEST_TIMEOUT,
         NO_INTERNET_CONNECTION,
         PAYLOAD_TOO_LARGE,
-        UNAUTHORIZED,
-        INTERNAL_SERVER_ERROR,
         BAD_GATEWAY,
-        SERVICE_UNAVAILABLE,
         GATEWAY_TIMEOUT,
-        FORBIDDEN,
-        NOT_FOUND,
         UNKNOWN
     }
 

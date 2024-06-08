@@ -40,4 +40,6 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="error_network_unknown">Unknown error</string>
+    <string name="avatar">avatar</string>
+    <string name="background_image">background_image</string>
 </resources>

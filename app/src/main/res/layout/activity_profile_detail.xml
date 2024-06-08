@@ -5,16 +5,13 @@
     android:id="@+id/profileDetail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".user.ui.view.ProfileDetailActivity">
+    tools:context=".user.activity.ProfileDetailActivity">
 
     <include
         android:id="@+id/appBar"
         layout="@layout/fragment_custom_app_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="wrap_content" />
 
     <ScrollView
         android:layout_width="match_parent"

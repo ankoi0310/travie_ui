@@ -19,10 +19,10 @@ import vn.edu.hcmuaf.fit.travie.R;
 import vn.edu.hcmuaf.fit.travie.core.common.di.MainComponent;
 import vn.edu.hcmuaf.fit.travie.core.shared.constant.AppConstant;
 import vn.edu.hcmuaf.fit.travie.databinding.ActivityMainBinding;
-import vn.edu.hcmuaf.fit.travie.hotel.ui.view.ExploreFragment;
+import vn.edu.hcmuaf.fit.travie.hotel.fragment.ExploreFragment;
 import vn.edu.hcmuaf.fit.travie.invoice.ui.view.HistoryFragment;
-import vn.edu.hcmuaf.fit.travie.home.ui.view.HomeFragment;
-import vn.edu.hcmuaf.fit.travie.user.ui.view.ProfileFragment;
+import vn.edu.hcmuaf.fit.travie.home.fragment.HomeFragment;
+import vn.edu.hcmuaf.fit.travie.user.fragment.ProfileFragment;
 
 public class MainActivity extends BaseActivity {
     ActivityMainBinding binding;
@@ -39,10 +39,10 @@ public class MainActivity extends BaseActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        mFragmentList.add(HomeFragment.newInstance());
-        mFragmentList.add(ExploreFragment.newInstance());
-        mFragmentList.add(HistoryFragment.newInstance());
-        mFragmentList.add(ProfileFragment.newInstance());
+        mFragmentList.add(new HomeFragment());
+        mFragmentList.add(new ExploreFragment());
+        mFragmentList.add(new HistoryFragment());
+        mFragmentList.add(new ProfileFragment());
 
         ViewPager2 viewPager = findViewById(R.id.viewPager);
         FragmentStateAdapter adapter = new FragmentStateAdapter(this) {

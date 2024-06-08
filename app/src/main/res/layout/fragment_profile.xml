@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".user.ui.view.ProfileFragment">
+    tools:context=".user.fragment.ProfileFragment">
 
     <ImageView
-        android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top|start"
+        android:contentDescription="@string/background_image"
         android:src="@drawable/top_background" />
 
     <LinearLayout
@@ -43,9 +43,10 @@
                     app:cardCornerRadius="50dp">
 
                     <ImageView
-                        android:id="@+id/profileImage"
+                        android:id="@+id/avatar"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
+                        android:contentDescription="@string/avatar"
                         tools:srcCompat="@tools:sample/avatars" />
                 </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
 
@@ -57,17 +58,17 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/tabTitl"
+                        android:id="@+id/fullNameTxt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/profile"
-                        android:textColor="#282e81"
+                        android:text="@string/fullname"
                         android:textSize="@dimen/text_size_normal" />
 
                     <TextView
+                        android:id="@+id/usernameTxt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="TextView" />
+                        android:text="@string/username" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -75,7 +76,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewProfileMenu"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
     </LinearLayout>

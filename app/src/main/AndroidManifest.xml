@@ -18,7 +18,7 @@
         android:theme="@style/Theme.Travie"
         tools:targetApi="31">
         <activity
-            android:name=".auth.ui.login.LoginActivity"
+            android:name=".auth.activity.login.LoginActivity"
             android:exported="true"
             android:label="@string/title_activity_login">
             <intent-filter>
@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".hotel.ui.view.HotelDetailActivity"
+            android:name=".hotel.activity.HotelDetailActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,7 +37,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".user.ui.view.ProfileDetailActivity"
+            android:name=".user.activity.ProfileDetailActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

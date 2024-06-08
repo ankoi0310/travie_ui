@@ -7,4 +7,10 @@ public class AppConstant {
         public static final String HISTORY = "History";
         public static final String PROFILE = "Profile";
     }
+
+    public static String TOKEN_PREFIX = "Bearer ";
+
+    public static String PREFS_LOGGED_IN_USER_NAME = "LOGGED_IN_USER";
+    public static String PREFS_ACCESS_TOKEN_NAME = "ACCESS_TOKEN";
+    public static String PREFS_REFRESH_TOKEN_NAME = "REFRESH_TOKEN";
 }
