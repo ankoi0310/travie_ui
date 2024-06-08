@@ -72,7 +72,7 @@
                 android:paddingVertical="@dimen/padding_4">
 
                 <TextView
-                    android:id="@+id/phoneNumberLabel"
+                    android:id="@+id/phone_label"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -82,7 +82,7 @@
                     android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/phoneNumberTxt"
+                    android:id="@+id/phone_txt"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -254,7 +254,7 @@
                 android:layout_gravity="center"
                 android:layout_marginHorizontal="@dimen/padding_16"
                 android:paddingVertical="@dimen/padding_12"
-                android:text="Update Profile"
+                android:text="@string/update_profile"
                 android:textSize="@dimen/text_size_large"
                 android:textStyle="bold" />
         </com.google.android.material.bottomappbar.BottomAppBar>

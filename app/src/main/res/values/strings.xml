@@ -42,4 +42,9 @@
     <string name="error_network_unknown">Unknown error</string>
     <string name="avatar">avatar</string>
     <string name="background_image">background_image</string>
+    <string name="male">Nam</string>
+    <string name="female">Nữ</string>
+    <string name="other">Khác</string>
+    <string name="prefer_not_to_say" />
+    <string name="update_profile">Update Profile</string>
 </resources>

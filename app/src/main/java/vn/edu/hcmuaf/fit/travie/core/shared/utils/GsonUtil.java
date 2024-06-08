@@ -10,7 +10,7 @@ import java.time.LocalTime;
 public class GsonUtil {
     private static final GsonBuilder gsonBuilder = new GsonBuilder()
             .registerTypeAdapter(LocalDateTime.class, (JsonDeserializer<LocalDateTime>) (json
-                    , typeOfT, context) -> LocalDateTime.parse(json.getAsJsonPrimitive().getAsString(), DateTimeUtil.getSimpleDateFormat()))
+                    , typeOfT, context) -> LocalDateTime.parse(json.getAsJsonPrimitive().getAsString(), DateTimeUtil.getDateTimeFormatter()))
             .registerTypeAdapter(LocalTime.class, (JsonDeserializer<LocalTime>) (json
                     , typeOfT, context) -> LocalTime.parse(json.getAsJsonPrimitive().getAsString()));
 
