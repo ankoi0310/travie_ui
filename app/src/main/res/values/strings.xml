@@ -45,6 +45,6 @@
     <string name="male">Nam</string>
     <string name="female">Nữ</string>
     <string name="other">Khác</string>
-    <string name="prefer_not_to_say" />
+    <string name="prefer_not_to_say">Không đề cập</string>
     <string name="update_profile">Update Profile</string>
 </resources>
