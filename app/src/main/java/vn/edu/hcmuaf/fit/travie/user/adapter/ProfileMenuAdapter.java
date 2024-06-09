@@ -13,8 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import vn.edu.hcmuaf.fit.travie.auth.activity.login.LoginActivity;
+import vn.edu.hcmuaf.fit.travie.core.service.TokenManager;
 import vn.edu.hcmuaf.fit.travie.core.shared.enums.ProfileMenu;
 import vn.edu.hcmuaf.fit.travie.databinding.ViewHolderProfileMenuBinding;
+import vn.edu.hcmuaf.fit.travie.user.ui.changepassword.ChangePasswordActivity;
 import vn.edu.hcmuaf.fit.travie.user.activity.ProfileDetailActivity;
 import vn.edu.hcmuaf.fit.travie.user.model.UserProfile;
 
@@ -24,6 +27,7 @@ public class ProfileMenuAdapter extends RecyclerView.Adapter<ProfileMenuAdapter.
 
     UserProfile userProfile;
     private final List<ProfileMenu> profileMenuItems = ProfileMenu.getProfileMenuItems();
+    private TokenManager tokenManager;
 
     public ProfileMenuAdapter(UserProfile userProfile) {
         this.userProfile = userProfile;
@@ -38,6 +42,7 @@ public class ProfileMenuAdapter extends RecyclerView.Adapter<ProfileMenuAdapter.
     @Override
     public ProfileMenuAdapter.ProfileMenuViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
+        tokenManager = new TokenManager(context);
         binding = ViewHolderProfileMenuBinding.inflate(LayoutInflater.from(context), parent, false);
         return new ProfileMenuViewHolder(binding);
     }
@@ -52,20 +57,30 @@ public class ProfileMenuAdapter extends RecyclerView.Adapter<ProfileMenuAdapter.
         holder.binding.menuItem.setOnClickListener(v -> {
             switch (profileMenu) {
                 case PROFILE_DETAIL:
-                    Intent intent = new Intent(context, ProfileDetailActivity.class);
-                    intent.putExtra(INTENT_USER_PROFILE, userProfile);
-                    context.startActivity(intent);
+                    Intent intentProfileDetail = new Intent(context, ProfileDetailActivity.class);
+                    intentProfileDetail.putExtra(INTENT_USER_PROFILE, userProfile);
+                    context.startActivity(intentProfileDetail);
                     break;
                 case CHANGE_PASSWORD:
+                    Intent intentChangePassword = new Intent(context, ChangePasswordActivity.class);
+                    context.startActivity(intentChangePassword);
                     break;
                 case PAYMENT:
                     break;
                 case HELP:
                     break;
                 case LOGOUT:
+                    handleLogout();
                     break;
             }
         });
+    }
+
+    private void handleLogout() {
+        tokenManager.clearLoggedInUser();
+        Intent intent = new Intent(context, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        context.startActivity(intent);
     }
 
     @Override
