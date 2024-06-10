@@ -18,14 +18,14 @@ import vn.edu.hcmuaf.fit.travie.core.common.model.BaseModel;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class BookingTypeModel extends BaseModel {
+public class BookingType extends BaseModel {
     private String name;
     private String description;
     private LocalTime startTime;
     private LocalTime endTime;
     private TimeUnit unit;
 
-    protected BookingTypeModel(Parcel in) {
+    protected BookingType(Parcel in) {
         super(in);
         name = in.readString();
         description = in.readString();
@@ -44,24 +44,36 @@ public class BookingTypeModel extends BaseModel {
         dest.writeString(unit.name());
     }
 
-    public static final Creator<BookingTypeModel> CREATOR = new Creator<BookingTypeModel>() {
+    public static final Creator<BookingType> CREATOR = new Creator<BookingType>() {
         @Override
-        public BookingTypeModel createFromParcel(Parcel in) {
-            return new BookingTypeModel(in);
+        public BookingType createFromParcel(Parcel in) {
+            return new BookingType(in);
         }
 
         @Override
-        public BookingTypeModel[] newArray(int size) {
-            return new BookingTypeModel[size];
+        public BookingType[] newArray(int size) {
+            return new BookingType[size];
         }
     };
 
-    public static List<BookingTypeModel> listDemo() {
-        return new ArrayList<BookingTypeModel>() {{
-            add(new BookingTypeModel("Theo giờ", "Đặt phòng theo giờ", LocalTime.of(6, 0), LocalTime.of(22, 0), TimeUnit.HOUR));
-            add(new BookingTypeModel("Theo ngày", "Đặt phòng theo ngày", LocalTime.of(14, 0), LocalTime.of(0, 0), TimeUnit.DAY));
-            add(new BookingTypeModel("Qua đêm", "Đặt phòng qua đêm", LocalTime.of(22, 0), LocalTime.of(12, 0), TimeUnit.NIGHT));
-        }};
+    public static BookingType demo1() {
+        return new BookingType("Theo giờ", "Đặt phòng theo giờ", LocalTime.of(6, 0), LocalTime.of(22, 0), TimeUnit.HOUR);
+    }
+
+    public static BookingType demo2() {
+        return new BookingType("Theo ngày", "Đặt phòng theo ngày", LocalTime.of(14, 0), LocalTime.of(0, 0), TimeUnit.DAY);
+    }
+
+    public static BookingType demo3() {
+        return new BookingType("Qua đêm", "Đặt phòng qua đêm", LocalTime.of(22, 0), LocalTime.of(12, 0), TimeUnit.NIGHT);
+    }
+
+    public static List<BookingType> listDemo() {
+        List<BookingType> bookingTypes = new ArrayList<>();
+        bookingTypes.add(demo1());
+        bookingTypes.add(demo2());
+        bookingTypes.add(demo3());
+        return bookingTypes;
     }
 
     public enum TimeUnit {

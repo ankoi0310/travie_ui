@@ -23,9 +23,9 @@ import vn.edu.hcmuaf.fit.travie.core.shared.utils.DateTimeUtil;
 public class RetrofitService {
     private static final GsonBuilder gsonBuilder = new GsonBuilder()
             .registerTypeAdapter(LocalDateTime.class, (JsonDeserializer<LocalDateTime>) (json
-                    , typeOfT, context) -> LocalDateTime.parse(json.getAsJsonPrimitive().getAsString(), DateTimeUtil.getSimpleDateFormat()))
+                    , typeOfT, context) -> LocalDateTime.parse(json.getAsJsonPrimitive().getAsString(), DateTimeUtil.getDateTimeFormatter()))
             .registerTypeAdapter(LocalDate.class, (JsonDeserializer<LocalDate>) (json
-                    , typeOfT, context) -> LocalDate.parse(json.getAsJsonPrimitive().getAsString(), DateTimeUtil.getSimpleDateFormat("dd-MM-yyyy")))
+                    , typeOfT, context) -> LocalDate.parse(json.getAsJsonPrimitive().getAsString(), DateTimeUtil.getDateTimeFormatter("dd-MM-yyyy")))
             .registerTypeAdapter(LocalTime.class, (JsonDeserializer<LocalTime>) (json
                     , typeOfT, context) -> LocalTime.parse(json.getAsJsonPrimitive().getAsString()));
     public static final Retrofit.Builder builder = new Retrofit.Builder()

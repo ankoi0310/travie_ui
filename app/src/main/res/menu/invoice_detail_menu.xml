@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_delete_booking_history"
+        android:icon="@drawable/heart_bold"
+        android:iconTint="@color/icon"
+        android:orderInCategory="100"
+        android:title="@string/delete_booking_history"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_report"
+        android:icon="@drawable/heart_bold"
+        android:iconTint="@color/icon"
+        android:orderInCategory="100"
+        android:title="@string/report_error"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_cancellation_policy"
+        android:icon="@drawable/send_2_bold"
+        android:iconTint="@color/icon"
+        android:orderInCategory="100"
+        android:title="@string/cancellation_policy"
+        app:showAsAction="never" />
+</menu>

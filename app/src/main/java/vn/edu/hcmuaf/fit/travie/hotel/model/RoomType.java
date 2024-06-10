@@ -14,11 +14,11 @@ import vn.edu.hcmuaf.fit.travie.core.common.model.BaseModel;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RoomTypeModel extends BaseModel {
+public class RoomType extends BaseModel {
     private String name;
     private String description;
 
-    public RoomTypeModel(Parcel in) {
+    public RoomType(Parcel in) {
         super(in);
         name = in.readString();
         description = in.readString();
@@ -31,15 +31,23 @@ public class RoomTypeModel extends BaseModel {
         dest.writeString(description);
     }
 
-    public static final Creator<RoomTypeModel> CREATOR = new Creator<RoomTypeModel>() {
+    public static final Creator<RoomType> CREATOR = new Creator<RoomType>() {
         @Override
-        public RoomTypeModel createFromParcel(Parcel in) {
-            return new RoomTypeModel(in);
+        public RoomType createFromParcel(Parcel in) {
+            return new RoomType(in);
         }
 
         @Override
-        public RoomTypeModel[] newArray(int size) {
-            return new RoomTypeModel[size];
+        public RoomType[] newArray(int size) {
+            return new RoomType[size];
         }
     };
+
+    public static RoomType demo1() {
+        return new RoomType("name", "description");
+    }
+
+    public static RoomType demo2() {
+        return new RoomType("name", "description");
+    }
 }

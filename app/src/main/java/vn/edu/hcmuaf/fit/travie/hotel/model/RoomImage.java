@@ -14,14 +14,14 @@ import vn.edu.hcmuaf.fit.travie.core.common.model.BaseModel;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RoomImageModel extends BaseModel {
+public class RoomImage extends BaseModel {
     private String image;
-    private RoomTypeModel roomType;
+    private RoomType roomType;
 
-    public RoomImageModel(Parcel in) {
+    public RoomImage(Parcel in) {
         super(in);
         image = in.readString();
-        roomType = in.readParcelable(RoomTypeModel.class.getClassLoader());
+        roomType = in.readParcelable(RoomType.class.getClassLoader());
     }
 
     @Override
@@ -31,15 +31,23 @@ public class RoomImageModel extends BaseModel {
         dest.writeParcelable(roomType, flags);
     }
 
-    public static final Creator<RoomImageModel> CREATOR = new Creator<RoomImageModel>() {
+    public static final Creator<RoomImage> CREATOR = new Creator<RoomImage>() {
         @Override
-        public RoomImageModel createFromParcel(Parcel in) {
-            return new RoomImageModel(in);
+        public RoomImage createFromParcel(Parcel in) {
+            return new RoomImage(in);
         }
 
         @Override
-        public RoomImageModel[] newArray(int size) {
-            return new RoomImageModel[size];
+        public RoomImage[] newArray(int size) {
+            return new RoomImage[size];
         }
     };
+
+    public static RoomImage demo1() {
+        return new RoomImage("image", RoomType.demo1());
+    }
+
+    public static RoomImage demo2() {
+        return new RoomImage("image", RoomType.demo2());
+    }
 }
