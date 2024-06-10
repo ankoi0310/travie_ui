@@ -14,11 +14,11 @@ import vn.edu.hcmuaf.fit.travie.core.common.model.BaseModel;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AmenityModel extends BaseModel {
+public class Amenity extends BaseModel {
     private String name;
     private boolean deleted;
 
-    public AmenityModel(Parcel in) {
+    public Amenity(Parcel in) {
         super(in);
         name = in.readString();
         deleted = in.readByte() != 0;
@@ -31,15 +31,23 @@ public class AmenityModel extends BaseModel {
         dest.writeByte((byte) (deleted ? 1 : 0));
     }
 
-    public static final Creator<AmenityModel> CREATOR = new Creator<AmenityModel>() {
+    public static final Creator<Amenity> CREATOR = new Creator<Amenity>() {
         @Override
-        public AmenityModel createFromParcel(Parcel in) {
-            return new AmenityModel(in);
+        public Amenity createFromParcel(Parcel in) {
+            return new Amenity(in);
         }
 
         @Override
-        public AmenityModel[] newArray(int size) {
-            return new AmenityModel[size];
+        public Amenity[] newArray(int size) {
+            return new Amenity[size];
         }
     };
+
+    public static Amenity demo1() {
+        return new Amenity("name", false);
+    }
+
+    public static Amenity demo2() {
+        return new Amenity("name", false);
+    }
 }

@@ -42,4 +42,19 @@
     <string name="error_network_unknown">Unknown error</string>
     <string name="avatar">avatar</string>
     <string name="background_image">background_image</string>
+    <string name="delete_booking_history">Xoá lịch sử đặt phòng</string>
+    <string name="report_error">Báo cáo lỗi</string>
+    <string name="not_use_promotion">Ban khong su dung khuyen mai nao cho dat phong nay.</string>
+    <string name="promotion">Khuyen mai</string>
+    <string name="invoice_detail">Thông tin đặt phòng</string>
+    <string name="booking_code">Ma dat cho</string>
+    <string name="booking_time">Thoi gian</string>
+    <string name="final_price">Tong thanh toan</string>
+
+    <!-- Booking Status -->
+    <string name="booking_status_pending">Chờ xác nhận</string>
+    <string name="booking_status_confirmed">Đặt phòng thành công</string>
+    <string name="booking_status_rejected">Bị từ chối</string>
+    <string name="booking_status_completed">Đã hoàn thành</string>
+    <string name="booking_status_cancelled">Đã hủy</string>
 </resources>

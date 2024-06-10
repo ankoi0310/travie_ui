@@ -14,14 +14,14 @@ import vn.edu.hcmuaf.fit.travie.core.common.model.BaseModel;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddressModel extends BaseModel {
+public class Address extends BaseModel {
     private String detail;
     private int wardId;
     private int districtId;
     private int provinceId;
     private String fullAddress;
 
-    public AddressModel(Parcel in) {
+    public Address(Parcel in) {
         super(in);
         detail = in.readString();
         wardId = in.readInt();
@@ -40,15 +40,19 @@ public class AddressModel extends BaseModel {
         dest.writeString(fullAddress);
     }
 
-    public static final Creator<AddressModel> CREATOR = new Creator<AddressModel>() {
+    public static final Creator<Address> CREATOR = new Creator<Address>() {
         @Override
-        public AddressModel createFromParcel(Parcel in) {
-            return new AddressModel(in);
+        public Address createFromParcel(Parcel in) {
+            return new Address(in);
         }
 
         @Override
-        public AddressModel[] newArray(int size) {
-            return new AddressModel[size];
+        public Address[] newArray(int size) {
+            return new Address[size];
         }
     };
+
+    public static Address demo() {
+        return new Address("123", 1, 1, 1, "123");
+    }
 }

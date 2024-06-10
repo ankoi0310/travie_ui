@@ -20,7 +20,7 @@ import vn.edu.hcmuaf.fit.travie.core.common.di.MainComponent;
 import vn.edu.hcmuaf.fit.travie.core.shared.constant.AppConstant;
 import vn.edu.hcmuaf.fit.travie.databinding.ActivityMainBinding;
 import vn.edu.hcmuaf.fit.travie.hotel.fragment.ExploreFragment;
-import vn.edu.hcmuaf.fit.travie.invoice.ui.view.HistoryFragment;
+import vn.edu.hcmuaf.fit.travie.invoice.ui.history.HistoryFragment;
 import vn.edu.hcmuaf.fit.travie.home.fragment.HomeFragment;
 import vn.edu.hcmuaf.fit.travie.user.fragment.ProfileFragment;
 
