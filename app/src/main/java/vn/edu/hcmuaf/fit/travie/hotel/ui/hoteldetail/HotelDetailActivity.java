@@ -1,4 +1,4 @@
-package vn.edu.hcmuaf.fit.travie.hotel.activity;
+package vn.edu.hcmuaf.fit.travie.hotel.ui.hoteldetail;
 
 import android.os.Bundle;
 import android.view.Menu;

@@ -1,4 +1,4 @@
-package vn.edu.hcmuaf.fit.travie.hotel.model;
+package vn.edu.hcmuaf.fit.travie.hotel.data.model;
 
 import android.os.Parcel;
 
@@ -28,7 +28,7 @@ public class Hotel extends BaseModel {
     private List<Amenity> amenities;
     private HotelStatus status;
     private double rating;
-    private List<ReviewModel> reviews;
+    private List<Review> reviews;
 
     public Hotel(Parcel in) {
         super(in);
@@ -41,7 +41,7 @@ public class Hotel extends BaseModel {
         amenities = in.createTypedArrayList(Amenity.CREATOR);
         status = HotelStatus.valueOf(in.readString());
         rating = in.readDouble();
-        reviews = in.createTypedArrayList(ReviewModel.CREATOR);
+        reviews = in.createTypedArrayList(Review.CREATOR);
     }
 
     public static final Creator<Hotel> CREATOR = new Creator<Hotel>() {
@@ -79,7 +79,7 @@ public class Hotel extends BaseModel {
         amenities.add(Amenity.demo1());
         amenities.add(Amenity.demo2());
 
-        List<ReviewModel> reviews = new ArrayList<>();
+        List<Review> reviews = new ArrayList<>();
 
         return new Hotel("Hotel 1", "Introduction", Address.demo(), bookingTypes, null, images,
                 amenities, HotelStatus.ACTIVE, 4.5, reviews);

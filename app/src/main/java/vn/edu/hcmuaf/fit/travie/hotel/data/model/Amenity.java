@@ -1,4 +1,4 @@
-package vn.edu.hcmuaf.fit.travie.hotel.model;
+package vn.edu.hcmuaf.fit.travie.hotel.data.model;
 
 import android.os.Parcel;
 

@@ -1,4 +1,4 @@
-package vn.edu.hcmuaf.fit.travie.hotel.model;
+package vn.edu.hcmuaf.fit.travie.hotel.data.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -15,12 +15,12 @@ import vn.edu.hcmuaf.fit.travie.core.common.model.BaseModel;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReviewModel extends BaseModel {
+public class Review extends BaseModel {
     private AppUserReview user;
     private int rating;
     private String comment;
 
-    public ReviewModel(Parcel in) {
+    public Review(Parcel in) {
         super(in);
         user = in.readParcelable(AppUserReview.class.getClassLoader());
         rating = in.readInt();
@@ -35,15 +35,15 @@ public class ReviewModel extends BaseModel {
         dest.writeString(comment);
     }
 
-    public static final Creator<ReviewModel> CREATOR = new Creator<ReviewModel>() {
+    public static final Creator<Review> CREATOR = new Creator<Review>() {
         @Override
-        public ReviewModel createFromParcel(Parcel in) {
-            return new ReviewModel(in);
+        public Review createFromParcel(Parcel in) {
+            return new Review(in);
         }
 
         @Override
-        public ReviewModel[] newArray(int size) {
-            return new ReviewModel[size];
+        public Review[] newArray(int size) {
+            return new Review[size];
         }
     };
 

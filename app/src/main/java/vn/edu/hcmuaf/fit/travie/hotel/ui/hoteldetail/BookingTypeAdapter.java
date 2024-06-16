@@ -1,4 +1,4 @@
-package vn.edu.hcmuaf.fit.travie.hotel.adapter;
+package vn.edu.hcmuaf.fit.travie.hotel.ui.hoteldetail;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import vn.edu.hcmuaf.fit.travie.databinding.ViewHolderBookingTypeBinding;
-import vn.edu.hcmuaf.fit.travie.hotel.model.BookingType;
+import vn.edu.hcmuaf.fit.travie.hotel.data.model.BookingType;
 
 public class BookingTypeAdapter extends RecyclerView.Adapter<BookingTypeAdapter.BookingTypeViewHolder> {
     Context context;

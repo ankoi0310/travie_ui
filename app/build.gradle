@@ -57,6 +57,8 @@ dependencies {
     implementation libs.markwon.core
     implementation libs.tableview
     implementation libs.dagger
+    implementation libs.play.services.location
+    implementation libs.play.services.maps
 
 //    implementation fileTree(dir: 'libs', include: ['*.aar'])
     implementation project(':flashytabbar')

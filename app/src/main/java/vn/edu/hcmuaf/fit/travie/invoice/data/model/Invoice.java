@@ -16,8 +16,8 @@ import vn.edu.hcmuaf.fit.travie.core.common.model.BaseModel;
 import vn.edu.hcmuaf.fit.travie.core.shared.enums.invoice.BookingStatus;
 import vn.edu.hcmuaf.fit.travie.core.shared.enums.invoice.PaymentMethod;
 import vn.edu.hcmuaf.fit.travie.core.shared.enums.invoice.PaymentStatus;
-import vn.edu.hcmuaf.fit.travie.hotel.model.BookingType;
-import vn.edu.hcmuaf.fit.travie.hotel.model.Room;
+import vn.edu.hcmuaf.fit.travie.hotel.data.model.BookingType;
+import vn.edu.hcmuaf.fit.travie.hotel.data.model.Room;
 
 @Getter
 @Setter

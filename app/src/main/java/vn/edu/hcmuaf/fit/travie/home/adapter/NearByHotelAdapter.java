@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import vn.edu.hcmuaf.fit.travie.databinding.ViewHolderHotelBinding;
-import vn.edu.hcmuaf.fit.travie.hotel.model.Hotel;
+import vn.edu.hcmuaf.fit.travie.hotel.data.model.Hotel;
 
 public class NearByHotelAdapter extends RecyclerView.Adapter<NearByHotelAdapter.NearByHotelViewHolder> {
     private List<Hotel> items;
