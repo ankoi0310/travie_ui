@@ -9,7 +9,9 @@
     <color name="light_blue_A400">#FF00B0FF</color>
     <color name="black_overlay">#99000000</color>
     <color name="primary">#4C4DDC</color>
-    <color name="secondary">#FFA3D3FF</color>
+    <color name="primary_dark">#FF3F51B5</color>
+    <color name="primary_light">#FFC5CAE9</color>
+    <color name="secondary">#4DD3D3D3</color>
     <color name="surface">#FFF5F5F5</color>
     <color name="card">#FFFFFFFF</color>
     <color name="text">#FF333333</color>
@@ -31,4 +33,7 @@
     <color name="info">#FF369FFF</color>
     <color name="lavender_100">#1A707EFF</color>
     <color name="lavender">#FF707EFF</color>
+    <color name="purple">#FF4C4DDC</color>
+    <color name="violet">#FFA3D3FF</color>
+    <color name="light_blue_200">#FF90CAF9</color>
 </resources>

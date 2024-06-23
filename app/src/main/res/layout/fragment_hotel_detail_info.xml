@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".hotel.fragment.HotelDetailInfo">
+    tools:context=".hotel.ui.hoteldetail.HotelDetailInfoFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
@@ -80,7 +80,7 @@
                             app:srcCompat="@drawable/star" />
 
                         <TextView
-                            android:id="@+id/ratingTxt"
+                            android:id="@+id/averageMarkTxt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingHorizontal="4dp"
@@ -97,8 +97,8 @@
                             android:text="(2222)"
                             android:textColor="@color/text_secondary"
                             android:textSize="@dimen/text_size_small"
-                            app:layout_constraintBottom_toBottomOf="@+id/ratingTxt"
-                            app:layout_constraintStart_toEndOf="@+id/ratingTxt" />
+                            app:layout_constraintBottom_toBottomOf="@+id/averageMarkTxt"
+                            app:layout_constraintStart_toEndOf="@+id/averageMarkTxt" />
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="wrap_content"

@@ -4,7 +4,7 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="home">Home</string>
-    <string name="explore">Explore</string>
+    <string name="explore">Khám phá</string>
     <string name="history">History</string>
     <string name="profile">Profile</string>
     <string name="view_all">Xem tất cả</string>
@@ -53,4 +53,36 @@
     <string name="new_password_is_required">Vui lòng nhập mật khẩu mới</string>
     <string name="confirm_password_not_match">Mật khẩu không khớp</string>
     <string name="new_password_must_be_different">Không được trùng mật khẩu cũ</string>
+    <string name="delete_booking_history">Xoá lịch sử đặt phòng</string>
+    <string name="report_error">Báo cáo lỗi</string>
+    <string name="not_use_promotion">Ban khong su dung khuyen mai nao cho dat phong nay.</string>
+    <string name="promotion">Khuyen mai</string>
+    <string name="invoice_detail">Thông tin đặt phòng</string>
+    <string name="booking_code">Ma dat cho</string>
+    <string name="booking_time">Thoi gian</string>
+    <string name="final_price">Tong thanh toan</string>
+
+    <!-- Booking Status -->
+    <string name="booking_status_pending">Chờ xác nhận</string>
+    <string name="booking_status_confirmed">Đặt phòng thành công</string>
+    <string name="booking_status_rejected">Bị từ chối</string>
+    <string name="booking_status_completed">Đã hoàn thành</string>
+    <string name="booking_status_cancelled">Đã hủy</string>
+    <string name="hotel_image">Hotel Image</string>
+    <string name="explore_subtitle">Những khách sạn lý tưởng không thể bỏ lỡ</string>
+    <string name="vertical_splash">|</string>
+    <string name="change">Thay đổi</string>
+    <string name="check_in">Nhận phòng</string>
+    <string name="check_out">Trả phòng</string>
+    <string name="by_hour">Theo giờ</string>
+    <string name="by_night">Qua đêm</string>
+    <string name="by_day">Theo ngày</string>
+    <string name="morning">Sáng</string>
+    <string name="evening">Tối</string>
+    <string name="choose_payment_method">Chọn phương thức thanh toán</string>
+    <string name="book_room">Đặt phòng</string>
+    <string name="customer_information">Thông tin khách hàng</string>
+    <string name="submit">Xác nhận</string>
+    <string name="payment_method_momo">Ví Momo</string>
+    <string name="payment_method_atm">Thẻ ATM</string>
 </resources>
