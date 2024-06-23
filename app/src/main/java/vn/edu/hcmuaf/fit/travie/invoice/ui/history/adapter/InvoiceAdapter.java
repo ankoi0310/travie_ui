@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import vn.edu.hcmuaf.fit.travie.R;
@@ -22,7 +23,7 @@ import vn.edu.hcmuaf.fit.travie.invoice.data.model.Invoice;
 public class InvoiceAdapter extends RecyclerView.Adapter<InvoiceAdapter.InvoiceViewHolder> {
     ViewHolderInvoiceBinding binding;
     Context context;
-    List<Invoice> invoices = Invoice.demo();
+    ArrayList<Invoice> invoices = new ArrayList<>();
 
     @NonNull
     @Override
@@ -33,7 +34,7 @@ public class InvoiceAdapter extends RecyclerView.Adapter<InvoiceAdapter.InvoiceV
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void setInvoices(List<Invoice> invoices) {
+    public void setInvoices(ArrayList<Invoice> invoices) {
         this.invoices = invoices;
         notifyDataSetChanged();
     }
@@ -92,10 +93,7 @@ public class InvoiceAdapter extends RecyclerView.Adapter<InvoiceAdapter.InvoiceV
         holder.binding.actionMenuView.setOnClickListener(v -> holder.binding.actionMenuView.showContextMenu());
         holder.binding.actionMenuView.setOnMenuItemClickListener(item -> {
             int id = item.getItemId();
-            if (id == R.id.action_delete_booking_history) {
-                return true;
-            }
-            return false;
+            return id == R.id.action_delete_booking_history;
         });
     }
 

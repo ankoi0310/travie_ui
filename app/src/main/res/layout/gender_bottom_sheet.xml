@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/genderGroup"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/padding_16">
+
+
+    <RadioButton
+        android:id="@+id/maleBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/male" />
+
+    <RadioButton
+        android:id="@+id/femaleBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/female" />
+
+    <RadioButton
+        android:id="@+id/otherBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/other" />
+
+    <RadioButton
+        android:id="@+id/preferNotToSayBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/prefer_not_to_say" />
+</RadioGroup>

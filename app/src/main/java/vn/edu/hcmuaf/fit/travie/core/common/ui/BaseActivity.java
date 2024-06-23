@@ -6,11 +6,15 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.WindowCompat;
 
+import java.util.Locale;
+
 public class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Locale.setDefault(new Locale("vi", "VN"));
+
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
 
         getWindow().getDecorView().setSystemUiVisibility(
