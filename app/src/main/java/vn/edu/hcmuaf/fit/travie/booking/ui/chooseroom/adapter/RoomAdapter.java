@@ -23,7 +23,7 @@ import java.util.List;
 import vn.edu.hcmuaf.fit.travie.booking.ui.checkout.CheckoutActivity;
 import vn.edu.hcmuaf.fit.travie.databinding.ViewHolderRoomBinding;
 import vn.edu.hcmuaf.fit.travie.hotel.data.model.Amenity;
-import vn.edu.hcmuaf.fit.travie.hotel.data.model.Room;
+import vn.edu.hcmuaf.fit.travie.room.data.model.Room;
 import vn.edu.hcmuaf.fit.travie.room.ui.detail.RoomDetailActivity;
 
 public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {

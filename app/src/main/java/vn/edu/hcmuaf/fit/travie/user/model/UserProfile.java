@@ -5,8 +5,6 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.gms.common.internal.safeparcel.SafeParcelable;
-
 import java.time.LocalDate;
 
 import lombok.AllArgsConstructor;
@@ -14,13 +12,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import vn.edu.hcmuaf.fit.travie.core.shared.enums.Gender;
-import vn.edu.hcmuaf.fit.travie.core.shared.utils.DateTimeUtil;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@SafeParcelable.Class(creator = "CREATOR")
 public class UserProfile implements Parcelable {
     private String username;
     private String email;
@@ -36,7 +32,7 @@ public class UserProfile implements Parcelable {
         phone = in.readString();
         fullName = in.readString();
         gender = Gender.valueOf(in.readString());
-        birthday = LocalDate.parse(in.readString(), DateTimeUtil.getDateTimeFormatter("dd-MM-yyyy"));
+        birthday = LocalDate.parse(in.readString());
         avatar = in.readString();
     }
 
@@ -64,6 +60,6 @@ public class UserProfile implements Parcelable {
         dest.writeString(phone);
         dest.writeString(fullName);
         dest.writeString(gender.name());
-        dest.writeString(birthday.format(DateTimeUtil.getDateTimeFormatter("dd-MM-yyyy")));
+        dest.writeString(birthday.toString());
     }
 }

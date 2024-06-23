@@ -1,5 +1,6 @@
 package vn.edu.hcmuaf.fit.travie.room.ui;
 
+import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -13,25 +14,21 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import okhttp3.ResponseBody;
 import vn.edu.hcmuaf.fit.travie.core.handler.domain.HttpResponse;
+import vn.edu.hcmuaf.fit.travie.core.service.RetrofitService;
 import vn.edu.hcmuaf.fit.travie.core.shared.utils.AppUtil;
-import vn.edu.hcmuaf.fit.travie.hotel.data.model.Room;
+import vn.edu.hcmuaf.fit.travie.room.data.model.Room;
 import vn.edu.hcmuaf.fit.travie.room.data.service.RoomService;
 
-@Singleton
 public class RoomViewModel extends ViewModel {
     private final MutableLiveData<RoomListResult> roomListResult = new MutableLiveData<>();
     private final MutableLiveData<RoomResult> roomResult = new MutableLiveData<>();
 
     private final RoomService roomService;
 
-    @Inject
-    public RoomViewModel(RoomService roomService) {
-        this.roomService = roomService;
+    public RoomViewModel(Context context) {
+        this.roomService = RetrofitService.createService(context, RoomService.class);
     }
 
     public LiveData<RoomListResult> getRoomListResult() {
@@ -87,25 +84,28 @@ public class RoomViewModel extends ViewModel {
                         Gson gson = AppUtil.getGson();
                         Type type = new TypeToken<HttpResponse<String>>() {}.getType();
                         HttpResponse<String> httpResponse = gson.fromJson(errorBody.charStream(), type);
-                        roomResult.postValue(new RoomResult(httpResponse.getMessage()));
+                        roomResult.postValue(new RoomResult(null, httpResponse.getMessage()));
+                        return;
                     }
 
                     if (response.body() == null) {
-                        roomResult.postValue(new RoomResult("Something went wrong"));
+                        roomResult.postValue(new RoomResult(null, "Something went wrong"));
+                        return;
                     }
 
                     HttpResponse<Room> httpResponse = response.body();
                     if (!httpResponse.isSuccess()) {
-                        roomResult.postValue(new RoomResult(httpResponse.getMessage()));
+                        roomResult.postValue(new RoomResult(null, httpResponse.getMessage()));
+                        return;
                     }
 
-                    roomResult.postValue(new RoomResult(httpResponse.getData()));
+                    roomResult.postValue(new RoomResult(httpResponse.getData(), null));
                 }
             }
 
             @Override
             public void onFailure(@NonNull retrofit2.Call<HttpResponse<Room>> call, @NonNull Throwable t) {
-                roomResult.postValue(new RoomResult("Something went wrong"));
+                roomResult.postValue(new RoomResult(null, "Something went wrong"));
             }
         });
     }

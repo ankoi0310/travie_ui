@@ -2,6 +2,7 @@ package vn.edu.hcmuaf.fit.travie.user.adapter;
 
 import static vn.edu.hcmuaf.fit.travie.core.shared.constant.AppConstant.INTENT_USER_PROFILE;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -33,9 +34,10 @@ public class ProfileMenuAdapter extends RecyclerView.Adapter<ProfileMenuAdapter.
         this.userProfile = userProfile;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setUserProfile(UserProfile userProfile) {
         this.userProfile = userProfile;
-        notifyItemChanged(profileMenuItems.indexOf(ProfileMenu.PROFILE_DETAIL));
+        notifyDataSetChanged();
     }
 
     @NonNull

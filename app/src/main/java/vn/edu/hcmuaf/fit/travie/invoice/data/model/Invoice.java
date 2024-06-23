@@ -15,7 +15,7 @@ import vn.edu.hcmuaf.fit.travie.core.shared.enums.invoice.BookingStatus;
 import vn.edu.hcmuaf.fit.travie.core.shared.enums.invoice.PaymentMethod;
 import vn.edu.hcmuaf.fit.travie.core.shared.enums.invoice.PaymentStatus;
 import vn.edu.hcmuaf.fit.travie.hotel.data.model.BookingType;
-import vn.edu.hcmuaf.fit.travie.hotel.data.model.Room;
+import vn.edu.hcmuaf.fit.travie.room.data.model.Room;
 
 @Getter
 @Setter
@@ -23,7 +23,6 @@ import vn.edu.hcmuaf.fit.travie.hotel.data.model.Room;
 @AllArgsConstructor
 public class Invoice extends BaseModel {
     private String code;
-    //    private AppUser user;
     private Room room;
     private LocalDateTime checkIn;
     private LocalDateTime checkOut;

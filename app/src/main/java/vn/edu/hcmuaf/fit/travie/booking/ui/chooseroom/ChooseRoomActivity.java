@@ -31,13 +31,11 @@ import vn.edu.hcmuaf.fit.travie.booking.ui.choosetime.ChooseTimeByNightFragment;
 import vn.edu.hcmuaf.fit.travie.booking.ui.choosetime.adapter.UnitTimeAdapter;
 import vn.edu.hcmuaf.fit.travie.core.common.ui.BaseActivity;
 import vn.edu.hcmuaf.fit.travie.core.common.ui.SpaceItemDecoration;
-import vn.edu.hcmuaf.fit.travie.core.service.RetrofitService;
 import vn.edu.hcmuaf.fit.travie.core.shared.utils.AnimationUtil;
 import vn.edu.hcmuaf.fit.travie.core.shared.utils.DateTimeUtil;
 import vn.edu.hcmuaf.fit.travie.databinding.ActivityChooseRoomBinding;
 import vn.edu.hcmuaf.fit.travie.databinding.ChooseTimeBottomSheetBinding;
 import vn.edu.hcmuaf.fit.travie.hotel.data.model.BookingType;
-import vn.edu.hcmuaf.fit.travie.room.data.service.RoomService;
 import vn.edu.hcmuaf.fit.travie.room.ui.RoomViewModel;
 import vn.edu.hcmuaf.fit.travie.room.ui.RoomViewModelFactory;
 
@@ -55,8 +53,7 @@ public class ChooseRoomActivity extends BaseActivity {
         binding = ActivityChooseRoomBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        RoomService roomService = RetrofitService.createService(this, RoomService.class);
-        roomViewModel = new ViewModelProvider(this, new RoomViewModelFactory(roomService)).get(RoomViewModel.class);
+        roomViewModel = new ViewModelProvider(this, new RoomViewModelFactory(this)).get(RoomViewModel.class);
         roomViewModel.getRoomListResult().observe(this, rooms -> {
             new Handler(Looper.getMainLooper())
                     .postDelayed(() -> {

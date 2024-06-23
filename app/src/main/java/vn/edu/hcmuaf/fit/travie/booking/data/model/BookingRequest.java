@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import vn.edu.hcmuaf.fit.travie.core.shared.enums.invoice.PaymentMethod;
 import vn.edu.hcmuaf.fit.travie.hotel.data.model.BookingType;
-import vn.edu.hcmuaf.fit.travie.hotel.data.model.Room;
+import vn.edu.hcmuaf.fit.travie.room.data.model.Room;
 
 @Getter
 @Setter

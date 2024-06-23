@@ -6,16 +6,11 @@ import static vn.edu.hcmuaf.fit.travie.core.shared.constant.AppConstant.PREFS_RE
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import vn.edu.hcmuaf.fit.travie.R;
 
-@Singleton
 public class TokenManager {
     private final SharedPreferences prefs;
 
-    @Inject
     public TokenManager(Context context) {
         this.prefs = context.getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE);
     }

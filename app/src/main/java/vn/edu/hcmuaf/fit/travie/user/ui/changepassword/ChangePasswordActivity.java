@@ -17,13 +17,10 @@ import java.util.Objects;
 import vn.edu.hcmuaf.fit.travie.R;
 import vn.edu.hcmuaf.fit.travie.core.common.ui.BaseActivity;
 import vn.edu.hcmuaf.fit.travie.core.common.ui.CustomEditText;
-import vn.edu.hcmuaf.fit.travie.core.service.RetrofitService;
 import vn.edu.hcmuaf.fit.travie.databinding.ActivityChangePasswordBinding;
-import vn.edu.hcmuaf.fit.travie.user.service.UserService;
 
 public class ChangePasswordActivity extends BaseActivity {
     ActivityChangePasswordBinding binding;
-    private UserService userService;
     ChangePasswordViewModel viewModel;
 
     private CustomEditText currentEdt, newEdt, confirmEdt;
@@ -33,8 +30,6 @@ public class ChangePasswordActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityChangePasswordBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        userService = RetrofitService.createService(this, UserService.class);
 
         binding.appBar.titleTxt.setText(R.string.change_password);
 
@@ -121,8 +116,7 @@ public class ChangePasswordActivity extends BaseActivity {
     }
 
     private void createViewModel() {
-        viewModel =
-                new ViewModelProvider(this, new ChangePasswordViewModelFactory(userService)).get(ChangePasswordViewModel.class);
+        viewModel = new ViewModelProvider(this, new ChangePasswordViewModelFactory(this)).get(ChangePasswordViewModel.class);
         viewModel.getChangePasswordFormState().observe(this, state -> {
             if (state == null) {
                 return;

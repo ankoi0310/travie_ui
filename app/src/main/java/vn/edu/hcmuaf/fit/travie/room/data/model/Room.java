@@ -1,4 +1,4 @@
-package vn.edu.hcmuaf.fit.travie.hotel.data.model;
+package vn.edu.hcmuaf.fit.travie.room.data.model;
 
 import android.os.Parcel;
 
@@ -11,6 +11,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import vn.edu.hcmuaf.fit.travie.core.common.model.BaseModel;
+import vn.edu.hcmuaf.fit.travie.hotel.data.model.Amenity;
+import vn.edu.hcmuaf.fit.travie.hotel.data.model.Hotel;
 
 @Getter
 @Setter

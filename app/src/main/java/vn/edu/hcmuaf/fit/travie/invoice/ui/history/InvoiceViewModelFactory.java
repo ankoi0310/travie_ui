@@ -6,12 +6,9 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import javax.inject.Inject;
-
 import lombok.RequiredArgsConstructor;
-import vn.edu.hcmuaf.fit.travie.invoice.data.service.InvoiceService;
 
-@RequiredArgsConstructor(onConstructor = @__(@Inject))
+@RequiredArgsConstructor
 public class InvoiceViewModelFactory implements ViewModelProvider.Factory {
     private final Context context;
 
