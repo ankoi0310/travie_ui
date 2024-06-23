@@ -12,11 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import javax.inject.Inject;
+
 import vn.edu.hcmuaf.fit.travie.core.common.ui.SpaceItemDecoration;
-import vn.edu.hcmuaf.fit.travie.core.service.RetrofitService;
 import vn.edu.hcmuaf.fit.travie.core.shared.utils.AppUtil;
 import vn.edu.hcmuaf.fit.travie.databinding.FragmentHistoryBinding;
-import vn.edu.hcmuaf.fit.travie.invoice.data.service.InvoiceService;
 import vn.edu.hcmuaf.fit.travie.invoice.ui.history.adapter.InvoiceAdapter;
 
 /**
@@ -27,7 +27,7 @@ import vn.edu.hcmuaf.fit.travie.invoice.ui.history.adapter.InvoiceAdapter;
 public class HistoryFragment extends Fragment {
     FragmentHistoryBinding binding;
 
-    InvoiceService invoiceService;
+    @Inject
     InvoiceViewModel viewModel;
 
     private InvoiceAdapter invoiceAdapter;
@@ -52,6 +52,8 @@ public class HistoryFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentHistoryBinding.inflate(inflater, container, false);
+        viewModel = new ViewModelProvider(this, new InvoiceViewModelFactory(requireContext())).get(InvoiceViewModel.class);
+        fetchInvoices();
         return binding.getRoot();
     }
 
@@ -59,29 +61,19 @@ public class HistoryFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        invoiceService = RetrofitService.createService(requireContext(), InvoiceService.class);
-
         invoiceAdapter = new InvoiceAdapter();
         binding.invoiceRv.setAdapter(invoiceAdapter);
         binding.invoiceRv.setLayoutManager(new LinearLayoutManager(requireContext()));
-        binding.invoiceRv.addItemDecoration(new SpaceItemDecoration(32, LinearLayoutManager.VERTICAL));
-
-        initViewModel();
+        binding.invoiceRv.addItemDecoration(new SpaceItemDecoration(32));
     }
 
-    private void initViewModel() {
-        viewModel = new ViewModelProvider(this, new InvoiceViewModelFactory(invoiceService)).get(InvoiceViewModel.class);
-
-        // Fetch invoices
+    private void fetchInvoices() {
         viewModel.fetchInvoices();
-
-        // Observe invoices
         viewModel.getInvoices().observe(getViewLifecycleOwner(), invoiceResult -> {
             if (invoiceResult == null) {
                 return;
             }
 
-            // loadingFragment.hide();
             if (invoiceResult.getError() != null) {
                 Log.e("HistoryFragment", "Error: " + invoiceResult.getError());
                 AppUtil.showSnackbar(binding.getRoot(), invoiceResult.getError());

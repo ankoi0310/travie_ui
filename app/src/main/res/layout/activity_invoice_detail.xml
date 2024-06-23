@@ -190,7 +190,7 @@
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                app:shapeAppearance="@style/RoundedSquare"
+                                app:shapeAppearance="@style/RoundedSquare8"
                                 app:srcCompat="@drawable/hotel_demo" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -256,7 +256,7 @@
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:background="@drawable/bg_day_gradient"
+                                    android:background="@drawable/bg_gradient_day"
                                     android:gravity="center"
                                     android:orientation="vertical">
 
@@ -510,7 +510,7 @@
                             android:text="@string/final_price" />
 
                         <TextView
-                            android:id="@+id/finalPriceTxt"
+                            android:id="@+id/totalPriceTxt"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -522,40 +522,8 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" >
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="@dimen/padding_16"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/margin_12"
-                        android:text="@string/cancellation_policy"
-                        android:textSize="@dimen/text_size_large"
-                        android:textStyle="bold" />
-
-                    <EditText
-                        android:id="@+id/cancelPolicyTxt"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/transparent"
-                        android:ems="10"
-                        android:textColor="@color/text"
-                        android:textSize="@dimen/text_size_normal"
-                        android:enabled="false"
-                        android:gravity="start|top"
-                        android:text=""
-                        android:inputType="textMultiLine" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            <include layout="@layout/fragment_cancellation_policy" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

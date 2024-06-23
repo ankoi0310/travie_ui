@@ -6,7 +6,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="home">Home</string>
-    <string name="explore">Explore</string>
+    <string name="explore">Khám phá</string>
     <string name="history">History</string>
     <string name="profile">Profile</string>
     <string name="view_all">Xem tất cả</string>
@@ -57,4 +57,21 @@
     <string name="booking_status_rejected">Bị từ chối</string>
     <string name="booking_status_completed">Đã hoàn thành</string>
     <string name="booking_status_cancelled">Đã hủy</string>
+    <string name="hotel_image">Hotel Image</string>
+    <string name="explore_subtitle">Những khách sạn lý tưởng không thể bỏ lỡ</string>
+    <string name="vertical_splash">|</string>
+    <string name="change">Thay đổi</string>
+    <string name="check_in">Nhận phòng</string>
+    <string name="check_out">Trả phòng</string>
+    <string name="by_hour">Theo giờ</string>
+    <string name="by_night">Qua đêm</string>
+    <string name="by_day">Theo ngày</string>
+    <string name="morning">Sáng</string>
+    <string name="evening">Tối</string>
+    <string name="choose_payment_method">Chọn phương thức thanh toán</string>
+    <string name="book_room">Đặt phòng</string>
+    <string name="customer_information">Thông tin khách hàng</string>
+    <string name="submit">Xác nhận</string>
+    <string name="payment_method_momo">Ví Momo</string>
+    <string name="payment_method_atm">Thẻ ATM</string>
 </resources>
