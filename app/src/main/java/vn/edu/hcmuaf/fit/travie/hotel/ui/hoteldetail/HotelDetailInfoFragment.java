@@ -1,4 +1,4 @@
-package vn.edu.hcmuaf.fit.travie.hotel.fragment;
+package vn.edu.hcmuaf.fit.travie.hotel.ui.hoteldetail;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -17,18 +17,18 @@ import vn.edu.hcmuaf.fit.travie.R;
 import vn.edu.hcmuaf.fit.travie.core.shared.utils.AppUtil;
 import vn.edu.hcmuaf.fit.travie.databinding.FragmentHotelDetailInfoBinding;
 
-public class HotelDetailInfo extends Fragment {
+public class HotelDetailInfoFragment extends Fragment {
     FragmentHotelDetailInfoBinding binding;
     Context context;
 
     private boolean isExpanded = true;
 
-    public HotelDetailInfo() {
+    public HotelDetailInfoFragment() {
         // Required empty public constructor
     }
 
-    public static HotelDetailInfo newInstance() {
-        HotelDetailInfo fragment = new HotelDetailInfo();
+    public static HotelDetailInfoFragment newInstance() {
+        HotelDetailInfoFragment fragment = new HotelDetailInfoFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -63,7 +63,7 @@ public class HotelDetailInfo extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         initUI();
-        binding.viewMap.viewTxt.setText(R.string.view_map);
+        binding.viewMap.titleTxt.setText(R.string.view_map);
 
         final Markwon markwon = Markwon.create(requireContext());
         String introductionText = "Emphasis, aka italics, with *asterisks* or _underscores_.\n\n" +

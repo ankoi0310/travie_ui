@@ -6,13 +6,16 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
     private final int space;
     private final int orientation;
 
-    public SpaceItemDecoration(int space, int orientation) {
+    public SpaceItemDecoration(int space) {
         this.space = space;
-        this.orientation = orientation;
+        this.orientation = RecyclerView.VERTICAL;
     }
 
     @Override

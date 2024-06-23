@@ -5,8 +5,6 @@ import android.os.Parcel;
 import androidx.annotation.NonNull;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -55,8 +53,11 @@ public class Invoice extends BaseModel {
         super(in);
         code = in.readString();
         room = in.readParcelable(Room.class.getClassLoader());
+        checkIn = LocalDateTime.parse(in.readString());
+        checkOut = LocalDateTime.parse(in.readString());
         totalPrice = in.readInt();
         finalPrice = in.readInt();
+        bookingType = in.readParcelable(BookingType.class.getClassLoader());
         paymentMethod = PaymentMethod.valueOf(in.readString());
         bookingStatus = BookingStatus.valueOf(in.readString());
         paymentStatus = PaymentStatus.valueOf(in.readString());
@@ -67,8 +68,11 @@ public class Invoice extends BaseModel {
         super.writeToParcel(dest, flags);
         dest.writeString(code);
         dest.writeParcelable(room, flags);
+        dest.writeString(checkIn.toString());
+        dest.writeString(checkOut.toString());
         dest.writeInt(totalPrice);
         dest.writeInt(finalPrice);
+        dest.writeParcelable(bookingType, flags);
         dest.writeString(paymentMethod.name());
         dest.writeString(bookingStatus.name());
         dest.writeString(paymentStatus.name());
@@ -85,30 +89,4 @@ public class Invoice extends BaseModel {
             return new Invoice[size];
         }
     };
-
-    public static Invoice demo1() {
-        LocalDateTime now = LocalDateTime.now();
-        return new Invoice(1L, "INV001", Room.demo1(), now, now.plusDays(1), 100, 90,
-         BookingType.demo3(), PaymentMethod.CASH, BookingStatus.CONFIRMED, PaymentStatus.PAID);
-    }
-
-    public static Invoice demo2() {
-        LocalDateTime now = LocalDateTime.now();
-        return new Invoice(2L, "INV002", Room.demo2(), now, now.plusDays(2), 200, 180,
-                BookingType.demo3(), PaymentMethod.CASH, BookingStatus.CONFIRMED, PaymentStatus.PAID);
-    }
-
-    public static Invoice demo3() {
-        LocalDateTime now = LocalDateTime.now();
-        return new Invoice(3L, "INV003", Room.demo1(), now, now.plusDays(3), 300, 270,
-                BookingType.demo3(), PaymentMethod.CASH, BookingStatus.CONFIRMED, PaymentStatus.PAID);
-    }
-
-    public static List<Invoice> demo() {
-        return new ArrayList<Invoice>() {{
-            add(demo1());
-            add(demo2());
-            add(demo3());
-        }};
-    }
 }

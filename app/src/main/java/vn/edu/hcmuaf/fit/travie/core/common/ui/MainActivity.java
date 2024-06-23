@@ -6,6 +6,7 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -28,6 +29,7 @@ import vn.edu.hcmuaf.fit.travie.MyApplication;
 import vn.edu.hcmuaf.fit.travie.R;
 import vn.edu.hcmuaf.fit.travie.core.common.di.MainComponent;
 import vn.edu.hcmuaf.fit.travie.core.shared.constant.AppConstant;
+import vn.edu.hcmuaf.fit.travie.core.shared.utils.AnimationUtil;
 import vn.edu.hcmuaf.fit.travie.databinding.ActivityMainBinding;
 import vn.edu.hcmuaf.fit.travie.hotel.ui.explore.ExploreFragment;
 import vn.edu.hcmuaf.fit.travie.invoice.ui.history.HistoryFragment;
@@ -37,7 +39,12 @@ import vn.edu.hcmuaf.fit.travie.user.fragment.ProfileFragment;
 public class MainActivity extends BaseActivity {
     ActivityMainBinding binding;
     public MainComponent mainComponent;
-    private final List<Fragment> mFragmentList = new ArrayList<>();
+    private final List<Fragment> mFragmentList = new ArrayList<Fragment>() {{
+        add(new HomeFragment());
+        add(new ExploreFragment());
+        add(new HistoryFragment());
+        add(new ProfileFragment());
+    }};
     private TabFlashyAnimator tabFlashyAnimator;
     private SharedViewModel sharedViewModel;
     private FusedLocationProviderClient fusedLocationProviderClient;
@@ -53,14 +60,12 @@ public class MainActivity extends BaseActivity {
 
         sharedViewModel = new ViewModelProvider(this, new SharedViewModelFactory()).get(SharedViewModel.class);
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+
+        // Show loading view
+        AnimationUtil.animateView(binding.loadingView.getRoot(), View.VISIBLE, 0.4f, 200);
+
         getLastLocation();
 
-        mFragmentList.add(new HomeFragment());
-        mFragmentList.add(new ExploreFragment());
-        mFragmentList.add(new HistoryFragment());
-        mFragmentList.add(new ProfileFragment());
-
-        ViewPager2 viewPager = findViewById(R.id.viewPager);
         FragmentStateAdapter adapter = new FragmentStateAdapter(this) {
             @NonNull
             @Override
@@ -73,20 +78,31 @@ public class MainActivity extends BaseActivity {
                 return mFragmentList.size();
             }
         };
-        viewPager.setAdapter(adapter);
+        binding.viewPager.setAdapter(adapter);
+        binding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                AnimationUtil.animateView(binding.loadingView.getRoot(), View.VISIBLE, 0.4f, 200);
+            }
 
-        TabLayout tabLayout = findViewById(R.id.tabLayout);
-        new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {}
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {}
+        });
+
+        new TabLayoutMediator(binding.tabLayout, binding.viewPager, (tab, position) -> {
         }).attach();
 
-        tabFlashyAnimator = new TabFlashyAnimator(tabLayout, R.color.primary);
+        tabFlashyAnimator = new TabFlashyAnimator(binding.tabLayout, R.color.primary);
         tabFlashyAnimator.addTabItem(AppConstant.MenuTitle.HOME, R.drawable.home);
         tabFlashyAnimator.addTabItem(AppConstant.MenuTitle.EXPLORE, R.drawable.location);
         tabFlashyAnimator.addTabItem(AppConstant.MenuTitle.HISTORY, R.drawable.clock);
         tabFlashyAnimator.addTabItem(AppConstant.MenuTitle.PROFILE, R.drawable.user);
-
         tabFlashyAnimator.highLightTab(0);
-        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+
+        binding.viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
@@ -98,7 +114,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        tabFlashyAnimator.onStart(findViewById(R.id.tabLayout));
+        tabFlashyAnimator.onStart(binding.tabLayout);
     }
 
     @Override

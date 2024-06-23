@@ -13,6 +13,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import vn.edu.hcmuaf.fit.travie.core.common.model.BaseModel;
+import vn.edu.hcmuaf.fit.travie.core.shared.enums.invoice.TimeUnit;
 
 @Getter
 @Setter
@@ -65,7 +66,7 @@ public class BookingType extends BaseModel {
     }
 
     public static BookingType demo3() {
-        return new BookingType("Qua đêm", "Đặt phòng qua đêm", LocalTime.of(22, 0), LocalTime.of(12, 0), TimeUnit.NIGHT);
+        return new BookingType("Qua đêm", "Đặt phòng qua đêm", LocalTime.of(22, 0), LocalTime.of(12, 0), TimeUnit.OVERNIGHT);
     }
 
     public static List<BookingType> listDemo() {
@@ -74,9 +75,5 @@ public class BookingType extends BaseModel {
         bookingTypes.add(demo2());
         bookingTypes.add(demo3());
         return bookingTypes;
-    }
-
-    public enum TimeUnit {
-        HOUR, DAY, NIGHT
     }
 }

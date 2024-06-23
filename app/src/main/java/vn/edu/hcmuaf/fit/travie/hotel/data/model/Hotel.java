@@ -6,13 +6,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import vn.edu.hcmuaf.fit.travie.core.common.model.BaseModel;
+import vn.edu.hcmuaf.fit.travie.core.shared.enums.hotel.HotelStatus;
 
 @Getter
 @Setter
@@ -21,26 +21,81 @@ import vn.edu.hcmuaf.fit.travie.core.common.model.BaseModel;
 public class Hotel extends BaseModel {
     private String name;
     private String introduction;
+    private int firstHours;
+    private int checkIn;
+    private int checkOut;
+    private boolean daily;
+    private int startHourly;
+    private int endHourly;
+    private boolean hourly;
+    private int startOvernight;
+    private int endOvernight;
+    private boolean overnight;
+    private int cancelBeforeHours;
     private Address address;
-    private List<BookingType> bookingTypes;
-    private @Nullable List<Room> rooms;
-    private List<String> images;
-    private List<Amenity> amenities;
+    private ArrayList<BookingType> bookingTypes;
+    private @Nullable ArrayList<Room> rooms;
+    private ArrayList<String> images;
+    private ArrayList<Amenity> amenities;
     private HotelStatus status;
-    private double rating;
-    private List<Review> reviews;
+    private double averageMark;
+    private double averageMarkClean;
+    private double averageMarkAmenity;
+    private double averageMarkService;
+    private ArrayList<Review> reviews;
+
+    public Hotel(String name, String introduction, int firstHours, int checkIn, int checkOut, boolean daily, int startHourly, int endHourly, boolean hourly, int startOvernight, int endOvernight, boolean overnight, int cancelBeforeHours, Address address, ArrayList<BookingType> bookingTypes, ArrayList<String> images, ArrayList<Amenity> amenities, HotelStatus status, double averageMark, double averageMarkClean, double averageMarkAmenity, double averageMarkService, ArrayList<Review> reviews) {
+        this.name = name;
+        this.introduction = introduction;
+        this.firstHours = firstHours;
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
+        this.daily = daily;
+        this.startHourly = startHourly;
+        this.endHourly = endHourly;
+        this.hourly = hourly;
+        this.startOvernight = startOvernight;
+        this.endOvernight = endOvernight;
+        this.overnight = overnight;
+        this.cancelBeforeHours = cancelBeforeHours;
+        this.address = address;
+        this.bookingTypes = bookingTypes;
+        this.rooms = null;
+        this.images = images;
+        this.amenities = amenities;
+        this.status = status;
+        this.averageMark = averageMark;
+        this.averageMarkClean = averageMarkClean;
+        this.averageMarkAmenity = averageMarkAmenity;
+        this.averageMarkService = averageMarkService;
+        this.reviews = reviews;
+    }
 
     public Hotel(Parcel in) {
         super(in);
         name = in.readString();
         introduction = in.readString();
+        firstHours = in.readInt();
+        checkIn = in.readInt();
+        checkOut = in.readInt();
+        daily = in.readByte() != 0;
+        startHourly = in.readInt();
+        endHourly = in.readInt();
+        hourly = in.readByte() != 0;
+        startOvernight = in.readInt();
+        endOvernight = in.readInt();
+        overnight = in.readByte() != 0;
+        cancelBeforeHours = in.readInt();
         address = in.readParcelable(Address.class.getClassLoader());
         bookingTypes = in.createTypedArrayList(BookingType.CREATOR);
         rooms = in.createTypedArrayList(Room.CREATOR);
         images = in.createStringArrayList();
         amenities = in.createTypedArrayList(Amenity.CREATOR);
         status = HotelStatus.valueOf(in.readString());
-        rating = in.readDouble();
+        averageMark = in.readDouble();
+        averageMarkClean = in.readDouble();
+        averageMarkAmenity = in.readDouble();
+        averageMarkService = in.readDouble();
         reviews = in.createTypedArrayList(Review.CREATOR);
     }
 
@@ -60,28 +115,27 @@ public class Hotel extends BaseModel {
     public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeString(name);
         dest.writeString(introduction);
+        dest.writeInt(firstHours);
+        dest.writeInt(checkIn);
+        dest.writeInt(checkOut);
+        dest.writeByte((byte) (daily ? 1 : 0));
+        dest.writeInt(startHourly);
+        dest.writeInt(endHourly);
+        dest.writeByte((byte) (hourly ? 1 : 0));
+        dest.writeInt(startOvernight);
+        dest.writeInt(endOvernight);
+        dest.writeByte((byte) (overnight ? 1 : 0));
+        dest.writeInt(cancelBeforeHours);
+        dest.writeParcelable(address, flags);
+        dest.writeTypedList(bookingTypes);
+        dest.writeTypedList(rooms);
         dest.writeStringList(images);
-        dest.writeDouble(rating);
-    }
-
-    public enum HotelStatus {
-        ACTIVE, INACTIVE, DELETED
-    }
-
-    public static Hotel demo1() {
-        List<BookingType> bookingTypes = BookingType.listDemo();
-
-        List<String> images = new ArrayList<>();
-        images.add("https://firebasestorage.googleapis.com/v0/b/travie-8acf1.appspot.com/o/images%2Fhotels%2F118_1635947579_6182943b12a6d.jpg?alt=media&token=594cdede-043c-4933-bf63-60d6285991f5");
-        images.add("https://firebasestorage.googleapis.com/v0/b/travie-8acf1.appspot.com/o/images%2Fhotels%2F6130_1677731099_6400251be7b1d.jpg?alt=media&token=151b6591-a001-4633-9de4-95ecf3842739");
-
-        List<Amenity> amenities = new ArrayList<>();
-        amenities.add(Amenity.demo1());
-        amenities.add(Amenity.demo2());
-
-        List<Review> reviews = new ArrayList<>();
-
-        return new Hotel("Hotel 1", "Introduction", Address.demo(), bookingTypes, null, images,
-                amenities, HotelStatus.ACTIVE, 4.5, reviews);
+        dest.writeTypedList(amenities);
+        dest.writeString(status.name());
+        dest.writeDouble(averageMark);
+        dest.writeDouble(averageMarkClean);
+        dest.writeDouble(averageMarkAmenity);
+        dest.writeDouble(averageMarkService);
+        dest.writeTypedList(reviews);
     }
 }

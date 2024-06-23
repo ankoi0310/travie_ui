@@ -9,12 +9,31 @@
         <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
     </style>
 
-    <style name="RoundedSquare">
+    <style name="RoundedSquare8">
         <item name="cornerSize">8dp</item>
     </style>
 
-    <style name="TopRoundedSquare" parent="RoundedSquare">
+    <style name="RoundedSquare16">
+        <item name="cornerSize">16dp</item>
+    </style>
+
+    <style name="TopRoundedSquare" parent="RoundedSquare8">
         <item name="cornerSizeBottomLeft">0dp</item>
         <item name="cornerSizeBottomRight">0dp</item>
+    </style>
+
+    <style name="TopRoundedSquare16" parent="RoundedSquare16">
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+    </style>
+
+    <style name="TextBoldLarge">
+        <item name="android:textSize">@dimen/text_size_large</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextBoldNormal">
+        <item name="android:textSize">@dimen/text_size_normal</item>
+        <item name="android:textStyle">bold</item>
     </style>
 </resources>

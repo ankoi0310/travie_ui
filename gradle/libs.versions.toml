@@ -1,11 +1,10 @@
 [versions]
-agp = "8.4.1"
+agp = "8.4.2"
 arrowCore = "1.2.4"
 autoimageslider = "1.4.0"
 core = "4.6.2"
-daggerAndroidSupport = "2.51.1"
 daggerCompiler = "2.51.1"
-firebaseBom = "33.1.0"
+firebaseBom = "33.1.1"
 junit = "4.13.2"
 junitVersion = "1.1.5"
 espressoCore = "3.5.1"
@@ -19,6 +18,7 @@ gson = "2.11.0"
 googleServices = "4.4.2"
 playServicesLocation = "21.3.0"
 playServicesMaps = "18.2.0"
+recyclerview = "1.3.2"
 retrofit = "2.11.0"
 converterGson = "2.11.0"
 okhttp = "4.12.0"
@@ -27,6 +27,7 @@ navigationFragment = "2.7.7"
 navigationUi = "2.7.7"
 tableview = "v0.8.9.4"
 annotation = "1.8.0"
+view = "2.6.0-beta02"
 
 [libraries]
 android-image-slider = { module = "com.github.smarteist:Android-Image-Slider", version.ref = "autoimageslider" }
@@ -50,6 +51,7 @@ firebase-database = { group = "com.google.firebase", name = "firebase-database" 
 firebase-storage = { group = "com.google.firebase", name = "firebase-storage" }
 play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocation" }
 play-services-maps = { module = "com.google.android.gms:play-services-maps", version.ref = "playServicesMaps" }
+recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerview" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
 okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
@@ -58,6 +60,7 @@ navigation-fragment = { group = "androidx.navigation", name = "navigation-fragme
 navigation-ui = { group = "androidx.navigation", name = "navigation-ui", version.ref = "navigationUi" }
 tableview = { module = "com.github.evrencoskun:TableView", version.ref = "tableview" }
 annotation = { group = "androidx.annotation", name = "annotation", version.ref = "annotation" }
+view = { module = "com.kizitonwose.calendar:view", version.ref = "view" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

@@ -13,6 +13,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,27 +25,28 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import javax.inject.Inject;
+
+import vn.edu.hcmuaf.fit.travie.R;
 import vn.edu.hcmuaf.fit.travie.core.common.ui.MainActivity;
 import vn.edu.hcmuaf.fit.travie.core.common.ui.SharedViewModel;
 import vn.edu.hcmuaf.fit.travie.core.common.ui.SharedViewModelFactory;
 import vn.edu.hcmuaf.fit.travie.core.common.ui.SpaceItemDecoration;
-import vn.edu.hcmuaf.fit.travie.core.handler.domain.HttpResponse;
-import vn.edu.hcmuaf.fit.travie.core.service.RetrofitService;
+import vn.edu.hcmuaf.fit.travie.core.shared.utils.AnimationUtil;
 import vn.edu.hcmuaf.fit.travie.databinding.FragmentHomeBinding;
+import vn.edu.hcmuaf.fit.travie.home.adapter.HotelAdapter;
 import vn.edu.hcmuaf.fit.travie.hotel.data.model.Hotel;
-import vn.edu.hcmuaf.fit.travie.home.adapter.NearByHotelAdapter;
-import vn.edu.hcmuaf.fit.travie.hotel.data.service.HotelService;
+import vn.edu.hcmuaf.fit.travie.hotel.ui.HotelViewModel;
+import vn.edu.hcmuaf.fit.travie.hotel.ui.HotelViewModelFactory;
 
 public class HomeFragment extends Fragment {
     FragmentHomeBinding binding;
-    NearByHotelAdapter nearByHotelAdapter;
-
-    HotelService hotelService;
+    View loadingView;
 
     SharedViewModel sharedViewModel;
+
+    @Inject
+    HotelViewModel hotelViewModel;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -70,13 +73,6 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
-
-        hotelService = RetrofitService.createService(requireContext(), HotelService.class);
-
-        nearByHotelAdapter = new NearByHotelAdapter(new ArrayList<>());
-        binding.nearbyRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
-        binding.nearbyRecyclerView.addItemDecoration(new SpaceItemDecoration(8, RecyclerView.HORIZONTAL));
-        binding.nearbyRecyclerView.setAdapter(nearByHotelAdapter);
         return binding.getRoot();
     }
 
@@ -84,11 +80,21 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        sharedViewModel =
-                new ViewModelProvider(requireActivity(), new SharedViewModelFactory()).get(SharedViewModel.class);
+        MainActivity mainActivity = (MainActivity) requireActivity();
+        loadingView = mainActivity.findViewById(R.id.loadingView);
+
+        sharedViewModel = new ViewModelProvider(requireActivity(), new SharedViewModelFactory()).get(SharedViewModel.class);
         sharedViewModel.getLastLocation().observe(getViewLifecycleOwner(), location -> {
             binding.currentLocationTxt.setText(getCityName(getContext(), location));
         });
+
+        hotelViewModel = new ViewModelProvider(requireActivity(), new HotelViewModelFactory(requireContext())).get(HotelViewModel.class);
+        fetchHotelList();
+
+        binding.nearbyRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
+        binding.nearbyRecyclerView.addItemDecoration(new SpaceItemDecoration(12, RecyclerView.HORIZONTAL));
+        binding.popularRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
+        binding.popularRecyclerView.addItemDecoration(new SpaceItemDecoration(12, RecyclerView.HORIZONTAL));
 
 //        SliderView sliderView = binding.imageSlider;
 //
@@ -102,28 +108,46 @@ public class HomeFragment extends Fragment {
 //        sliderView.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
 //        sliderView.setAutoCycle(true);
 //        sliderView.startAutoCycle();
+    }
 
-        binding.nearbyProgressBar.setVisibility(View.VISIBLE);
-        binding.nearbyRecyclerView.setVisibility(View.GONE);
-        hotelService.searchHotel().enqueue(new Callback<HttpResponse<List<Hotel>>>() {
-            @Override
-            public void onResponse(@NonNull Call<HttpResponse<List<Hotel>>> call, @NonNull Response<HttpResponse<List<Hotel>>> response) {
-                binding.nearbyProgressBar.setVisibility(View.GONE);
-                if (response.isSuccessful() && response.body() != null && response.body().getData() != null) {
-                    List<Hotel> nearByHotelList = response.body().getData();
-                    nearByHotelAdapter.updateData(nearByHotelList);
-                    binding.nearbyRecyclerView.setVisibility(View.VISIBLE);
-                } else {
-                    Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
-                }
-            }
+    private void fetchHotelList() {
+        hotelViewModel.fetchNearByHotelList("Hồ Chí Minh");
+        hotelViewModel.fetchPopularHotelList();
 
-            @Override
-            public void onFailure(@NonNull Call<HttpResponse<List<Hotel>>> call, @NonNull Throwable t) {
-                binding.nearbyProgressBar.setVisibility(View.GONE);
-                Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
-            }
-        });
+        hotelViewModel.getNearByHotelList().observe(getViewLifecycleOwner(), result -> new Handler(Looper.getMainLooper())
+                .postDelayed(() -> {
+                    if (loadingView.getVisibility() == View.VISIBLE) {
+                        AnimationUtil.animateView(loadingView, View.GONE, 0, 200);
+                    }
+
+                    if (result.getError() != null) {
+                        Toast.makeText(getContext(), result.getError(), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    if (result.getSuccess() != null) {
+                        ArrayList<Hotel> hotels = result.getSuccess();
+                        HotelAdapter hotelAdapter = new HotelAdapter(hotels);
+                        binding.nearbyRecyclerView.setAdapter(hotelAdapter);
+                    }
+                }, 2000));
+        hotelViewModel.getPopularHotelList().observe(getViewLifecycleOwner(), result -> new Handler(Looper.getMainLooper())
+                .postDelayed(() -> {
+                    if (loadingView.getVisibility() == View.VISIBLE) {
+                        AnimationUtil.animateView(loadingView, View.GONE, 0, 200);
+                    }
+
+                    if (result.getError() != null) {
+                        Toast.makeText(getContext(), result.getError(), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    if (result.getSuccess() != null) {
+                        ArrayList<Hotel> hotels = result.getSuccess();
+                        HotelAdapter hotelAdapter = new HotelAdapter(hotels);
+                        binding.popularRecyclerView.setAdapter(hotelAdapter);
+                    }
+                }, 2000));
     }
 
     private synchronized String getCityName(Context context, Location location) {
@@ -135,7 +159,7 @@ public class HomeFragment extends Fragment {
                 return addresses.get(0).getAdminArea();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e("HomeFragment", "getCityName: ", e);
             return null;
         }
 

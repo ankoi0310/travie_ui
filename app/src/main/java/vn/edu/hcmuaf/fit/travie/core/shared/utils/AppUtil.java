@@ -46,10 +46,10 @@ public class AppUtil {
                 .show();
     }
 
-    public static String formatCurrency(int finalPrice) {
+    public static String formatCurrency(int price) {
         // format currency in Vietnam
         NumberFormat numberFormat = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
-        return numberFormat.format(finalPrice);
+        return numberFormat.format(price);
     }
 
 //    public static String getCityName(Context context, Location location) {
