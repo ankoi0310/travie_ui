@@ -50,6 +50,8 @@
     <string name="booking_code">Ma dat cho</string>
     <string name="booking_time">Thoi gian</string>
     <string name="final_price">Tong thanh toan</string>
+    <string name="action_register_short">Đăng ký</string>
+    <string name="register_failed">"Register failed"</string>
 
     <!-- Booking Status -->
     <string name="booking_status_pending">Chờ xác nhận</string>
