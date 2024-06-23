@@ -13,6 +13,8 @@ public class AppConstant {
     public static String PREFS_ACCESS_TOKEN_NAME = "ACCESS_TOKEN";
     public static String PREFS_REFRESH_TOKEN_NAME = "REFRESH_TOKEN";
 
+
+    public static String INTENT_USER_PROFILE = "USER_PROFILE";
     public static final String PREFS_LOCATION_LATITUDE = "LOCATION_LATITUDE";
     public static final String PREFS_LOCATION_LONGITUDE = "LOCATION_LONGITUDE";
 

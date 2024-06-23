@@ -37,6 +37,15 @@ public class TokenManager {
     }
 
     public void clearLoggedInUser() {
+        prefs.edit().remove(PREFS_ACCESS_TOKEN_NAME).apply();
+        prefs.edit().remove(PREFS_REFRESH_TOKEN_NAME).apply();
+    }
+
+    public void clearAll() {
         prefs.edit().clear().apply();
+    }
+
+    public boolean isLoggedIn() {
+        return getAccessToken() != null;
     }
 }

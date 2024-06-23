@@ -3,8 +3,6 @@
     <string name="title_activity_base">BaseActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="home">Home</string>
     <string name="explore">Khám phá</string>
     <string name="history">History</string>
@@ -42,6 +40,19 @@
     <string name="error_network_unknown">Unknown error</string>
     <string name="avatar">avatar</string>
     <string name="background_image">background_image</string>
+    <string name="male">Nam</string>
+    <string name="female">Nữ</string>
+    <string name="other">Khác</string>
+    <string name="prefer_not_to_say">Không đề cập</string>
+    <string name="update_profile">Update Profile</string>
+    <string name="current_password">Mật khẩu hiện tại</string>
+    <string name="new_password">Mật khẩu mới</string>
+    <string name="confirm_password">Xác nhận mật khẩu</string>
+    <string name="change_password">Đổi mật khẩu</string>
+    <string name="current_password_is_required">Vui lòng nhập mật khẩu hiện tại</string>
+    <string name="new_password_is_required">Vui lòng nhập mật khẩu mới</string>
+    <string name="confirm_password_not_match">Mật khẩu không khớp</string>
+    <string name="new_password_must_be_different">Không được trùng mật khẩu cũ</string>
     <string name="delete_booking_history">Xoá lịch sử đặt phòng</string>
     <string name="report_error">Báo cáo lỗi</string>
     <string name="not_use_promotion">Ban khong su dung khuyen mai nao cho dat phong nay.</string>

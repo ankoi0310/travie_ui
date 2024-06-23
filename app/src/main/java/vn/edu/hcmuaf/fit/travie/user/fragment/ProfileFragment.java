@@ -28,9 +28,12 @@ import vn.edu.hcmuaf.fit.travie.user.adapter.ProfileMenuAdapter;
 import vn.edu.hcmuaf.fit.travie.databinding.FragmentProfileBinding;
 
 public class ProfileFragment extends Fragment {
-    FragmentProfileBinding binding;
+    private FragmentProfileBinding binding;
+    private ProfileMenuAdapter adapter;
 
-    UserService userService;
+    private UserService userService;
+
+    private UserProfile userProfile;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -83,7 +86,7 @@ public class ProfileFragment extends Fragment {
                     return;
                 }
 
-                UserProfile userProfile = httpResponse.getData();
+                userProfile = httpResponse.getData();
                 Log.d("UserProfile", userProfile.getFullName());
                 setProfile(userProfile);
             }
@@ -100,10 +103,13 @@ public class ProfileFragment extends Fragment {
         binding.usernameTxt.setText(userProfile.getUsername());
 
         Glide.with(requireContext()).load(userProfile.getAvatar()).into(binding.avatar);
+
+        adapter.setUserProfile(userProfile);
     }
 
     private void initProfileMenuList() {
+        adapter = new ProfileMenuAdapter(userProfile);
         binding.recyclerViewProfileMenu.setLayoutManager(new LinearLayoutManager(requireContext()));
-        binding.recyclerViewProfileMenu.setAdapter(new ProfileMenuAdapter());
+        binding.recyclerViewProfileMenu.setAdapter(adapter);
     }
 }

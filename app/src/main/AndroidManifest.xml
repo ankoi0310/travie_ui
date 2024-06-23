@@ -21,6 +21,12 @@
         android:theme="@style/Theme.Travie"
         tools:targetApi="31">
         <activity
+            android:name=".user.activity.PaymentMethodActivity"
+            android:exported="false" />
+        <activity
+            android:name=".user.ui.changepassword.ChangePasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".booking.ui.payment.ChoosePaymentMethodActivity"
             android:exported="false" />
         <activity

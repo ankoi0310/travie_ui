@@ -55,13 +55,15 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:autofillHints="username"
                     android:background="@drawable/bg_transparent"
                     android:ems="10"
                     android:inputType="text"
                     android:minHeight="48dp"
-                    android:text="Name"
+                    android:text=""
                     android:textColor="@color/text"
-                    android:textSize="@dimen/text_size_medium" />
+                    android:textSize="@dimen/text_size_medium"
+                    tools:ignore="LabelFor" />
             </LinearLayout>
 
             <LinearLayout
@@ -72,26 +74,28 @@
                 android:paddingVertical="@dimen/padding_4">
 
                 <TextView
-                    android:id="@+id/phoneNumberLabel"
+                    android:id="@+id/phoneLbl"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:text="@string/phone_number"
                     android:textSize="@dimen/text_size_medium"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:labelFor="@id/phoneTxt"/>
 
                 <EditText
                     android:id="@+id/phoneTxt"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:autofillHints="phone"
                     android:background="@drawable/bg_transparent"
                     android:ems="10"
                     android:inputType="phone"
                     android:minHeight="48dp"
                     android:paddingVertical="@dimen/padding_4"
-                    android:text="0123456789"
+                    android:text=""
                     android:textColor="@color/text_secondary"
                     android:textSize="@dimen/text_size_medium" />
             </LinearLayout>
@@ -104,7 +108,7 @@
                 android:paddingVertical="@dimen/padding_4">
 
                 <TextView
-                    android:id="@+id/emailLabel"
+                    android:id="@+id/emailLbl"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -118,13 +122,15 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:autofillHints="email"
                     android:background="@drawable/bg_transparent"
                     android:ems="10"
                     android:inputType="textEmailAddress"
                     android:minHeight="48dp"
-                    android:text="abc@gmail.com"
+                    android:text=""
                     android:textColor="@color/text_secondary"
-                    android:textSize="@dimen/text_size_medium" />
+                    android:textSize="@dimen/text_size_medium"
+                    tools:ignore="LabelFor" />
             </LinearLayout>
 
             <TextView
@@ -141,10 +147,10 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingVertical="@dimen/padding_12">
+                android:paddingVertical="@dimen/padding_4">
 
                 <TextView
-                    android:id="@+id/fullNameLabel"
+                    android:id="@+id/fullNameLbl"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -158,12 +164,14 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:autofillHints="fullName"
                     android:background="@drawable/bg_transparent"
                     android:inputType="textEmailAddress"
                     android:minHeight="48dp"
-                    android:text="Nguyen Van A"
+                    android:text=""
                     android:textColor="@color/text"
-                    android:textSize="@dimen/text_size_medium" />
+                    android:textSize="@dimen/text_size_medium"
+                    tools:ignore="LabelFor" />
             </LinearLayout>
 
             <LinearLayout
@@ -174,7 +182,7 @@
                 android:paddingVertical="@dimen/padding_4">
 
                 <TextView
-                    android:id="@+id/genderLabel"
+                    android:id="@+id/genderLbl"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -192,7 +200,7 @@
                     android:gravity="center_vertical"
                     android:minHeight="48dp"
                     android:paddingVertical="@dimen/padding_4"
-                    android:text="Nam"
+                    android:text=""
                     android:textColor="@color/text"
                     android:textSize="@dimen/text_size_medium" />
             </LinearLayout>
@@ -205,7 +213,7 @@
                 android:paddingVertical="@dimen/padding_4">
 
                 <TextView
-                    android:id="@+id/birthdayLabel"
+                    android:id="@+id/birthdayLbl"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -219,10 +227,11 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:autofillHints="birthday"
                     android:background="@drawable/bg_transparent"
                     android:gravity="center_vertical"
                     android:minHeight="48dp"
-                    android:text="03/10/2001"
+                    android:text=""
                     android:textColor="@color/text"
                     android:textSize="@dimen/text_size_medium" />
             </LinearLayout>
@@ -254,7 +263,7 @@
                 android:layout_gravity="center"
                 android:layout_marginHorizontal="@dimen/padding_16"
                 android:paddingVertical="@dimen/padding_12"
-                android:text="Update Profile"
+                android:text="@string/update_profile"
                 android:textSize="@dimen/text_size_large"
                 android:textStyle="bold" />
         </com.google.android.material.bottomappbar.BottomAppBar>
