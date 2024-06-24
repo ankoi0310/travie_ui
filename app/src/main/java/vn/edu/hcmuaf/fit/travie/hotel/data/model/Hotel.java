@@ -34,43 +34,16 @@ public class Hotel extends BaseModel {
     private boolean overnight;
     private int cancelBeforeHours;
     private Address address;
-    private ArrayList<BookingType> bookingTypes;
+    private ArrayList<BookingType> bookingTypes = new ArrayList<>();
     private @Nullable ArrayList<Room> rooms;
-    private ArrayList<String> images;
-    private ArrayList<Amenity> amenities;
+    private ArrayList<String> images = new ArrayList<>();
+    private ArrayList<Amenity> amenities = new ArrayList<>();
     private HotelStatus status;
     private double averageMark;
     private double averageMarkClean;
     private double averageMarkAmenity;
     private double averageMarkService;
-    private ArrayList<Review> reviews;
-
-    public Hotel(String name, String introduction, int firstHours, int checkIn, int checkOut, boolean daily, int startHourly, int endHourly, boolean hourly, int startOvernight, int endOvernight, boolean overnight, int cancelBeforeHours, Address address, ArrayList<BookingType> bookingTypes, ArrayList<String> images, ArrayList<Amenity> amenities, HotelStatus status, double averageMark, double averageMarkClean, double averageMarkAmenity, double averageMarkService, ArrayList<Review> reviews) {
-        this.name = name;
-        this.introduction = introduction;
-        this.firstHours = firstHours;
-        this.checkIn = checkIn;
-        this.checkOut = checkOut;
-        this.daily = daily;
-        this.startHourly = startHourly;
-        this.endHourly = endHourly;
-        this.hourly = hourly;
-        this.startOvernight = startOvernight;
-        this.endOvernight = endOvernight;
-        this.overnight = overnight;
-        this.cancelBeforeHours = cancelBeforeHours;
-        this.address = address;
-        this.bookingTypes = bookingTypes;
-        this.rooms = null;
-        this.images = images;
-        this.amenities = amenities;
-        this.status = status;
-        this.averageMark = averageMark;
-        this.averageMarkClean = averageMarkClean;
-        this.averageMarkAmenity = averageMarkAmenity;
-        this.averageMarkService = averageMarkService;
-        this.reviews = reviews;
-    }
+    private ArrayList<Review> reviews = new ArrayList<>();
 
     public Hotel(Parcel in) {
         super(in);
@@ -87,17 +60,25 @@ public class Hotel extends BaseModel {
         endOvernight = in.readInt();
         overnight = in.readByte() != 0;
         cancelBeforeHours = in.readInt();
-        address = in.readParcelable(Address.class.getClassLoader());
-        bookingTypes = in.createTypedArrayList(BookingType.CREATOR);
-        rooms = in.createTypedArrayList(Room.CREATOR);
-        images = in.createStringArrayList();
-        amenities = in.createTypedArrayList(Amenity.CREATOR);
+        address = in.readTypedObject(Address.CREATOR);
+        in.readTypedList(bookingTypes, BookingType.CREATOR);
+
+        boolean hasRooms = in.readBoolean();
+        if (hasRooms) {
+            rooms = new ArrayList<>();
+            in.readTypedList(rooms, Room.CREATOR);
+        } else {
+            rooms = null;
+        }
+
+        in.readStringList(images);
+        in.readTypedList(amenities, Amenity.CREATOR);
         status = HotelStatus.valueOf(in.readString());
         averageMark = in.readDouble();
         averageMarkClean = in.readDouble();
         averageMarkAmenity = in.readDouble();
         averageMarkService = in.readDouble();
-        reviews = in.createTypedArrayList(Review.CREATOR);
+        in.readTypedList(reviews, Review.CREATOR);
     }
 
     public static final Creator<Hotel> CREATOR = new Creator<Hotel>() {
@@ -114,6 +95,7 @@ public class Hotel extends BaseModel {
 
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
         dest.writeString(name);
         dest.writeString(introduction);
         dest.writeInt(firstHours);
@@ -127,9 +109,14 @@ public class Hotel extends BaseModel {
         dest.writeInt(endOvernight);
         dest.writeByte((byte) (overnight ? 1 : 0));
         dest.writeInt(cancelBeforeHours);
-        dest.writeParcelable(address, flags);
+        dest.writeTypedObject(address, PARCELABLE_WRITE_RETURN_VALUE);
         dest.writeTypedList(bookingTypes);
-        dest.writeTypedList(rooms);
+        if (rooms != null) {
+            dest.writeBoolean(true);
+            dest.writeTypedList(rooms);
+        } else {
+            dest.writeBoolean(false);
+        }
         dest.writeStringList(images);
         dest.writeTypedList(amenities);
         dest.writeString(status.name());

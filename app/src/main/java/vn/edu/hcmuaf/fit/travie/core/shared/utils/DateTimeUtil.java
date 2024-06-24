@@ -1,7 +1,9 @@
 package vn.edu.hcmuaf.fit.travie.core.shared.utils;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -60,5 +62,9 @@ public class DateTimeUtil {
         return calendar1.get(Calendar.YEAR) == calendar2.get(Calendar.YEAR) &&
                 calendar1.get(Calendar.MONTH) == calendar2.get(Calendar.MONTH) &&
                 calendar1.get(Calendar.DAY_OF_MONTH) == calendar2.get(Calendar.DAY_OF_MONTH);
+    }
+
+    public static long calculateDuration(LocalDateTime start, LocalDateTime end) {
+        return ChronoUnit.HOURS.between(start, end);
     }
 }

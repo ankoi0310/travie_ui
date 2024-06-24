@@ -1,6 +1,7 @@
 package vn.edu.hcmuaf.fit.travie.hotel.ui;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;

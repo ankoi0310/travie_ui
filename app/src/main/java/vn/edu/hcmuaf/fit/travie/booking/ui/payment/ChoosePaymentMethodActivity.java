@@ -1,32 +1,29 @@
 package vn.edu.hcmuaf.fit.travie.booking.ui.payment;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.widget.RadioButton;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.lifecycle.ViewModelProvider;
 
 import java.util.List;
 import java.util.Objects;
 
-import javax.inject.Inject;
-
 import vn.edu.hcmuaf.fit.travie.R;
-import vn.edu.hcmuaf.fit.travie.booking.ui.BookingViewModel;
-import vn.edu.hcmuaf.fit.travie.booking.ui.BookingViewModelFactory;
+import vn.edu.hcmuaf.fit.travie.booking.data.model.BookingRequest;
+import vn.edu.hcmuaf.fit.travie.booking.data.service.BookingRequestHolder;
 import vn.edu.hcmuaf.fit.travie.core.common.ui.BaseActivity;
 import vn.edu.hcmuaf.fit.travie.core.shared.enums.invoice.PaymentMethod;
 import vn.edu.hcmuaf.fit.travie.databinding.ActivityChoosePaymentMethodBinding;
 
 public class ChoosePaymentMethodActivity extends BaseActivity {
     ActivityChoosePaymentMethodBinding binding;
+    BookingRequestHolder bookingRequestHolder = BookingRequestHolder.getInstance();
     List<RadioButton> radioButtons;
-
-    @Inject
-    BookingViewModel bookingViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +31,9 @@ public class ChoosePaymentMethodActivity extends BaseActivity {
         binding = ActivityChoosePaymentMethodBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        bookingViewModel = new ViewModelProvider(this, new BookingViewModelFactory(this)).get(BookingViewModel.class);
-
         radioButtons = List.of(binding.rbATM, binding.rbMomo);
+
+        setSelectedPaymentMethod();
 
         Drawable uncheckDrawable = getUncheckedDrawable();
         Drawable checkedDrawable = getCheckedDrawable();
@@ -49,9 +46,49 @@ public class ChoosePaymentMethodActivity extends BaseActivity {
 
         binding.submitBtn.setOnClickListener(v -> {
             int resId = binding.paymentMethodGroup.getCheckedRadioButtonId();
-            Objects.requireNonNull(bookingViewModel.getBookingRequest().getValue()).setPaymentMethod(PaymentMethod.fromResId(resId));
+            PaymentMethod paymentMethod = PaymentMethod.fromResId(resId);
+
+            BookingRequest bookingRequest = bookingRequestHolder.getBookingRequest();
+            if (bookingRequest != null) {
+                bookingRequest.setPaymentMethod(paymentMethod);
+                bookingRequestHolder.setBookingRequest(bookingRequest);
+            }
+
+            setResult(RESULT_OK, new Intent().putExtra("paymentMethod", paymentMethod));
             finish();
         });
+    }
+
+    private void setSelectedPaymentMethod() {
+        BookingRequest bookingRequest = bookingRequestHolder.getBookingRequest();
+        if (bookingRequest != null) {
+            PaymentMethod paymentMethod = bookingRequest.getPaymentMethod();
+            if (paymentMethod != null) {
+                if (paymentMethod == PaymentMethod.ATM) {
+                    binding.rbATM.setChecked(true);
+                    binding.rbATM.setCompoundDrawablesWithIntrinsicBounds(null, null, getCheckedDrawable(), null);
+                } else if (paymentMethod == PaymentMethod.MOMO) {
+                    binding.rbMomo.setChecked(true);
+                    binding.rbMomo.setCompoundDrawablesWithIntrinsicBounds(null, null, getCheckedDrawable(), null);
+                }
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK && data != null) {
+            PaymentMethod paymentMethod = data.getSerializableExtra("paymentMethod", PaymentMethod.class);
+            if (paymentMethod != null) {
+                if (paymentMethod == PaymentMethod.ATM) {
+                    binding.rbATM.setChecked(true);
+                } else if (paymentMethod == PaymentMethod.MOMO) {
+                    binding.rbMomo.setChecked(true);
+                }
+            }
+        }
     }
 
     private Drawable getCheckedDrawable() {

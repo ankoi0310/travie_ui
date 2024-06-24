@@ -98,7 +98,7 @@
                                 android:textStyle="bold" />
 
                             <TextView
-                                android:id="@+id/changeBtn"
+                                android:id="@+id/changeTimeBtn"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Sửa"
@@ -214,6 +214,7 @@
                                     android:id="@+id/originalPriceTxt"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:visibility="gone"
                                     android:textSize="@dimen/text_size_small"
                                     android:textColor="@color/text_secondary"
                                     android:foreground="@drawable/strike_through_line"
@@ -334,7 +335,7 @@
                 </LinearLayout>
 
                 <Button
-                    android:id="@+id/button2"
+                    android:id="@+id/checkout_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="32dp"

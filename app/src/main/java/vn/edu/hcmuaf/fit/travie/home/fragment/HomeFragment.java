@@ -84,6 +84,40 @@ public class HomeFragment extends Fragment {
 
         hotelViewModel = new ViewModelProvider(requireActivity(), new HotelViewModelFactory(requireContext())).get(HotelViewModel.class);
         fetchHotelList();
+        hotelViewModel.getNearByHotelList().observe(getViewLifecycleOwner(), result -> new Handler(Looper.getMainLooper())
+                .postDelayed(() -> {
+                    if (result.getError() != null) {
+                        Toast.makeText(getContext(), result.getError(), Toast.LENGTH_SHORT).show();
+                    }
+
+                    if (result.getSuccess() != null) {
+                        ArrayList<Hotel> hotels = result.getSuccess();
+                        HotelAdapter hotelAdapter = new HotelAdapter(hotels);
+                        binding.nearbyRecyclerView.setAdapter(hotelAdapter);
+                    }
+
+                    if (loadingView.getVisibility() == View.VISIBLE) {
+                        AnimationUtil.animateView(loadingView, View.GONE, 0, 200);
+                    }
+                }, 2000));
+        hotelViewModel.getPopularHotelList().observe(getViewLifecycleOwner(), result -> new Handler(Looper.getMainLooper())
+                .postDelayed(() -> {
+                    if (result.getError() != null) {
+                        Toast.makeText(getContext(), result.getError(), Toast.LENGTH_SHORT).show();
+                    }
+
+                    if (result.getSuccess() != null) {
+                        ArrayList<Hotel> hotels = result.getSuccess();
+                        HotelAdapter hotelAdapter = new HotelAdapter(hotels);
+                        binding.popularRecyclerView.setAdapter(hotelAdapter);
+                    }
+
+                    if (loadingView.getVisibility() == View.VISIBLE) {
+                        AnimationUtil.animateView(loadingView, View.GONE, 0, 200);
+                    }
+                }, 2000));
+
+        binding.swipeRefreshLayout.setOnRefreshListener(this::fetchHotelList);
 
         binding.nearbyRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         binding.nearbyRecyclerView.addItemDecoration(new SpaceItemDecoration(12, RecyclerView.HORIZONTAL));
@@ -107,41 +141,6 @@ public class HomeFragment extends Fragment {
     private void fetchHotelList() {
         hotelViewModel.fetchNearByHotelList("Hồ Chí Minh");
         hotelViewModel.fetchPopularHotelList();
-
-        hotelViewModel.getNearByHotelList().observe(getViewLifecycleOwner(), result -> new Handler(Looper.getMainLooper())
-                .postDelayed(() -> {
-                    if (loadingView.getVisibility() == View.VISIBLE) {
-                        AnimationUtil.animateView(loadingView, View.GONE, 0, 200);
-                    }
-
-                    if (result.getError() != null) {
-                        Toast.makeText(getContext(), result.getError(), Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-
-                    if (result.getSuccess() != null) {
-                        ArrayList<Hotel> hotels = result.getSuccess();
-                        HotelAdapter hotelAdapter = new HotelAdapter(hotels);
-                        binding.nearbyRecyclerView.setAdapter(hotelAdapter);
-                    }
-                }, 2000));
-        hotelViewModel.getPopularHotelList().observe(getViewLifecycleOwner(), result -> new Handler(Looper.getMainLooper())
-                .postDelayed(() -> {
-                    if (loadingView.getVisibility() == View.VISIBLE) {
-                        AnimationUtil.animateView(loadingView, View.GONE, 0, 200);
-                    }
-
-                    if (result.getError() != null) {
-                        Toast.makeText(getContext(), result.getError(), Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-
-                    if (result.getSuccess() != null) {
-                        ArrayList<Hotel> hotels = result.getSuccess();
-                        HotelAdapter hotelAdapter = new HotelAdapter(hotels);
-                        binding.popularRecyclerView.setAdapter(hotelAdapter);
-                    }
-                }, 2000));
     }
 
     private synchronized String getCityName(Context context, Location location) {

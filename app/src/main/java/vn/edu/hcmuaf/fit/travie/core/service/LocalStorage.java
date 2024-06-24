@@ -6,6 +6,9 @@ import android.content.SharedPreferences;
 import java.util.Arrays;
 import java.util.Set;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import vn.edu.hcmuaf.fit.travie.R;
 
 public class LocalStorage {
