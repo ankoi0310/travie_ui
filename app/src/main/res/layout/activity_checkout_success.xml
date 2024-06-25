@@ -44,11 +44,11 @@
                     android:orientation="vertical"
                     android:padding="50dp">
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/imageView"
                         android:layout_width="120dp"
                         android:layout_height="120dp"
-                        app:srcCompat="@drawable/close_circle" />
+                        app:srcCompat="@drawable/tick_circle" />
 
                     <TextView
                         android:id="@+id/bookingStatusTxt"
@@ -85,7 +85,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/margin_16"
-                        android:text="Chi tiet dat phong"
+                        android:text="@string/booking_detail"
                         android:textSize="@dimen/text_size_large"
                         android:textStyle="bold" />
 
@@ -97,17 +97,16 @@
 
                         <TextView
                             android:id="@+id/codeLabel"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_weight="1"
-                            android:text="Ma dat phong"
+                            android:layout_height="wrap_content"
+                            android:text="@string/booking_code"
                             android:textSize="@dimen/text_size_medium" />
 
                         <TextView
-                            android:id="@+id/codeTxt"
+                            android:id="@+id/code_txt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
                             android:text="2222222"
                             android:textAlignment="textEnd"
                             android:textSize="@dimen/text_size_medium" />
@@ -124,11 +123,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="So dien thoai"
+                            android:text="@string/phone_number"
                             android:textSize="@dimen/text_size_medium" />
 
                         <TextView
-                            android:id="@+id/phoneTxt"
+                            android:id="@+id/phone_txt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -145,17 +144,16 @@
 
                         <TextView
                             android:id="@+id/usernameLabel"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Nguoi nhan"
+                            android:text="@string/check_in_person"
                             android:textSize="@dimen/text_size_medium" />
 
                         <TextView
                             android:id="@+id/usernameTxt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
                             android:text="username"
                             android:textAlignment="textEnd"
                             android:textSize="@dimen/text_size_medium" />
@@ -201,7 +199,7 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:id="@+id/hotelTxt"
+                                android:id="@+id/hotel_txt"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="@dimen/margin_8"
@@ -210,7 +208,7 @@
                                 android:textSize="@dimen/text_size_normal" />
 
                             <TextView
-                                android:id="@+id/roomTxt"
+                                android:id="@+id/room_txt"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="@dimen/margin_8"
@@ -221,7 +219,7 @@
                                 android:textStyle="bold" />
 
                             <TextView
-                                android:id="@+id/addressTxt"
+                                android:id="@+id/address_txt"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:ellipsize="end"
@@ -234,34 +232,35 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:baselineAligned="false"
                         android:orientation="horizontal">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_marginEnd="@dimen/margin_8"
                             android:layout_weight="1">
 
-                            <androidx.cardview.widget.CardView
-                                android:layout_width="0dp"
-                                android:layout_height="0dp"
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
                                 app:cardCornerRadius="8dp"
                                 app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintDimensionRatio=".85:1"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
                                 app:srcCompat="@drawable/hotel_demo">
 
                                 <LinearLayout
+
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:background="@drawable/bg_gradient_day"
                                     android:gravity="center"
                                     android:orientation="vertical">
 
-                                    <ImageView
-                                        android:id="@+id/timeImg"
+                                    <androidx.appcompat.widget.AppCompatImageView
+                                        android:id="@+id/timeIcon"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginBottom="@dimen/margin_8"
@@ -277,14 +276,14 @@
                                         android:textColor="@color/icon_on_primary"
                                         android:textStyle="bold" />
                                 </LinearLayout>
-                            </androidx.cardview.widget.CardView>
+                            </com.google.android.material.card.MaterialCardView>
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="2.5"
-                            android:background="@drawable/invoice_bg"
+                            android:background="@drawable/bg_rounded_card"
                             android:backgroundTint="@color/surface"
                             android:orientation="vertical"
                             android:paddingHorizontal="20dp"

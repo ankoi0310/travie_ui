@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -34,14 +35,13 @@ public class CheckoutActivity extends BaseActivity {
     BookingViewModel bookingViewModel;
     BookingRequestHolder bookingRequestHolder = BookingRequestHolder.getInstance();
 
+    private boolean isResumedFromBrowser = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityCheckoutBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        // Handle the incoming deep link
-        handleDeepLink();
 
         bookingViewModel = new BookingViewModelFactory(this).create(BookingViewModel.class);
 
@@ -71,7 +71,8 @@ public class CheckoutActivity extends BaseActivity {
             BookingRequest bookingRequest = bookingRequestHolder.getBookingRequest();
             bookingRequest.setGuestName(binding.guestNameTxt.getText().toString());
             bookingRequest.setGuestPhone(binding.guestPhoneTxt.getText().toString());
-            bookingViewModel.checkout();
+//            bookingViewModel.checkout();
+            openWebPage("https://pay.payos.vn/web/a759a46c402f494ab58513a00489fbdc");
         });
         bookingViewModel.getBookingResult().observe(this, result -> {
             if (result.getError() != null) {
@@ -87,37 +88,23 @@ public class CheckoutActivity extends BaseActivity {
         });
     }
 
-    private void handleDeepLink() {
-        Intent intent = getIntent();
-        String action = intent.getAction();
-        Uri data = intent.getData();
-
-        if (Intent.ACTION_VIEW.equals(action) && data != null) {
-            Optional<String> path = data.getPathSegments().stream().findFirst();
-
-            if (path.isPresent()) {
-                switch (path.get()) {
-                    case "checkout-cancel":
-//                        Intent checkoutCancelIntent = new Intent(this, CheckoutFailActivity.class);
-//                        startActivity(checkoutCancelIntent);
-                        break;
-                    case "checkout-success":
-//                        Intent successIntent = new Intent(this, CheckoutSuccessActivity.class);
-//                        successIntent.putExtra("orderCode", data.getQueryParameter("orderCode"));
-//                        startActivity(successIntent);
-                        break;
-                }
-            }
-        }
-    }
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//
+//        if (isResumedFromBrowser) {
+//            isResumedFromBrowser = false;
+//            Intent intent = new Intent(this, CheckoutSuccessActivity.class);
+//            startActivity(intent);
+//            finish();
+//        }
+//    }
 
     public void openWebPage(String url) {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivity(intent);
-        } else {
-            Toast.makeText(this, "No application can handle this request. Please install a web browser", Toast.LENGTH_LONG).show();
-        }
+        startActivity(intent);
+
+        isResumedFromBrowser = true;
     }
 
     private void handleBookingRequest() {

@@ -4,26 +4,27 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.Parcelable;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import java.util.Locale;
-import java.util.OptionalInt;
+import com.bumptech.glide.Glide;
 
-import javax.inject.Inject;
+import java.util.Locale;
 
 import io.noties.markwon.Markwon;
 import vn.edu.hcmuaf.fit.travie.R;
 import vn.edu.hcmuaf.fit.travie.booking.data.model.BookingRequest;
 import vn.edu.hcmuaf.fit.travie.booking.data.service.BookingRequestHolder;
-import vn.edu.hcmuaf.fit.travie.booking.ui.BookingViewModel;
-import vn.edu.hcmuaf.fit.travie.booking.ui.BookingViewModelFactory;
 import vn.edu.hcmuaf.fit.travie.booking.ui.chooseroom.ChooseRoomActivity;
 import vn.edu.hcmuaf.fit.travie.booking.ui.choosetime.ChooseTimeDialogFragment;
 import vn.edu.hcmuaf.fit.travie.core.common.ui.BaseActivity;
@@ -50,6 +51,18 @@ public class HotelDetailActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityHotelDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+        ViewCompat.setOnApplyWindowInsetsListener(binding.main, (v, insets) -> {
+            Insets stautusBars = insets.getInsets(WindowInsetsCompat.Type.statusBars());
+            // unit of stautusBars.top is px, so we need to convert it to dp
+            int statusBarHeight = stautusBars.top / (getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+            binding.toolbar.setPadding(0, statusBarHeight + binding.toolbar.getPaddingBottom(), 0,  binding.toolbar.getPaddingBottom());
+            binding.toolbar.setTitleMarginTop(statusBarHeight - 4);
+            v.setPadding(0, 0, 0, stautusBars.bottom);
+            return WindowInsetsCompat.CONSUMED;
+        });
+        ;
 
         binding.rootLayout.setVisibility(View.GONE);
         AnimationUtil.animateView(binding.loadingView.getRoot(), View.VISIBLE, 0.4f, 200);
@@ -86,7 +99,7 @@ public class HotelDetailActivity extends BaseActivity {
 
         binding.chooseRoomBtn.setOnClickListener(v -> {
             Intent intent = new Intent(this, ChooseRoomActivity.class);
-            intent.putExtra("hotel", hotel);
+            intent.putExtra("hotelId", hotel.getId());
             startActivity(intent);
         });
 
@@ -119,6 +132,13 @@ public class HotelDetailActivity extends BaseActivity {
 
                     if (result.getSuccess() != null) {
                         hotel = result.getSuccess();
+
+                        Glide.with(this)
+                                .load(hotel.getImages().get(0))
+                                .centerCrop()
+                                .placeholder(R.drawable.hotel_demo)
+                                .into(binding.hotelImg);
+
                         binding.nameTxt.setText(hotel.getName());
                         binding.addressTxt.setText(hotel.getAddress().getFullAddress());
                         binding.averageMarkTxt1.setText(String.valueOf(hotel.getAverageMark()));
