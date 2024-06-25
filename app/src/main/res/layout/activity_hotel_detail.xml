@@ -32,7 +32,7 @@
                     app:titleEnabled="false"
                     app:toolbarId="@+id/toolbar">
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/hotelImg"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -42,7 +42,8 @@
                     <com.google.android.material.appbar.MaterialToolbar
                         android:id="@+id/toolbar"
                         android:layout_width="match_parent"
-                        android:layout_height="?attr/actionBarSize"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="@dimen/padding_8"
                         app:layout_collapseMode="pin"
                         app:menu="@menu/app_bar_menu"
                         app:titleTextColor="@color/black"
@@ -370,6 +371,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:paddingTop="@dimen/padding_12"
+                android:paddingBottom="@dimen/padding_8"
                 app:contentInsetEnd="0dp"
                 app:contentInsetStart="0dp">
 
