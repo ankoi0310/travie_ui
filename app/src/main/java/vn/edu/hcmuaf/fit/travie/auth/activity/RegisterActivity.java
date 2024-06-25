@@ -1,4 +1,4 @@
-package vn.edu.hcmuaf.fit.travie.auth.activity.register;
+package vn.edu.hcmuaf.fit.travie.auth.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,31 +15,26 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import vn.edu.hcmuaf.fit.travie.R;
-import vn.edu.hcmuaf.fit.travie.auth.activity.login.LoginActivity;
-import vn.edu.hcmuaf.fit.travie.auth.activity.verify.EnterOTPActivity;
 import vn.edu.hcmuaf.fit.travie.auth.model.RegisterRequest;
 import vn.edu.hcmuaf.fit.travie.auth.model.RegisterResponse;
 import vn.edu.hcmuaf.fit.travie.auth.service.AuthService;
 import vn.edu.hcmuaf.fit.travie.core.handler.domain.HttpResponse;
 import vn.edu.hcmuaf.fit.travie.core.service.RetrofitService;
-import vn.edu.hcmuaf.fit.travie.core.shared.enums.Gender;
+import vn.edu.hcmuaf.fit.travie.core.service.TokenManager;
+import vn.edu.hcmuaf.fit.travie.core.shared.enums.otp.OTPType;
 import vn.edu.hcmuaf.fit.travie.databinding.ActivityRegisterBinding;
-import vn.edu.hcmuaf.fit.travie.welcome.WelcomeActivity;
 
 public class RegisterActivity extends AppCompatActivity {
     private ActivityRegisterBinding binding;
     private AuthService authService;
+    private TokenManager tokenManager;
+    private OTPType otpType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +43,8 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         authService = RetrofitService.createService(this, AuthService.class);
+        tokenManager = new TokenManager(this);
+
 
         TextWatcher afterTextChangedListener = new TextWatcher() {
             @Override
@@ -140,7 +137,7 @@ public class RegisterActivity extends AppCompatActivity {
                     HttpResponse<RegisterResponse> httpResponse = response.body();
                     if (httpResponse != null && httpResponse.isSuccess() && httpResponse.getData() != null) {
                         Intent intent = new Intent(RegisterActivity.this, EnterOTPActivity.class);
-                        startActivity(intent);
+                        startActivity(intent.putExtra("OTP_TYPE", OTPType.VERIFY_EMAIL));
                         finish();
                     } else {
                         showRegisterFailed("Đăng ký không thành công. Vui lòng thử lại.");

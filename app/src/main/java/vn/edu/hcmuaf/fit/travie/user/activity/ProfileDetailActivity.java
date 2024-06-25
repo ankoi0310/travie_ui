@@ -2,7 +2,6 @@ package vn.edu.hcmuaf.fit.travie.user.activity;
 
 import static vn.edu.hcmuaf.fit.travie.core.shared.constant.AppConstant.INTENT_USER_PROFILE;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.text.Editable;
@@ -223,10 +222,6 @@ public class ProfileDetailActivity extends BaseActivity {
                 currentGender,
                 LocalDate.parse(binding.birthdayTxt.getText().toString(), formatter)
         );
-
-
-
-
         Gson gson = new Gson();
         String requestJson = gson.toJson(userProfileRequest);
         Log.d("UserProfileRequest_JSON", requestJson);

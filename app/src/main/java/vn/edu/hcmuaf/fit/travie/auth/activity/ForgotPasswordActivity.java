@@ -1,10 +1,8 @@
-package vn.edu.hcmuaf.fit.travie.auth.activity.forgotpassword;
+package vn.edu.hcmuaf.fit.travie.auth.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -13,33 +11,29 @@ import androidx.appcompat.app.AppCompatActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import vn.edu.hcmuaf.fit.travie.R;
-import vn.edu.hcmuaf.fit.travie.auth.activity.login.LoginActivity;
-import vn.edu.hcmuaf.fit.travie.auth.activity.verify.EnterOTPActivity;
 import vn.edu.hcmuaf.fit.travie.auth.model.ForgotPasswordRequest;
-import vn.edu.hcmuaf.fit.travie.auth.model.VerifyOTPRequest;
 import vn.edu.hcmuaf.fit.travie.auth.service.AuthService;
 import vn.edu.hcmuaf.fit.travie.core.handler.domain.HttpResponse;
 import vn.edu.hcmuaf.fit.travie.core.service.RetrofitService;
+import vn.edu.hcmuaf.fit.travie.core.shared.enums.otp.OTPType;
+import vn.edu.hcmuaf.fit.travie.databinding.ActivityForgotPasswordBinding;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
+    private ActivityForgotPasswordBinding binding;
     private AuthService authService;
-    private EditText emailEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_forgot_password);
+        binding = ActivityForgotPasswordBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         authService = RetrofitService.createService(this, AuthService.class);
-        emailEditText = findViewById(R.id.editEmail);
-        String email = emailEditText.getText().toString().trim();
 
-        Button submitButton = findViewById(R.id.buttonSubmitEmail);
-        submitButton.setOnClickListener(new View.OnClickListener() {
+        binding.buttonSubmitEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                String email = binding.editEmail.getText().toString();
                 if (email.isEmpty()) {
                     Toast.makeText(ForgotPasswordActivity.this, "Please enter your email", Toast.LENGTH_SHORT).show();
                 } else {
@@ -49,14 +43,19 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             }
         });
     }
+
     private void forgotPassword(ForgotPasswordRequest request) {
         Call<HttpResponse<String>> call = authService.forgotPassword(request);
         call.enqueue(new Callback<HttpResponse<String>>() {
             @Override
             public void onResponse(@NonNull Call<HttpResponse<String>> call, @NonNull Response<HttpResponse<String>> response) {
                 if (response.isSuccessful() && response.body() != null && response.body().isSuccess()) {
-                    startActivity(new Intent(ForgotPasswordActivity.this, EnterOTPActivity.class));
+                    Intent intent = new Intent(ForgotPasswordActivity.this, EnterOTPActivity.class);
+                    intent.putExtra("OTP_TYPE", OTPType.RESET_PASSWORD);
+                    startActivity(intent);
                     finish();
+                } else {
+                    Toast.makeText(ForgotPasswordActivity.this, "Failed to send reset email. Please try again.", Toast.LENGTH_SHORT).show();
                 }
             }
 

@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import vn.edu.hcmuaf.fit.travie.auth.activity.login.LoginActivity;
+import vn.edu.hcmuaf.fit.travie.auth.activity.LoginActivity;
 import vn.edu.hcmuaf.fit.travie.core.service.TokenManager;
 import vn.edu.hcmuaf.fit.travie.core.shared.enums.ProfileMenu;
 import vn.edu.hcmuaf.fit.travie.databinding.ViewHolderProfileMenuBinding;
