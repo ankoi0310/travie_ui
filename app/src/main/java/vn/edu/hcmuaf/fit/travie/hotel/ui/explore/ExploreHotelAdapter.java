@@ -22,7 +22,11 @@ import vn.edu.hcmuaf.fit.travie.hotel.ui.hoteldetail.HotelDetailActivity;
 public class ExploreHotelAdapter extends RecyclerView.Adapter<ExploreHotelAdapter.ViewHolder> {
     ViewHolderExploreHotelBinding binding;
     Context context;
-    List<Hotel> hotels = new ArrayList<>();
+    ArrayList<Hotel> hotels = new ArrayList<>();
+
+    public ExploreHotelAdapter(ArrayList<Hotel> hotels) {
+        this.hotels = hotels;
+    }
 
     @NonNull
     @Override
@@ -30,12 +34,6 @@ public class ExploreHotelAdapter extends RecyclerView.Adapter<ExploreHotelAdapte
         context = parent.getContext();
         binding = ViewHolderExploreHotelBinding.inflate(LayoutInflater.from(context), parent, false);
         return new ViewHolder(binding);
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    public void setHotels(List<Hotel> hotels) {
-        this.hotels = hotels;
-        notifyDataSetChanged();
     }
 
     @Override

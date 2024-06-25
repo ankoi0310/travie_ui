@@ -2,6 +2,8 @@ package vn.edu.hcmuaf.fit.travie.user.ui.changepassword;
 
 import static vn.edu.hcmuaf.fit.travie.core.shared.constant.FormState.*;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
@@ -13,30 +15,25 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import vn.edu.hcmuaf.fit.travie.core.handler.domain.HttpResponse;
+import vn.edu.hcmuaf.fit.travie.core.service.RetrofitService;
 import vn.edu.hcmuaf.fit.travie.core.shared.utils.AppUtil;
 import vn.edu.hcmuaf.fit.travie.user.model.ChangePasswordRequest;
 import vn.edu.hcmuaf.fit.travie.user.service.UserService;
 
-@Singleton
 public class ChangePasswordViewModel extends ViewModel {
     private final MutableLiveData<ChangePasswordFormState> changePasswordFormState = new MutableLiveData<>();
     private final MutableLiveData<ChangePasswordResult> changePasswordResult = new MutableLiveData<>();
 
     private final UserService userService;
 
-    @Inject
-    ChangePasswordViewModel(UserService userService) {
-        this.userService = userService;
+    ChangePasswordViewModel(Context context) {
+        this.userService = RetrofitService.createService(context, UserService.class);
     }
-
 
     LiveData<ChangePasswordFormState> getChangePasswordFormState() {
         return changePasswordFormState;

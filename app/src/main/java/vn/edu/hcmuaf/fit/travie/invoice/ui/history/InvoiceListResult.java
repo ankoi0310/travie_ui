@@ -8,7 +8,7 @@ import vn.edu.hcmuaf.fit.travie.invoice.data.model.Invoice;
 
 @Getter
 @RequiredArgsConstructor
-public class InvoiceResult {
+public class InvoiceListResult {
     private final ArrayList<Invoice> success;
     private final String error;
 }

@@ -6,30 +6,26 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import it.koi.flashytabbar.TabFlashyAnimator;
-import vn.edu.hcmuaf.fit.travie.MyApplication;
 import vn.edu.hcmuaf.fit.travie.R;
-import vn.edu.hcmuaf.fit.travie.core.common.di.MainComponent;
 import vn.edu.hcmuaf.fit.travie.core.shared.constant.AppConstant;
-import vn.edu.hcmuaf.fit.travie.core.shared.utils.AnimationUtil;
 import vn.edu.hcmuaf.fit.travie.databinding.ActivityMainBinding;
 import vn.edu.hcmuaf.fit.travie.hotel.ui.explore.ExploreFragment;
 import vn.edu.hcmuaf.fit.travie.invoice.ui.history.HistoryFragment;
@@ -38,22 +34,12 @@ import vn.edu.hcmuaf.fit.travie.user.fragment.ProfileFragment;
 
 public class MainActivity extends BaseActivity {
     ActivityMainBinding binding;
-    public MainComponent mainComponent;
-    private final List<Fragment> mFragmentList = new ArrayList<Fragment>() {{
-        add(new HomeFragment());
-        add(new ExploreFragment());
-        add(new HistoryFragment());
-        add(new ProfileFragment());
-    }};
     private TabFlashyAnimator tabFlashyAnimator;
     private SharedViewModel sharedViewModel;
     private FusedLocationProviderClient fusedLocationProviderClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        mainComponent = ((MyApplication) getApplication()).getApplicationComponent()
-                .mainComponent().create();
-        mainComponent.inject(this);
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -62,35 +48,12 @@ public class MainActivity extends BaseActivity {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         // Show loading view
-        AnimationUtil.animateView(binding.loadingView.getRoot(), View.VISIBLE, 0.4f, 200);
+//        AnimationUtil.animateView(binding.loadingView.getRoot(), View.VISIBLE, 0.4f, 200);
 
         getLastLocation();
 
-        FragmentStateAdapter adapter = new FragmentStateAdapter(this) {
-            @NonNull
-            @Override
-            public Fragment createFragment(int position) {
-                return mFragmentList.get(position);
-            }
-
-            @Override
-            public int getItemCount() {
-                return mFragmentList.size();
-            }
-        };
+        PageAdapter adapter = new PageAdapter(this);
         binding.viewPager.setAdapter(adapter);
-        binding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                AnimationUtil.animateView(binding.loadingView.getRoot(), View.VISIBLE, 0.4f, 200);
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {}
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {}
-        });
 
         new TabLayoutMediator(binding.tabLayout, binding.viewPager, (tab, position) -> {
         }).attach();
@@ -102,10 +65,12 @@ public class MainActivity extends BaseActivity {
         tabFlashyAnimator.addTabItem(AppConstant.MenuTitle.PROFILE, R.drawable.user);
         tabFlashyAnimator.highLightTab(0);
 
+        binding.viewPager.setOffscreenPageLimit(1);
         binding.viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
+//                AnimationUtil.animateView(binding.loadingView.getRoot(), View.VISIBLE, 0.4f, 200);
                 tabFlashyAnimator.highLightTab(position);
             }
         });
@@ -149,5 +114,29 @@ public class MainActivity extends BaseActivity {
                 Log.d("HomeFragment", "onCreate: " + location.getLatitude() + " " + location.getLongitude());
             }
         });
+    }
+
+    public static class PageAdapter extends FragmentStateAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<Fragment>() {{
+            add(HomeFragment.newInstance());
+            add(ExploreFragment.newInstance());
+            add(HistoryFragment.newInstance());
+            add(ProfileFragment.newInstance());
+        }};
+
+        public PageAdapter(@NonNull FragmentActivity fragmentActivity) {
+            super(fragmentActivity);
+        }
+
+        @NonNull
+        @Override
+        public Fragment createFragment(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getItemCount() {
+            return mFragmentList.size();
+        }
     }
 }

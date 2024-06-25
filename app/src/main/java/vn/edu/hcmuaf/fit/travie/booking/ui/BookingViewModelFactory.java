@@ -6,11 +6,9 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import javax.inject.Inject;
-
 import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor(onConstructor = @__(@Inject))
+@RequiredArgsConstructor
 public class BookingViewModelFactory implements ViewModelProvider.Factory {
     private final Context context;
 

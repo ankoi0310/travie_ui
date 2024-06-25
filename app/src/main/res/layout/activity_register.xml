@@ -23,13 +23,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/username"
+        android:id="@+id/fullname"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
-        android:autofillHints="@string/username"
-        android:hint="@string/username"
-        android:inputType="text"
+        android:autofillHints="@string/fullname"
+        android:hint="@string/fullname"
+        android:inputType="textPersonName"
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -65,89 +65,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/fullname"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="250dp"
-        android:autofillHints="@string/fullname"
-        android:hint="@string/fullname"
-        android:inputType="textPersonName"
-        android:selectAllOnFocus="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <RadioGroup
-        android:id="@+id/gender_group"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="300dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <RadioButton
-            android:id="@+id/radio_male"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Nam"
-            android:singleLine="true"
-            android:textSize="12sp"
-            android:padding="2dp"/>
-
-        <RadioButton
-            android:id="@+id/radio_female"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Nữ"
-            android:singleLine="true"
-            android:textSize="12sp"
-            android:padding="2dp"/>
-
-        <RadioButton
-            android:id="@+id/radio_other"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Khác"
-            android:singleLine="true"
-            android:textSize="12sp"
-            android:padding="2dp"/>
-
-        <RadioButton
-            android:id="@+id/radio_prefer_not_to_say"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="K.Xác định"
-            android:singleLine="true"
-            android:textSize="12sp"
-            android:padding="2dp"/>
-    </RadioGroup>
-
-    <EditText
-        android:id="@+id/birthday"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="350dp"
-        android:autofillHints="@string/birth_day"
-        android:hint="@string/birth_day"
-        android:inputType="date"
-        android:selectAllOnFocus="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
         android:id="@+id/password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="250dp"
+        android:layout_marginTop="100dp"
         android:autofillHints="@string/prompt_password"
         android:hint="@string/prompt_password"
         android:imeActionLabel="@string/action_register_short"
@@ -157,7 +78,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username" />
+        app:layout_constraintTop_toBottomOf="@+id/fullname" />
 
     <Button
         android:id="@+id/register"
@@ -177,7 +98,7 @@
         android:id="@+id/loginavailable"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="530dp"
+        android:layout_marginTop="500dp"
         android:layout_marginBottom="124dp"
         android:gravity="left"
         android:text="Bạn đã có tài khoản? Đăng nhập ngay"

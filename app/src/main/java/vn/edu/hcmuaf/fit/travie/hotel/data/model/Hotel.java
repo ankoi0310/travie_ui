@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import vn.edu.hcmuaf.fit.travie.core.common.model.BaseModel;
 import vn.edu.hcmuaf.fit.travie.core.shared.enums.hotel.HotelStatus;
+import vn.edu.hcmuaf.fit.travie.room.data.model.Room;
 
 @Getter
 @Setter

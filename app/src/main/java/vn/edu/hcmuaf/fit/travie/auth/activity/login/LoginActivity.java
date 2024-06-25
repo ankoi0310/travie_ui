@@ -16,7 +16,6 @@ import android.widget.Toast;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import vn.edu.hcmuaf.fit.travie.MyApplication;
 import vn.edu.hcmuaf.fit.travie.R;
 import vn.edu.hcmuaf.fit.travie.auth.model.LoginRequest;
 import vn.edu.hcmuaf.fit.travie.auth.model.LoginResponse;
@@ -37,7 +36,6 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        ((MyApplication) getApplication()).getApplicationComponent().inject(this);
         super.onCreate(savedInstanceState);
 
         binding = ActivityLoginBinding.inflate(getLayoutInflater());

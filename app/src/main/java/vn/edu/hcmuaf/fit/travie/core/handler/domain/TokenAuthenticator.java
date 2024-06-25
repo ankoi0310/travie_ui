@@ -9,9 +9,6 @@ import androidx.annotation.Nullable;
 
 import java.io.IOException;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import okhttp3.Authenticator;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -25,12 +22,10 @@ import vn.edu.hcmuaf.fit.travie.auth.service.AuthService;
 import vn.edu.hcmuaf.fit.travie.core.service.RetrofitService;
 import vn.edu.hcmuaf.fit.travie.core.service.TokenManager;
 
-@Singleton
 public class TokenAuthenticator implements Authenticator, Interceptor {
     private final TokenManager tokenManager;
     private int attemptRefreshToken = 0;
 
-    @Inject
     public TokenAuthenticator(Context context) {
         this.tokenManager = new TokenManager(context);
     }

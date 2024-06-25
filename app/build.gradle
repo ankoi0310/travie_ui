@@ -65,6 +65,7 @@ dependencies {
     implementation libs.annotation
     implementation libs.view
     implementation libs.recyclerview
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.3'
 
     annotationProcessor libs.lombok
     annotationProcessor libs.dagger.compiler

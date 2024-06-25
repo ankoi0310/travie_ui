@@ -13,9 +13,6 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,7 +23,6 @@ import vn.edu.hcmuaf.fit.travie.core.shared.utils.AppUtil;
 import vn.edu.hcmuaf.fit.travie.hotel.data.model.Hotel;
 import vn.edu.hcmuaf.fit.travie.hotel.data.service.HotelService;
 
-@Singleton
 public class HotelViewModel extends ViewModel {
     private final MutableLiveData<HotelListResult> nearByHotelList = new MutableLiveData<>();
     private final MutableLiveData<HotelListResult> popularHotelList = new MutableLiveData<>();
@@ -35,7 +31,6 @@ public class HotelViewModel extends ViewModel {
 
     private final HotelService hotelService;
 
-    @Inject
     public HotelViewModel(Context context) {
         this.hotelService = RetrofitService.createService(context, HotelService.class);
     }

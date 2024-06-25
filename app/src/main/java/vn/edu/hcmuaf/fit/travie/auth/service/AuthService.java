@@ -22,7 +22,7 @@ public interface AuthService {
     Call<HttpResponse<RefreshTokenResponse>> refreshToken(@Body RefreshTokenRequest refreshTokenRequest);
     @POST("auth/register")
     Call<HttpResponse<RegisterResponse>> register(@Body RegisterRequest registerRequest);
-    @GET("auth/ver ify")
+    @GET("auth/verify")
     Call<HttpResponse<String>> verify(@Body VerifyOTPRequest verifyOTPRequest);
 
     @POST("auth/forgot-password")

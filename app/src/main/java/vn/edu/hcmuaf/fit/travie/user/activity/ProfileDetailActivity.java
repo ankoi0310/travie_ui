@@ -2,10 +2,12 @@ package vn.edu.hcmuaf.fit.travie.user.activity;
 
 import static vn.edu.hcmuaf.fit.travie.core.shared.constant.AppConstant.INTENT_USER_PROFILE;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
@@ -14,11 +16,15 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.gson.Gson;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.Month;
+import java.time.Year;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Calendar;
 
 import retrofit2.Call;
@@ -69,12 +75,6 @@ public class ProfileDetailActivity extends BaseActivity {
 
         binding.buttonEdit.setOnClickListener(v -> toggleEdit());
 
-        binding.updateProfileBtn.setOnClickListener(v -> {
-            if (isEditing) {
-                updateProfile();
-            }
-        });
-
         TextWatcher textWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -108,7 +108,7 @@ public class ProfileDetailActivity extends BaseActivity {
             imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
             if (userProfile != null) {
-
+                updateProfile();
             }
         });
 
@@ -120,6 +120,8 @@ public class ProfileDetailActivity extends BaseActivity {
 
     private void initGenderDialog() {
         binding.genderTxt.setOnClickListener(v -> {
+            if (!isEditing) return;
+
             genderDialog.setContentView(genderBinding.getRoot());
 
             // Pre-select the radio button based on the current gender
@@ -154,7 +156,6 @@ public class ProfileDetailActivity extends BaseActivity {
 
                 binding.genderTxt.setText(genderText);
                 currentGender = Gender.fromStringRes(genderText);
-//                userProfile.setGender(Gender.fromStringRes(genderText));
 
                 genderDialog.dismiss();
             });
@@ -164,21 +165,21 @@ public class ProfileDetailActivity extends BaseActivity {
     }
 
     private void initDatePickerDialog() {
-//        calendar.set(Calendar.YEAR, userProfile.getBirthday().getYear());
-//        calendar.set(Calendar.MONTH, userProfile.getBirthday().getMonthValue());
-//        calendar.set(Calendar.DAY_OF_MONTH, userProfile.getBirthday().getDayOfMonth());
         DatePickerDialog.OnDateSetListener listener = (view, year, month, dayOfMonth) -> {
             calendar.set(Calendar.YEAR, year);
             calendar.set(Calendar.MONTH, month);
             calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-
-//            userProfile.setBirthday(LocalDate.of(year, month + 1, dayOfMonth));
             updateDateInView();
         };
 
-        binding.birthdayTxt.setOnClickListener(v -> new DatePickerDialog(this, listener, calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show());
+        binding.birthdayTxt.setOnClickListener(v -> {
+            if (!isEditing) return; // Only show the date picker if in edit mode
+
+            new DatePickerDialog(this, listener, calendar.get(Calendar.YEAR),
+                    calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
+        });
     }
+
 
     private void updateDateInView() {
         Instant instant = calendar.toInstant();
@@ -201,14 +202,17 @@ public class ProfileDetailActivity extends BaseActivity {
     private void toggleEdit() {
         isEditing = !isEditing;
         setEditable(isEditing);
+        if (isEditing) {
+            Toast.makeText(this, "Bạn đã có thể cập nhật thông tin.", Toast.LENGTH_SHORT).show();
+        }
     }
     private void setEditable(boolean editable) {
         binding.usernameTxt.setEnabled(editable);
         binding.emailTxt.setEnabled(editable);
         binding.phoneTxt.setEnabled(editable);
         binding.fullNameTxt.setEnabled(editable);
-        binding.genderTxt.setClickable(editable);
-        binding.birthdayTxt.setClickable(editable);
+        binding.genderTxt.setEnabled(editable);
+        binding.birthdayTxt.setEnabled(editable);
     }
     private void updateProfile() {
         UserProfileRequest userProfileRequest = new UserProfileRequest(
@@ -219,6 +223,20 @@ public class ProfileDetailActivity extends BaseActivity {
                 currentGender,
                 LocalDate.parse(binding.birthdayTxt.getText().toString(), formatter)
         );
+
+
+
+
+        Gson gson = new Gson();
+        String requestJson = gson.toJson(userProfileRequest);
+        Log.d("UserProfileRequest_JSON", requestJson);
+
+        Log.d("UserProfileRequest", "Username: " + userProfileRequest.getUsername());
+        Log.d("UserProfileRequest", "Email: " + userProfileRequest.getEmail());
+        Log.d("UserProfileRequest", "Phone: " + userProfileRequest.getPhone());
+        Log.d("UserProfileRequest", "Full Name: " + userProfileRequest.getFullName());
+        Log.d("UserProfileRequest", "Gender: " + userProfileRequest.getGender());
+        Log.d("UserProfileRequest", "Birthday: " + userProfileRequest.getBirthday());
 
         userService.updateProfile(userProfileRequest).enqueue(new Callback<HttpResponse<UserProfile>>() {
             @Override

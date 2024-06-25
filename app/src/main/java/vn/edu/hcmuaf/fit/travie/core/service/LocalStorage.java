@@ -6,16 +6,11 @@ import android.content.SharedPreferences;
 import java.util.Arrays;
 import java.util.Set;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import vn.edu.hcmuaf.fit.travie.R;
 
-@Singleton
 public class LocalStorage {
     private final SharedPreferences prefs;
 
-    @Inject
     public LocalStorage(Context context) {
         this.prefs = context.getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE);
     }

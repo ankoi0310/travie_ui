@@ -12,8 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import javax.inject.Inject;
-
 import vn.edu.hcmuaf.fit.travie.core.common.ui.SpaceItemDecoration;
 import vn.edu.hcmuaf.fit.travie.core.shared.utils.AppUtil;
 import vn.edu.hcmuaf.fit.travie.databinding.FragmentHistoryBinding;
@@ -27,7 +25,6 @@ import vn.edu.hcmuaf.fit.travie.invoice.ui.history.adapter.InvoiceAdapter;
 public class HistoryFragment extends Fragment {
     FragmentHistoryBinding binding;
 
-    @Inject
     InvoiceViewModel viewModel;
 
     private InvoiceAdapter invoiceAdapter;
@@ -52,8 +49,6 @@ public class HistoryFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentHistoryBinding.inflate(inflater, container, false);
-        viewModel = new ViewModelProvider(this, new InvoiceViewModelFactory(requireContext())).get(InvoiceViewModel.class);
-        fetchInvoices();
         return binding.getRoot();
     }
 
@@ -61,6 +56,8 @@ public class HistoryFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        viewModel = new ViewModelProvider(this, new InvoiceViewModelFactory(requireContext())).get(InvoiceViewModel.class);
+        fetchInvoices();
         invoiceAdapter = new InvoiceAdapter();
         binding.invoiceRv.setAdapter(invoiceAdapter);
         binding.invoiceRv.setLayoutManager(new LinearLayoutManager(requireContext()));

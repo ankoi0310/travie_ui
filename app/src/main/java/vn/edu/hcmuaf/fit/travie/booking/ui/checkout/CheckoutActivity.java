@@ -17,7 +17,7 @@ import vn.edu.hcmuaf.fit.travie.core.common.ui.cancellationpolicy.CancellationPo
 import vn.edu.hcmuaf.fit.travie.core.shared.utils.AppUtil;
 import vn.edu.hcmuaf.fit.travie.databinding.ActivityCheckoutBinding;
 import vn.edu.hcmuaf.fit.travie.hotel.data.model.BookingType;
-import vn.edu.hcmuaf.fit.travie.hotel.data.model.Room;
+import vn.edu.hcmuaf.fit.travie.room.data.model.Room;
 
 public class CheckoutActivity extends BaseActivity {
     ActivityCheckoutBinding binding;

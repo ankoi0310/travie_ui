@@ -13,9 +13,6 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,24 +21,23 @@ import vn.edu.hcmuaf.fit.travie.core.handler.domain.HttpResponse;
 import vn.edu.hcmuaf.fit.travie.core.service.RetrofitService;
 import vn.edu.hcmuaf.fit.travie.core.shared.utils.AppUtil;
 import vn.edu.hcmuaf.fit.travie.invoice.data.model.Invoice;
-import vn.edu.hcmuaf.fit.travie.invoice.data.service.InvoiceService;
+import vn.edu.hcmuaf.fit.travie.user.service.UserService;
 
-@Singleton
 public class InvoiceViewModel extends ViewModel {
-    private final MutableLiveData<InvoiceResult> invoice = new MutableLiveData<>();
-    private final InvoiceService invoiceService;
+    private final MutableLiveData<InvoiceListResult> invoices = new MutableLiveData<>();
 
-    @Inject
+    UserService userService;
+
     public InvoiceViewModel(Context context) {
-        this.invoiceService = RetrofitService.createService(context, InvoiceService.class);
+        this.userService = RetrofitService.createService(context, UserService.class);
     }
 
-    public LiveData<InvoiceResult> getInvoices() {
-        return invoice;
+    public LiveData<InvoiceListResult> getInvoices() {
+        return invoices;
     }
 
     public void fetchInvoices() {
-        invoiceService.getInvoices().enqueue(new Callback<HttpResponse<ArrayList<Invoice>>>() {
+        userService.getBookingHistory().enqueue(new Callback<HttpResponse<ArrayList<Invoice>>>() {
             @Override
             public void onResponse(@NonNull Call<HttpResponse<ArrayList<Invoice>>> call, @NonNull Response<HttpResponse<ArrayList<Invoice>>> response) {
                 try (ResponseBody errorBody = response.errorBody()) {
@@ -49,25 +45,28 @@ public class InvoiceViewModel extends ViewModel {
                         Gson gson = AppUtil.getGson();
                         Type type = new TypeToken<HttpResponse<String>>() {}.getType();
                         HttpResponse<String> httpResponse = gson.fromJson(errorBody.charStream(), type);
-                        invoice.postValue(new InvoiceResult(null, httpResponse.getMessage()));
+                        invoices.postValue(new InvoiceListResult(null, httpResponse.getMessage()));
+                        return;
                     }
 
                     if (response.body() == null) {
-                        invoice.postValue(new InvoiceResult(null, "Something went wrong"));
+                        invoices.postValue(new InvoiceListResult(null, "Something went wrong"));
+                        return;
                     }
 
                     HttpResponse<ArrayList<Invoice>> httpResponse = response.body();
                     if (!httpResponse.isSuccess()) {
-                        invoice.postValue(new InvoiceResult(null, httpResponse.getMessage()));
+                        invoices.postValue(new InvoiceListResult(null, httpResponse.getMessage()));
+                        return;
                     }
 
-                    invoice.postValue(new InvoiceResult(httpResponse.getData(), null));
+                    invoices.postValue(new InvoiceListResult(httpResponse.getData(), null));
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<HttpResponse<ArrayList<Invoice>>> call, @NonNull Throwable t) {
-                invoice.postValue(new InvoiceResult(null, "Something went wrong"));
+                invoices.postValue(new InvoiceListResult(null, "Something went wrong"));
             }
         });
     }

@@ -1,5 +1,8 @@
 package vn.edu.hcmuaf.fit.travie.user.model;
 
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.LocalDate;
 
 import lombok.AllArgsConstructor;
@@ -18,5 +21,6 @@ public class UserProfileRequest {
     private String phone;
     private String fullName;
     private Gender gender;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy", timezone = "Asia/Ho_Chi_Minh")
     private LocalDate birthday;
 }

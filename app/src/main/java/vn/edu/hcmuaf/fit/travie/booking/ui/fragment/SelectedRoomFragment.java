@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import vn.edu.hcmuaf.fit.travie.databinding.FragmentSelectedRoomBinding;
-import vn.edu.hcmuaf.fit.travie.hotel.data.model.Room;
+import vn.edu.hcmuaf.fit.travie.room.data.model.Room;
 
 /**
  * A simple {@link Fragment} subclass.

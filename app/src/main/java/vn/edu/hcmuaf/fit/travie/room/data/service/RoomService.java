@@ -7,7 +7,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import vn.edu.hcmuaf.fit.travie.core.handler.domain.HttpResponse;
-import vn.edu.hcmuaf.fit.travie.hotel.data.model.Room;
+import vn.edu.hcmuaf.fit.travie.room.data.model.Room;
 
 public interface RoomService {
     @GET("room/search")
