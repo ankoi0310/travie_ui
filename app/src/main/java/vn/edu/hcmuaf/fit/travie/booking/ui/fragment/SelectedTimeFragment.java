@@ -63,9 +63,9 @@ public class SelectedTimeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            checkIn = (LocalDateTime) getArguments().getSerializable(ARG_CHECK_IN);
-            checkOut = (LocalDateTime) getArguments().getSerializable(ARG_CHECK_OUT);
-            bookingType = getArguments().getParcelable(ARG_BOOKING_TYPE);
+            checkIn = getArguments().getSerializable(ARG_CHECK_IN, LocalDateTime.class);
+            checkOut = getArguments().getSerializable(ARG_CHECK_OUT, LocalDateTime.class);
+            bookingType = getArguments().getParcelable(ARG_BOOKING_TYPE, BookingType.class);
         }
     }
 

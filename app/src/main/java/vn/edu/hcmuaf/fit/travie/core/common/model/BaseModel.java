@@ -5,7 +5,6 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
@@ -17,15 +16,15 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class BaseModel implements Parcelable, Serializable {
+public class BaseModel implements Parcelable {
     private long id;
     private LocalDateTime createdDate;
     private LocalDateTime modifiedDate;
 
     protected BaseModel(Parcel in) {
         id = in.readLong();
-        createdDate = (LocalDateTime) in.readSerializable();
-        modifiedDate = (LocalDateTime) in.readSerializable();
+        createdDate = LocalDateTime.parse(in.readString());
+        modifiedDate = LocalDateTime.parse(in.readString());
     }
 
     public static final Creator<BaseModel> CREATOR = new Creator<BaseModel>() {
@@ -48,7 +47,7 @@ public class BaseModel implements Parcelable, Serializable {
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeLong(id);
-        dest.writeSerializable(createdDate);
-        dest.writeSerializable(modifiedDate);
+        dest.writeString(createdDate.toString());
+        dest.writeString(modifiedDate.toString());
     }
 }

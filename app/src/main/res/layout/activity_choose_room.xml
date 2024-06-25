@@ -16,6 +16,7 @@
             app:layout_scrollFlags="noScroll"
             app:navigationIcon="@drawable/circle_arrow_left"
             app:title="Danh sách phòng"
+            app:titleTextAppearance="@style/TextBoldLarge"
             app:titleCentered="true"
             app:titleTextColor="@color/text" />
     </com.google.android.material.appbar.AppBarLayout>
@@ -44,42 +45,49 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="horizontal"
                     android:gravity="center_vertical">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/margin_12"
-                        app:srcCompat="@drawable/clock" />
-
-                    <TextView
-                        android:id="@+id/timeUnitTxt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:text="Qua dem"
-                        android:textSize="@dimen/text_size_normal" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="4dp"
-                        android:text="@string/vertical_splash"
-                        android:textSize="@dimen/text_size_normal" />
-
-                    <TextView
-                        android:id="@+id/timeAmountTxt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:text="1 dem"
-                        android:textSize="@dimen/text_size_normal" />
-
-                    <TextView
-                        android:id="@+id/changeBtn"
+                    <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/margin_12"
+                            app:srcCompat="@drawable/clock" />
+
+                        <TextView
+                            android:id="@+id/timeUnitTxt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:text="Qua dem"
+                            android:textSize="@dimen/text_size_normal" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="4dp"
+                            android:text="@string/vertical_splash"
+                            android:textSize="@dimen/text_size_normal" />
+
+                        <TextView
+                            android:id="@+id/timeAmountTxt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:text="1 dem"
+                            android:textSize="@dimen/text_size_normal" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/changeTimeBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:text="@string/change"
                         android:textAlignment="textEnd"
                         android:textColor="@color/primary"
@@ -118,7 +126,7 @@
                             android:orientation="horizontal">
 
                             <TextView
-                                android:id="@+id/checkInDateTimeTxt"
+                                android:id="@+id/checkInTxt"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_vertical"

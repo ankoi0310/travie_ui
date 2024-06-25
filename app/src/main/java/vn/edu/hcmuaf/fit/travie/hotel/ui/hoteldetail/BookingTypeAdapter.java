@@ -14,6 +14,7 @@ import vn.edu.hcmuaf.fit.travie.hotel.data.model.BookingType;
 
 public class BookingTypeAdapter extends RecyclerView.Adapter<BookingTypeAdapter.BookingTypeViewHolder> {
     Context context;
+    ViewHolderBookingTypeBinding binding;
     private final List<BookingType> bookingTypes;
 
     public BookingTypeAdapter(List<BookingType> bookingTypes) {
@@ -24,7 +25,7 @@ public class BookingTypeAdapter extends RecyclerView.Adapter<BookingTypeAdapter.
     @Override
     public BookingTypeAdapter.BookingTypeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
-        ViewHolderBookingTypeBinding binding = ViewHolderBookingTypeBinding.inflate(LayoutInflater.from(context), parent, false);
+        binding = ViewHolderBookingTypeBinding.inflate(LayoutInflater.from(context), parent, false);
         return new BookingTypeViewHolder(binding);
     }
 

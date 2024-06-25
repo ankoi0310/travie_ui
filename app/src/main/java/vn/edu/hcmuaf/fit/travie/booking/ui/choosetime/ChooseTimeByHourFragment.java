@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,8 +17,6 @@ import java.util.Calendar;
 import java.util.List;
 
 import lombok.Getter;
-import vn.edu.hcmuaf.fit.travie.booking.ui.BookingViewModel;
-import vn.edu.hcmuaf.fit.travie.booking.ui.BookingViewModelFactory;
 import vn.edu.hcmuaf.fit.travie.booking.ui.choosetime.adapter.HourAdapter;
 import vn.edu.hcmuaf.fit.travie.booking.ui.choosetime.adapter.TimeAdapter;
 import vn.edu.hcmuaf.fit.travie.core.common.ui.SpaceItemDecoration;
@@ -41,7 +38,6 @@ public class ChooseTimeByHourFragment extends Fragment {
     int hourAmount = 1;
 
     private static final String ARG_BOOKING_TYPE = "bookingType";
-    private BookingViewModel bookingViewModel;
 
     private BookingType bookingType;
     private TimeAdapter timeAdapter;
@@ -78,8 +74,6 @@ public class ChooseTimeByHourFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        bookingViewModel = new ViewModelProvider(requireActivity(), new BookingViewModelFactory(requireContext())).get(BookingViewModel.class);
-
         setUpTime();
 
         List<String> timeList = initTimeList();
@@ -92,7 +86,6 @@ public class ChooseTimeByHourFragment extends Fragment {
             checkInTime = LocalDateTime.of(currentCalendar.get(Calendar.YEAR), currentCalendar.get(Calendar.MONTH), currentCalendar.get(Calendar.DAY_OF_MONTH), time.getHour(), time.getMinute());
             checkOutTime = checkInTime.plusHours(hourAmount);
 
-            bookingViewModel.setChooseTimeResult(new ChooseTimeResult(checkInTime, checkOutTime, bookingType));
         });
         binding.rvCheckInTime.setAdapter(timeAdapter);
         binding.rvCheckInTime.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -115,8 +108,6 @@ public class ChooseTimeByHourFragment extends Fragment {
 
         checkInTime = LocalDateTime.now().with(DateTimeUtil.roundUpToNearestHalfHour(currentTime));
         checkOutTime = checkInTime.plusHours(hourAmount);
-
-        bookingViewModel.setChooseTimeResult(new ChooseTimeResult(checkInTime, checkOutTime, bookingType));
     }
 
     private void createHourListUI() {
@@ -126,9 +117,8 @@ public class ChooseTimeByHourFragment extends Fragment {
             hourAdapter.setCurrentHour(hours.get(position));
 
             hourAmount = Integer.parseInt(hours.get(position).replace(AppConstant.HOUR_SUFFIX, ""));
-
             checkOutTime = checkInTime.plusHours(hourAmount);
-            bookingViewModel.setChooseTimeResult(new ChooseTimeResult(checkInTime, checkOutTime, bookingType));
+
         });
         binding.rvHourAmount.setAdapter(hourAdapter);
         binding.rvHourAmount.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));

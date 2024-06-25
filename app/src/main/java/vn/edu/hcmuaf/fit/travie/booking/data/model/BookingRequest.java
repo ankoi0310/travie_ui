@@ -16,11 +16,12 @@ import vn.edu.hcmuaf.fit.travie.room.data.model.Room;
 @AllArgsConstructor
 public class BookingRequest {
     private Room room;
-    private LocalDateTime checkIn;
-    private LocalDateTime checkOut;
     private BookingType bookingType;
     private String guestName;
     private String guestPhone;
     private int totalPrice;
+    private int finalPrice;
+    private LocalDateTime checkIn;
+    private LocalDateTime checkOut;
     private PaymentMethod paymentMethod;
 }

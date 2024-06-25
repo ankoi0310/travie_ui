@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
+
 import vn.edu.hcmuaf.fit.travie.databinding.FragmentSelectedRoomBinding;
 import vn.edu.hcmuaf.fit.travie.room.data.model.Room;
 
@@ -47,7 +49,7 @@ public class SelectedRoomFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            room = getArguments().getParcelable(ARG_ROOM);
+            room = getArguments().getParcelable(ARG_ROOM, Room.class);
         }
     }
 
@@ -65,5 +67,9 @@ public class SelectedRoomFragment extends Fragment {
         binding.hotelTxt.setText(room.getHotel() != null ? room.getHotel().getName() : "");
         binding.roomTxt.setText(room.getName());
         binding.addressTxt.setText(room.getHotel() != null ? room.getHotel().getAddress().getFullAddress() : "");
+
+        Glide.with(requireContext())
+                .load(room.getImages().get(0))
+                .into(binding.hotelImg);
     }
 }

@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializer;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -24,10 +26,16 @@ public class RetrofitService {
     private static final GsonBuilder gsonBuilder = new GsonBuilder()
             .registerTypeAdapter(LocalDateTime.class, (JsonDeserializer<LocalDateTime>) (json
                     , typeOfT, context) -> LocalDateTime.parse(json.getAsJsonPrimitive().getAsString(), DateTimeUtil.getDateTimeFormatter()))
+            .registerTypeAdapter(LocalDateTime.class, (JsonSerializer<LocalDateTime>) (src
+                    , typeOfSrc, context) -> new JsonPrimitive(src.format(DateTimeUtil.getDateTimeFormatter())))
             .registerTypeAdapter(LocalDate.class, (JsonDeserializer<LocalDate>) (json
                     , typeOfT, context) -> LocalDate.parse(json.getAsJsonPrimitive().getAsString(), DateTimeUtil.getDateTimeFormatter("dd-MM-yyyy")))
+            .registerTypeAdapter(LocalDate.class, (JsonSerializer<LocalDate>) (src
+                    , typeOfSrc, context) -> new JsonPrimitive(src.format(DateTimeUtil.getDateTimeFormatter("dd-MM-yyyy"))))
             .registerTypeAdapter(LocalTime.class, (JsonDeserializer<LocalTime>) (json
-                    , typeOfT, context) -> LocalTime.parse(json.getAsJsonPrimitive().getAsString()));
+                    , typeOfT, context) -> LocalTime.parse(json.getAsJsonPrimitive().getAsString(), DateTimeUtil.getDateTimeFormatter("HH:mm")))
+            .registerTypeAdapter(LocalTime.class, (JsonSerializer<LocalTime>) (src
+                    , typeOfSrc, context) -> new JsonPrimitive(src.format(DateTimeUtil.getDateTimeFormatter("HH:mm"))));
     public static final Retrofit.Builder builder = new Retrofit.Builder()
             .baseUrl(BuildConfig.API_URL)
             .addConverterFactory(GsonConverterFactory.create(gsonBuilder.create()));

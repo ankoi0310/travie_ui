@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="250dp"
+    android:id="@+id/hotel_card_view"
+    android:layout_width="300dp"
     android:layout_height="wrap_content"
+    android:layout_marginVertical="@dimen/margin_4"
     android:elevation="10dp"
     app:cardCornerRadius="16dp"
     app:cardElevation="4dp">
@@ -11,11 +12,10 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_rounded_card"
+        android:orientation="vertical"
         android:padding="2dp">
 
         <com.google.android.material.imageview.ShapeableImageView
-            app:shapeAppearanceOverlay="@style/TopRoundedSquare"
             android:id="@+id/pic"
             android:layout_width="match_parent"
             android:layout_height="150dp"
@@ -24,6 +24,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/TopRoundedSquare16"
             app:srcCompat="@drawable/hotel_demo" />
 
         <LinearLayout
@@ -41,23 +42,21 @@
                 android:id="@+id/nameTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:text="Long Den Do Hotel"
                 android:textAllCaps="true"
-                android:textSize="@dimen/text_size_medium"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textSize="@dimen/text_size_large" />
 
             <TextView
-                android:id="@+id/firstHoursTxt"
+                android:id="@+id/first_hours_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="12dp"
                 android:text="1 gio dau"
+                android:textColor="@color/text_primary"
                 android:textSize="@dimen/text_size_xsmall"
-                app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -69,10 +68,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Chi tu"
-                    android:textSize="@dimen/text_size_xsmall"
-                    app:layout_constraintStart_toStartOf="@+id/firstHoursTxt"
-                    app:layout_constraintTop_toBottomOf="@+id/firstHoursTxt" />
+                    android:text="Chỉ từ"
+                    android:textSize="@dimen/text_size_small" />
 
                 <TextView
                     android:id="@+id/priceTxt"
@@ -82,7 +79,8 @@
                     android:background="@drawable/strike_through_line"
                     android:text="250000"
                     android:textColor="@color/text_secondary"
-                    android:textSize="@dimen/text_size_xsmall" />
+                    android:textSize="@dimen/text_size_xsmall"
+                    android:visibility="gone" />
 
                 <Space
                     android:layout_width="0dp"
@@ -95,23 +93,24 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
                     android:text="Quan 1"
-                    android:textSize="@dimen/text_size_xsmall" />
+                    android:textSize="@dimen/text_size_xsmall"
+                    android:visibility="gone" />
 
                 <ImageView
                     android:layout_width="16dp"
                     android:layout_height="16dp"
-                    android:src="@drawable/location" />
+                    android:src="@drawable/location"
+                    android:visibility="gone" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/margin_4"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/discountPriceTxt"
+                    android:id="@+id/discount_price_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="240000"
@@ -124,7 +123,7 @@
                     android:layout_weight="1" />
 
                 <TextView
-                    android:id="@+id/averageMarkTxt"
+                    android:id="@+id/average_mark_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="4.8"
@@ -132,7 +131,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/reviewCountTxt"
+                    android:id="@+id/review_count_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="4dp"
@@ -159,6 +158,7 @@
             android:text="Từ 99k"
             android:textColor="@android:color/white"
             android:textSize="@dimen/text_size_xsmall"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/infoLayout"
             app:layout_constraintStart_toStartOf="parent" />
 

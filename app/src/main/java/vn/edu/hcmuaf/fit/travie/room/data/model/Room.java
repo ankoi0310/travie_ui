@@ -5,7 +5,7 @@ import android.os.Parcel;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -35,34 +35,10 @@ public class Room extends BaseModel {
     private boolean availableTonight;
     private boolean availableTomorrow;
     private boolean soldOut;
-    private List<Amenity> amenities;
-    private List<String> images;
+    private ArrayList<Amenity> amenities = new ArrayList<>();
+    private ArrayList<String> images = new ArrayList<>();
     private int status;
     private @Nullable Hotel hotel;
-
-    public Room(String name, int numOfRooms, int firstHoursOrigin, int minNumHours, int maxNumHours, int oneDayOrigin, int overnightOrigin, int additionalHours, int additionalOrigin, boolean hasDiscount, boolean applyFlashSale, int priceFlashSale, boolean hasExtraFee, boolean available, boolean availableTonight, boolean availableTomorrow, boolean soldOut, List<Amenity> amenities, List<String> images, int status) {
-        this.name = name;
-        this.numOfRooms = numOfRooms;
-        this.firstHoursOrigin = firstHoursOrigin;
-        this.minNumHours = minNumHours;
-        this.maxNumHours = maxNumHours;
-        this.oneDayOrigin = oneDayOrigin;
-        this.overnightOrigin = overnightOrigin;
-        this.additionalHours = additionalHours;
-        this.additionalOrigin = additionalOrigin;
-        this.hasDiscount = hasDiscount;
-        this.applyFlashSale = applyFlashSale;
-        this.priceFlashSale = priceFlashSale;
-        this.hasExtraFee = hasExtraFee;
-        this.available = available;
-        this.availableTonight = availableTonight;
-        this.availableTomorrow = availableTomorrow;
-        this.soldOut = soldOut;
-        this.amenities = amenities;
-        this.images = images;
-        this.status = status;
-        this.hotel = null;
-    }
 
     public Room(Parcel in) {
         super(in);
@@ -83,10 +59,16 @@ public class Room extends BaseModel {
         availableTonight = in.readByte() != 0;
         availableTomorrow = in.readByte() != 0;
         soldOut = in.readByte() != 0;
-        amenities = in.createTypedArrayList(Amenity.CREATOR);
-        images = in.createStringArrayList();
+        in.readParcelableList(amenities, Amenity.class.getClassLoader(), Amenity.class);
+        in.readStringList(images);
         status = in.readInt();
-        hotel = in.readParcelable(Hotel.class.getClassLoader());
+
+        boolean hasHotel = in.readBoolean();
+        if (hasHotel) {
+            hotel = in.readTypedObject(Hotel.CREATOR);
+        } else {
+            hotel = null;
+        }
     }
 
     @Override
@@ -109,10 +91,16 @@ public class Room extends BaseModel {
         dest.writeByte((byte) (availableTonight ? 1 : 0));
         dest.writeByte((byte) (availableTomorrow ? 1 : 0));
         dest.writeByte((byte) (soldOut ? 1 : 0));
-        dest.writeTypedList(amenities);
+        dest.writeParcelableList(amenities, flags);
         dest.writeStringList(images);
         dest.writeInt(status);
-        dest.writeParcelable(hotel, flags);
+
+        if (hotel != null) {
+            dest.writeBoolean(true);
+            dest.writeTypedObject(hotel, PARCELABLE_WRITE_RETURN_VALUE);
+        } else {
+            dest.writeBoolean(false);
+        }
     }
 
     public static final Creator<Room> CREATOR = new Creator<Room>() {
