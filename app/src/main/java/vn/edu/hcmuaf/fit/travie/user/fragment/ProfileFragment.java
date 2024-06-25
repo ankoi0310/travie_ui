@@ -54,7 +54,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
-        userService = RetrofitService.createService(requireContext(), UserService.class);
+        userService = RetrofitService.createPrivateService(requireContext(), UserService.class);
         return binding.getRoot();
     }
 

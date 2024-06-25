@@ -3,6 +3,7 @@ package vn.edu.hcmuaf.fit.travie.core.handler.domain;
 import static vn.edu.hcmuaf.fit.travie.core.shared.constant.AppConstant.TOKEN_PREFIX;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -81,6 +82,7 @@ public class TokenAuthenticator implements Authenticator, Interceptor {
     @Override
     public Response intercept(@NonNull Chain chain) throws IOException {
         Request request = chain.request();
+        Log.d("TokenAuthenticator", "intercept: " + request.url());
         String accessToken = tokenManager.getAccessToken();
         if (accessToken != null) {
             request = request.newBuilder()

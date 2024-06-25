@@ -28,7 +28,7 @@ public class RoomViewModel extends ViewModel {
     private final RoomService roomService;
 
     public RoomViewModel(Context context) {
-        this.roomService = RetrofitService.createService(context, RoomService.class);
+        this.roomService = RetrofitService.createPublicService(context, RoomService.class);
     }
 
     public LiveData<RoomListResult> getRoomListResult() {

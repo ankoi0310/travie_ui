@@ -47,7 +47,13 @@ public class RetrofitService {
             .readTimeout(60, TimeUnit.SECONDS)
             .writeTimeout(60, TimeUnit.SECONDS);
 
-    public static <S> S createService(Context context, @NotNull Class<S> serviceClass) {
+    public static <S> S createPublicService(Context context, @NotNull Class<S> serviceClass) {
+        OkHttpClient client = clientBuilder.build();
+        Retrofit retrofit = builder.client(client).build();
+        return retrofit.create(serviceClass);
+    }
+
+    public static <S> S createPrivateService(Context context, @NotNull Class<S> serviceClass) {
         TokenAuthenticator tokenAuthenticator = new TokenAuthenticator(context);
         OkHttpClient client = clientBuilder
                 .addInterceptor(tokenAuthenticator)

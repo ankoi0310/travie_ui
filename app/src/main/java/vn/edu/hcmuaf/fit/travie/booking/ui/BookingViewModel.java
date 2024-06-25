@@ -29,7 +29,7 @@ public class BookingViewModel extends ViewModel {
     private final BookingService bookingService;
 
     public BookingViewModel(Context context) {
-        this.bookingService = RetrofitService.createService(context, BookingService.class);
+        this.bookingService = RetrofitService.createPrivateService(context, BookingService.class);
     }
 
     public LiveData<BookingResult> getBookingResult() {

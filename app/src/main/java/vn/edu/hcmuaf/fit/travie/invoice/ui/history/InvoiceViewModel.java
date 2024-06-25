@@ -29,7 +29,7 @@ public class InvoiceViewModel extends ViewModel {
     UserService userService;
 
     public InvoiceViewModel(Context context) {
-        this.userService = RetrofitService.createService(context, UserService.class);
+        this.userService = RetrofitService.createPrivateService(context, UserService.class);
     }
 
     public LiveData<InvoiceListResult> getInvoices() {
