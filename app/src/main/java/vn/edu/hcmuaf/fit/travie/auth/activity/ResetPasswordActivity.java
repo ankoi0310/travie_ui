@@ -1,5 +1,6 @@
 package vn.edu.hcmuaf.fit.travie.auth.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -57,6 +58,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call<HttpResponse<Void>> call, @NonNull Response<HttpResponse<Void>> response) {
                 if (response.isSuccessful() && response.body() != null && response.body().isSuccess()) {
                     Toast.makeText(ResetPasswordActivity.this, "Password reset successfully", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(ResetPasswordActivity.this, LoginActivity.class));
                     finish();
                 } else {
                     Toast.makeText(ResetPasswordActivity.this, "Failed to reset password", Toast.LENGTH_SHORT).show();

@@ -33,7 +33,6 @@ import vn.edu.hcmuaf.fit.travie.databinding.ActivityRegisterBinding;
 public class RegisterActivity extends AppCompatActivity {
     private ActivityRegisterBinding binding;
     private AuthService authService;
-    private TokenManager tokenManager;
     private OTPType otpType;
 
     @Override
@@ -43,8 +42,6 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         authService = RetrofitService.createService(this, AuthService.class);
-        tokenManager = new TokenManager(this);
-
 
         TextWatcher afterTextChangedListener = new TextWatcher() {
             @Override
@@ -136,8 +133,9 @@ public class RegisterActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     HttpResponse<RegisterResponse> httpResponse = response.body();
                     if (httpResponse != null && httpResponse.isSuccess() && httpResponse.getData() != null) {
+                        Toast.makeText(RegisterActivity.this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(RegisterActivity.this, EnterOTPActivity.class);
-                        startActivity(intent.putExtra("OTP_TYPE", OTPType.VERIFY_EMAIL));
+                        startActivity(intent.putExtra("OTP_TYPE", OTPType.VERIFY_EMAIL.name()));
                         finish();
                     } else {
                         showRegisterFailed("Đăng ký không thành công. Vui lòng thử lại.");

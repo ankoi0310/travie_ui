@@ -55,11 +55,12 @@ public class EnterOTPActivity extends AppCompatActivity {
             @Override
             public void onResponse(@NonNull Call<HttpResponse<String>> call, @NonNull Response<HttpResponse<String>> response) {
                 if (response.isSuccessful() && response.body() != null && response.body().isSuccess()) {
+                    startActivity(new Intent(EnterOTPActivity.this, ResetPasswordActivity.class));
                     if (OTPType.VERIFY_EMAIL.equals(otpType)) {
                         Toast.makeText(EnterOTPActivity.this, "Xác minh thành công, Hãy đăng nhập!", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(EnterOTPActivity.this, LoginActivity.class));
                         finish();
-                    }
+                    } else
                     if (OTPType.RESET_PASSWORD.equals(otpType)){
                         Toast.makeText(EnterOTPActivity.this, "Xác minh thành công, Hãy tạo lại mật khẩu!", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(EnterOTPActivity.this, ResetPasswordActivity.class));
