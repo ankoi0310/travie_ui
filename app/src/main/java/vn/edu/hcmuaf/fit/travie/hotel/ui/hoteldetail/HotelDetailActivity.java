@@ -2,7 +2,6 @@ package vn.edu.hcmuaf.fit.travie.hotel.ui.hoteldetail;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Looper;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -71,6 +70,16 @@ public class HotelDetailActivity extends BaseActivity {
         fetchHotelDetail();
 
         binding.viewMap.titleTxt.setText(R.string.view_map);
+        binding.viewMap.titleTxt.setOnClickListener(v -> {
+            // Open Google Map
+            String name = hotel.getName();
+            String address = hotel.getAddress().getFullAddress();
+            double lat = hotel.getAddress().getLatitude();
+            double lng = hotel.getAddress().getLongitude();
+            Intent intent = new Intent(Intent.ACTION_VIEW, AppUtil.getGoogleMapUri(address, lat, lng));
+            intent.setPackage("com.google.android.apps.maps");
+            startActivity(intent);
+        });
 
         binding.toolbar.setNavigationOnClickListener(v -> finish());
         binding.appbar.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> {
@@ -143,7 +152,7 @@ public class HotelDetailActivity extends BaseActivity {
                 binding.averageMarkTxt2.setText(String.valueOf(hotel.getAverageMark()));
                 binding.reviewCountTxt2.setText(String.format(Locale.getDefault(), "%d đánh giá", hotel.getReviews().size()));
 
-                markwon.setMarkdown(binding.introductionTxt, hotel.getIntroduction());
+                markwon.setMarkdown(binding.introductionTxt, hotel.getIntroduction() == null ? "" : hotel.getIntroduction());
 
                 BookingTypeAdapter bookingTypeAdapter = new BookingTypeAdapter(hotel.getBookingTypes());
                 binding.bookingTypeRv.setLayoutManager(new LinearLayoutManager(this));

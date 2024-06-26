@@ -1,350 +1,360 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appbar"
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/toolbar"
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/appbar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:navigationIcon="@drawable/circle_arrow_left"
-                app:title="Xác nhận và thanh toán"
-                app:titleCentered="true"
-                app:titleTextAppearance="@style/TextBoldLarge" />
-        </com.google.android.material.appbar.AppBarLayout>
+                android:layout_height="wrap_content">
 
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:padding="@dimen/padding_16">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/margin_16"
-                            android:text="Lựa chọn của bạn"
-                            android:textSize="@dimen/text_size_medium"
-                            android:textStyle="bold" />
-
-                        <androidx.fragment.app.FragmentContainerView
-                            android:id="@+id/selectedRoomFragment"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="2dp"
-                            android:layout_marginVertical="@dimen/margin_16"
-                            android:background="@color/secondary" />
-
-                        <androidx.fragment.app.FragmentContainerView
-                            android:id="@+id/selectedTimeFragment"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/margin_8">
+                    app:navigationIcon="@drawable/circle_arrow_left"
+                    app:title="Xác nhận và thanh toán"
+                    app:titleCentered="true"
+                    app:titleTextAppearance="@style/TextBoldLarge"
+                    app:titleTextColor="@color/text" />
+            </com.google.android.material.appbar.AppBarLayout>
 
-                    <LinearLayout
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:padding="@dimen/padding_16">
+                        android:layout_height="match_parent">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginBottom="@dimen/margin_12"
-                            android:orientation="horizontal">
+                            android:orientation="vertical"
+                            android:padding="@dimen/padding_16">
 
                             <TextView
-                                android:layout_width="0dp"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="@string/customer_information"
+                                android:layout_marginBottom="@dimen/margin_16"
+                                android:text="Lựa chọn của bạn"
                                 android:textSize="@dimen/text_size_medium"
                                 android:textStyle="bold" />
 
-                            <TextView
-                                android:id="@+id/changeTimeBtn"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Sửa"
-                                android:textColor="@color/text_primary"
-                                android:textSize="@dimen/text_size_normal"
-                                android:textStyle="bold" />
+                            <androidx.fragment.app.FragmentContainerView
+                                android:id="@+id/selectedRoomFragment"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="2dp"
+                                android:layout_marginVertical="@dimen/margin_16"
+                                android:background="@color/secondary" />
+
+                            <androidx.fragment.app.FragmentContainerView
+                                android:id="@+id/selectedTimeFragment"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
                         </LinearLayout>
+                    </androidx.cardview.widget.CardView>
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Số điện thoại"
-                                android:textSize="@dimen/text_size_normal" />
-
-                            <TextView
-                                android:id="@+id/guestPhoneTxt"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="0123456789"
-                                android:textSize="@dimen/text_size_normal"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_4"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Họ tên"
-                                android:textSize="@dimen/text_size_normal" />
-
-                            <TextView
-                                android:id="@+id/guestNameTxt"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="ankoi0310"
-                                android:textSize="@dimen/text_size_normal"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/margin_8">
-
-                    <LinearLayout
+                    <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:padding="@dimen/padding_16">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/margin_12"
-                            android:text="Chi tiết thanh toán"
-                            android:textSize="@dimen/text_size_medium"
-                            android:textStyle="bold" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="2dp"
-                            android:layout_marginVertical="@dimen/margin_8"
-                            android:background="@color/secondary" />
+                        android:layout_marginTop="@dimen/margin_8">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="horizontal">
+                            android:orientation="vertical"
+                            android:padding="@dimen/padding_16">
 
                             <LinearLayout
-                                android:layout_width="0dp"
+                                android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:gravity="center_vertical"
+                                android:layout_marginBottom="@dimen/margin_12"
                                 android:orientation="horizontal">
 
                                 <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="@string/customer_information"
+                                    android:textSize="@dimen/text_size_medium"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/changeTimeBtn"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginEnd="@dimen/margin_4"
+                                    android:text="Sửa"
+                                    android:textColor="@color/text_primary"
                                     android:textSize="@dimen/text_size_normal"
-                                    android:text="Tiền phòng" />
-
-                                <ImageView
-                                    android:layout_width="16dp"
-                                    android:layout_height="16dp"
-                                    app:srcCompat="@drawable/info_circle"
-                                    app:tint="@color/primary" />
+                                    android:textStyle="bold" />
                             </LinearLayout>
 
                             <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:gravity="center_vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
                                 android:orientation="horizontal">
 
                                 <TextView
-                                    android:id="@+id/originalPriceTxt"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="0dp"
                                     android:layout_height="wrap_content"
-                                    android:visibility="gone"
-                                    android:textSize="@dimen/text_size_small"
-                                    android:textColor="@color/text_secondary"
-                                    android:foreground="@drawable/strike_through_line"
-                                    android:text="900.000" />
+                                    android:layout_weight="1"
+                                    android:text="Số điện thoại"
+                                    android:textSize="@dimen/text_size_normal" />
 
                                 <TextView
-                                    android:id="@+id/totalPriceTxt"
+                                    android:id="@+id/guestPhoneTxt"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginStart="@dimen/margin_8"
+                                    android:text="0123456789"
                                     android:textSize="@dimen/text_size_normal"
-                                    android:text="399.000d"
-                                    tools:ignore="DuplicateIds" />
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_4"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="Họ tên"
+                                    android:textSize="@dimen/text_size_normal" />
+
+                                <TextView
+                                    android:id="@+id/guestNameTxt"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="ankoi0310"
+                                    android:textSize="@dimen/text_size_normal"
+                                    android:textStyle="bold" />
                             </LinearLayout>
 
                         </LinearLayout>
+                    </androidx.cardview.widget.CardView>
 
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="2dp"
-                            android:layout_marginVertical="@dimen/margin_8"
-                            android:background="@color/secondary" />
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/margin_8">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="horizontal">
+                            android:orientation="vertical"
+                            android:padding="@dimen/padding_16">
 
                             <TextView
-                                android:layout_width="0dp"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Tổng thanh toán"
-                                android:textSize="@dimen/text_size_large"
+                                android:layout_marginBottom="@dimen/margin_12"
+                                android:text="Chi tiết thanh toán"
+                                android:textSize="@dimen/text_size_medium"
                                 android:textStyle="bold" />
 
-                            <TextView
-                                android:id="@+id/finalPriceTxt1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="379.000d"
-                                android:textSize="@dimen/text_size_large"
-                                android:textStyle="bold" />
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="2dp"
+                                android:layout_marginVertical="@dimen/margin_8"
+                                android:background="@color/secondary" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginEnd="@dimen/margin_4"
+                                        android:text="Tiền phòng"
+                                        android:textSize="@dimen/text_size_normal" />
+
+                                    <ImageView
+                                        android:layout_width="16dp"
+                                        android:layout_height="16dp"
+                                        app:srcCompat="@drawable/info_circle"
+                                        app:tint="@color/primary" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center_vertical"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:id="@+id/originalPriceTxt"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:foreground="@drawable/strike_through_line"
+                                        android:text="900.000"
+                                        android:textColor="@color/text_secondary"
+                                        android:textSize="@dimen/text_size_small"
+                                        android:visibility="gone" />
+
+                                    <TextView
+                                        android:id="@+id/totalPriceTxt"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="@dimen/margin_8"
+                                        android:text="399.000d"
+                                        android:textSize="@dimen/text_size_normal"
+                                        tools:ignore="DuplicateIds" />
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="2dp"
+                                android:layout_marginVertical="@dimen/margin_8"
+                                android:background="@color/secondary" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="Tổng thanh toán"
+                                    android:textSize="@dimen/text_size_large"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/finalPriceTxt1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="379.000d"
+                                    android:textSize="@dimen/text_size_large"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
                         </LinearLayout>
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
+                    </androidx.cardview.widget.CardView>
 
-                <androidx.fragment.app.FragmentContainerView
-                    android:id="@+id/cancellationPolicyFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
+                    <androidx.fragment.app.FragmentContainerView
+                        android:id="@+id/cancellationPolicyFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardElevation="4dp"
-        app:contentPadding="@dimen/padding_12"
-        app:shapeAppearance="@style/TopRoundedSquare16">
-
-        <LinearLayout
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <TextView
-                android:id="@+id/choosePaymentMethodTxt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_16"
-                android:drawablePadding="@dimen/padding_8"
-                android:gravity="center_vertical"
-                android:text="@string/choose_payment_method"
-                android:textSize="@dimen/text_size_medium"
-                app:drawableEndCompat="@drawable/arrow_right_1"
-                app:drawableStartCompat="@drawable/card"
-                app:drawableTint="@color/primary" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginBottom="@dimen/margin_8"
-                android:background="@color/secondary" />
+            app:cardElevation="4dp"
+            app:contentPadding="@dimen/padding_12"
+            app:shapeAppearance="@style/TopRoundedSquare16">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <TextView
+                    android:id="@+id/choosePaymentMethodTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_16"
+                    android:drawablePadding="@dimen/padding_8"
+                    android:gravity="center_vertical"
+                    android:text="@string/choose_payment_method"
+                    android:textSize="@dimen/text_size_medium"
+                    app:drawableEndCompat="@drawable/arrow_right_1"
+                    app:drawableStartCompat="@drawable/card"
+                    app:drawableTint="@color/primary" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginBottom="@dimen/margin_8"
+                    android:background="@color/secondary" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Tổng thanh toán"
-                        android:textColor="@color/text_secondary" />
-
-                    <TextView
-                        android:id="@+id/finalPriceTxt2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="699.000d"
-                        android:textSize="@dimen/text_size_xlarge"
-                        android:textStyle="bold"
-                        tools:ignore="DuplicateIds" />
-                </LinearLayout>
-
-                <Button
-                    android:id="@+id/checkout_btn"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="32dp"
-                    android:paddingVertical="12dp"
-                    android:text="Đặt phòng"
-                    android:textSize="@dimen/text_size_normal" />
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Tổng thanh toán"
+                            android:textColor="@color/text_secondary" />
+
+                        <TextView
+                            android:id="@+id/finalPriceTxt2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="699.000d"
+                            android:textSize="@dimen/text_size_xlarge"
+                            android:textStyle="bold"
+                            tools:ignore="DuplicateIds" />
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/checkout_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="32dp"
+                        android:paddingVertical="12dp"
+                        android:text="Đặt phòng"
+                        android:textSize="@dimen/text_size_normal" />
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
 
+    <include
+        android:id="@+id/loadingView"
+        layout="@layout/loading_view" />
 
-</LinearLayout>
+</FrameLayout>

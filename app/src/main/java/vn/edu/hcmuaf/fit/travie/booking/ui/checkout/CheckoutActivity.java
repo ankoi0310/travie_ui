@@ -4,10 +4,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import java.time.LocalDateTime;
 
@@ -22,6 +27,7 @@ import vn.edu.hcmuaf.fit.travie.booking.ui.payment.ChoosePaymentMethodActivity;
 import vn.edu.hcmuaf.fit.travie.core.common.ui.BaseActivity;
 import vn.edu.hcmuaf.fit.travie.core.common.ui.cancellationpolicy.CancellationPolicyFragment;
 import vn.edu.hcmuaf.fit.travie.core.shared.enums.invoice.PaymentMethod;
+import vn.edu.hcmuaf.fit.travie.core.shared.utils.AnimationUtil;
 import vn.edu.hcmuaf.fit.travie.core.shared.utils.AppUtil;
 import vn.edu.hcmuaf.fit.travie.databinding.ActivityCheckoutBinding;
 import vn.edu.hcmuaf.fit.travie.hotel.data.model.BookingType;
@@ -40,6 +46,16 @@ public class CheckoutActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityCheckoutBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.main, (v, insets) -> {
+            Insets stautusBars = insets.getInsets(WindowInsetsCompat.Type.statusBars());
+            // unit of stautusBars.top is px, so we need to convert it to dp
+            int statusBarHeight = stautusBars.top / (getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+            binding.toolbar.setPadding(0, statusBarHeight + binding.toolbar.getPaddingBottom(), 0,  binding.toolbar.getPaddingBottom());
+            binding.toolbar.setTitleMarginTop(statusBarHeight - 4);
+            v.setPadding(0, 0, 0, stautusBars.bottom);
+            return WindowInsetsCompat.CONSUMED;
+        });
 
         bookingViewModel = new BookingViewModelFactory(this).create(BookingViewModel.class);
 
@@ -67,8 +83,21 @@ public class CheckoutActivity extends BaseActivity {
 
         binding.checkoutBtn.setOnClickListener(v -> {
             BookingRequest bookingRequest = bookingRequestHolder.getBookingRequest();
+            PaymentMethod paymentMethod = bookingRequest.getPaymentMethod();
+            if (paymentMethod == null) {
+                Toast.makeText(this, "Vui lòng chọn phương thức thanh toán", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (paymentMethod != PaymentMethod.ATM) {
+                Toast.makeText(this, "Phương thức thanh toán chưa được hỗ trợ", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             bookingRequest.setGuestName(binding.guestNameTxt.getText().toString());
             bookingRequest.setGuestPhone(binding.guestPhoneTxt.getText().toString());
+
+            AnimationUtil.animateView(binding.loadingView.getRoot(), View.VISIBLE, 0.4f, 200);
             bookingViewModel.checkout();
         });
         bookingViewModel.getBookingResult().observe(this, result -> {

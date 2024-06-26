@@ -2,6 +2,7 @@ package vn.edu.hcmuaf.fit.travie.core.shared.utils;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.net.Uri;
 import android.util.DisplayMetrics;
 import android.view.View;
 
@@ -53,7 +54,7 @@ public class AppUtil {
         return (hour < 10 ? "0" : "") + hour;
     }
 
-    public static float convertPixelsToDp(float px, Context context) {
-        return px / ((float) context.getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+    public static Uri getGoogleMapUri(String address, double lat, double lng) {
+        return Uri.parse("geo:" + lat + "," + lng + "?q=" + address);
     }
 }

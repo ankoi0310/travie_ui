@@ -77,8 +77,8 @@ public class BookingViewModel extends ViewModel {
         });
     }
 
-    public void completeCheckout(int code) {
-        bookingService.completeCheckout(code).enqueue(new retrofit2.Callback<HttpResponse<Invoice>>() {
+    public void completeCheckout(int orderCode) {
+        bookingService.completeCheckout(orderCode).enqueue(new retrofit2.Callback<HttpResponse<Invoice>>() {
             @Override
             public void onResponse(@NonNull Call<HttpResponse<Invoice>> call, @NonNull retrofit2.Response<HttpResponse<Invoice>> response) {
                 try (ResponseBody errorBody = response.errorBody()) {

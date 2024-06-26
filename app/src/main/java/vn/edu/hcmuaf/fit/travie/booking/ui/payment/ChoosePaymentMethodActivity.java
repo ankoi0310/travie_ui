@@ -3,12 +3,16 @@ package vn.edu.hcmuaf.fit.travie.booking.ui.payment;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.widget.RadioButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.graphics.Insets;
 import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import java.util.List;
 import java.util.Objects;
@@ -30,6 +34,16 @@ public class ChoosePaymentMethodActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityChoosePaymentMethodBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.main, (v, insets) -> {
+            Insets stautusBars = insets.getInsets(WindowInsetsCompat.Type.statusBars());
+            // unit of stautusBars.top is px, so we need to convert it to dp
+            int statusBarHeight = stautusBars.top / (getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+            binding.toolbar.setPadding(0, statusBarHeight + binding.toolbar.getPaddingBottom(), 0,  binding.toolbar.getPaddingBottom());
+            binding.toolbar.setTitleMarginTop(statusBarHeight - 4);
+            v.setPadding(0, 0, 0, stautusBars.bottom);
+            return WindowInsetsCompat.CONSUMED;
+        });
 
         radioButtons = List.of(binding.rbATM, binding.rbMomo);
 

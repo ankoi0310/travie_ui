@@ -3,6 +3,7 @@ package vn.edu.hcmuaf.fit.travie.core.common.ui;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -34,16 +35,18 @@ public class BaseActivity extends AppCompatActivity {
         Uri data = intent.getData();
 
         if (Intent.ACTION_VIEW.equals(action) && data != null) {
+            Log.d("DeepLink", "handleDeepLink: " + data);
             Optional<String> path = data.getPathSegments().stream().findFirst();
+            int orderCode = Integer.parseInt(data.getQueryParameter("orderCode"));
 
             if (path.isPresent()) {
                 switch (path.get()) {
                     case "checkout-cancel":
-                        Intent checkoutCancelIntent = new Intent(this, CheckoutFailActivity.class);
-                        startActivity(checkoutCancelIntent);
+                        Intent cancelIntent = new Intent(this, CheckoutFailActivity.class);
+                        cancelIntent.putExtra("orderCode", orderCode);
+                        startActivity(cancelIntent);
                         break;
                     case "checkout-success":
-                        int orderCode = Integer.parseInt(data.getQueryParameter("orderCode"));
                         Intent successIntent = new Intent(this, CheckoutSuccessActivity.class);
                         successIntent.putExtra("orderCode", orderCode);
                         startActivity(successIntent);

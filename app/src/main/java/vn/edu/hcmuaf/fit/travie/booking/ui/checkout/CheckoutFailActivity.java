@@ -2,8 +2,13 @@ package vn.edu.hcmuaf.fit.travie.booking.ui.checkout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import java.time.LocalDateTime;
 
@@ -36,39 +41,51 @@ public class CheckoutFailActivity extends BaseActivity {
         binding = ActivityCheckoutFailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        ViewCompat.setOnApplyWindowInsetsListener(binding.main, (v, insets) -> {
+            Insets stautusBars = insets.getInsets(WindowInsetsCompat.Type.statusBars());
+            // unit of stautusBars.top is px, so we need to convert it to dp
+            int statusBarHeight = stautusBars.top / (getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+            binding.toolbar.setPadding(0, statusBarHeight + binding.toolbar.getPaddingBottom(), 0,  binding.toolbar.getPaddingBottom());
+            binding.toolbar.setTitleMarginTop(statusBarHeight - 4);
+            v.setPadding(0, 0, 0, stautusBars.bottom);
+            return WindowInsetsCompat.CONSUMED;
+        });
+
         AnimationUtil.animateView(binding.loadingView.getRoot(), View.VISIBLE, 0.4f, 200);
         bookingViewModel = new BookingViewModelFactory(this).create(BookingViewModel.class);
         fetchCheckoutResult();
         handleCheckoutResult();
 
-        handleReturnToHome();
+        binding.toolbar.setNavigationOnClickListener(v -> backToHome());
     }
 
     @Override
     public boolean onSupportNavigateUp() {
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+        backToHome();
         return true;
     }
 
-    // return to home screen
-    private void handleReturnToHome() {
-        binding.toolbar.setNavigationOnClickListener(v -> {
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-        });
+    // TODO: Maybe handle return to error page
+    private void backToHome() {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     private void fetchCheckoutResult() {
         Intent intent = getIntent();
-        int code = intent.getIntExtra("code", 0);
-        if (code == 0) {
+        int orderCode = intent.getIntExtra("orderCode", 0);
+        if (orderCode == 0) {
             Toast.makeText(this, R.string.invoice_code_invalid, Toast.LENGTH_SHORT).show();
+
+            if (binding.loadingView.getRoot().getVisibility() == View.VISIBLE) {
+                AnimationUtil.animateView(binding.loadingView.getRoot(), View.GONE, 0, 200);
+            }
+            backToHome();
+            return;
         }
 
-        bookingViewModel.completeCheckout(code);
+        bookingViewModel.cancelBooking(orderCode);
     }
 
     private void handleCheckoutResult() {

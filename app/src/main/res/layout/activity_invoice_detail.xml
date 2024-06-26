@@ -22,8 +22,8 @@
                 app:layout_scrollFlags="noScroll"
                 app:navigationIcon="@drawable/circle_arrow_left"
                 app:title="@string/booking_info"
-                app:titleTextAppearance="@style/TextBoldLarge"
                 app:titleCentered="true"
+                app:titleTextAppearance="@style/TextBoldLarge"
                 app:titleTextColor="@color/text">
 
             </com.google.android.material.appbar.MaterialToolbar>
@@ -265,8 +265,8 @@
 
                                 <TextView
                                     android:layout_width="0dp"
-                                    android:layout_weight="1"
                                     android:layout_height="wrap_content"
+                                    android:layout_weight="1"
                                     android:text="@string/payment_method"
                                     android:textSize="@dimen/text_size_normal" />
 
@@ -356,8 +356,8 @@
 
                                 <TextView
                                     android:layout_width="0dp"
-                                    android:layout_weight="1"
                                     android:layout_height="wrap_content"
+                                    android:layout_weight="1"
                                     android:text="@string/final_price"
                                     android:textSize="@dimen/text_size_large"
                                     android:textStyle="bold" />

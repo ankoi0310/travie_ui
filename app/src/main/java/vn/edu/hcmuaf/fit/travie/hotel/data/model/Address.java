@@ -19,6 +19,8 @@ public class Address extends BaseModel {
     private int wardId;
     private int districtId;
     private int provinceId;
+    private double latitude;
+    private double longitude;
     private String fullAddress;
 
     public Address(Parcel in) {
@@ -27,6 +29,8 @@ public class Address extends BaseModel {
         wardId = in.readInt();
         districtId = in.readInt();
         provinceId = in.readInt();
+        latitude = in.readDouble();
+        longitude = in.readDouble();
         fullAddress = in.readString();
     }
 
@@ -37,6 +41,8 @@ public class Address extends BaseModel {
         dest.writeInt(wardId);
         dest.writeInt(districtId);
         dest.writeInt(provinceId);
+        dest.writeDouble(latitude);
+        dest.writeDouble(longitude);
         dest.writeString(fullAddress);
     }
 
@@ -51,8 +57,4 @@ public class Address extends BaseModel {
             return new Address[size];
         }
     };
-
-    public static Address demo() {
-        return new Address("123", 1, 1, 1, "123");
-    }
 }
