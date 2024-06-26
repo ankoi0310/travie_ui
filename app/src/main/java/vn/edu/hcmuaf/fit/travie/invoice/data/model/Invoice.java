@@ -24,6 +24,8 @@ import vn.edu.hcmuaf.fit.travie.room.data.model.Room;
 public class Invoice extends BaseModel {
     private String code;
     private Room room;
+    private String guestName;
+    private String guestPhone;
     private LocalDateTime checkIn;
     private LocalDateTime checkOut;
     private int totalPrice;

@@ -65,10 +65,17 @@
 
     <!-- Booking Status -->
     <string name="booking_status_pending">Chờ xác nhận</string>
-    <string name="booking_status_confirmed">Đặt phòng thành công</string>
+    <string name="booking_status_success">Đặt phòng thành công</string>
     <string name="booking_status_rejected">Bị từ chối</string>
     <string name="booking_status_completed">Đã hoàn thành</string>
     <string name="booking_status_cancelled">Đã hủy</string>
+
+    <!-- Payment Status -->
+    <string name="payment_status_unpaid">Chưa thanh toán</string>
+    <string name="payment_status_paid">Thanh toán thành công</string>
+    <string name="payment_status_failed">Thanh toán thất bại</string>
+    <string name="payment_status_refunded">Đã hoàn tiền</string>
+
     <string name="explore_subtitle">Những khách sạn lý tưởng không thể bỏ lỡ</string>
     <string name="vertical_splash">|</string>
     <string name="change">Thay đổi</string>
@@ -86,4 +93,9 @@
     <string name="payment_method_momo">Ví Momo</string>
     <string name="payment_method_atm">Thẻ ATM</string>
     <string name="check_in_person">Người nhận phòng</string>
+    <string name="payment_detail">Chi tiết thanh toán</string>
+    <string name="status">Trạng thái</string>
+    <string name="payment_method">Phương thức thanh toán</string>
+    <string name="room_price">Tiền phòng</string>
+    <string name="invoice_code_invalid">Mã hoá đơn không hợp lệ</string>
 </resources>
