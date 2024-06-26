@@ -62,7 +62,6 @@ public class InvoiceAdapter extends RecyclerView.Adapter<InvoiceAdapter.InvoiceV
         // Set background tint and text color based on booking status
         int backgroundTint, textColor;
         switch (bookingStatus) {
-            case CONFIRMED:
             case COMPLETED:
                 backgroundTint = R.color.success_20;
                 textColor = R.color.success_80;

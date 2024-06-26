@@ -64,7 +64,7 @@ public class ProfileDetailActivity extends BaseActivity {
         binding = ActivityProfileDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        userService = RetrofitService.createService(this, UserService.class);
+        userService = RetrofitService.createPrivateService(this, UserService.class);
 
         setProfileDetail();
 

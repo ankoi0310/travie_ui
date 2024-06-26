@@ -22,13 +22,15 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     private ActivityForgotPasswordBinding binding;
     private AuthService authService;
 
+    private OTPType otpType;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityForgotPasswordBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        authService = RetrofitService.createService(this, AuthService.class);
+        authService = RetrofitService.createPublicService(this, AuthService.class);
 
         binding.buttonSubmitEmail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,12 +52,13 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             @Override
             public void onResponse(@NonNull Call<HttpResponse<String>> call, @NonNull Response<HttpResponse<String>> response) {
                 if (response.isSuccessful() && response.body() != null && response.body().isSuccess()) {
+                    Toast.makeText(ForgotPasswordActivity.this, "Xác nhận email có tồn tại.", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(ForgotPasswordActivity.this, EnterOTPActivity.class);
-                    intent.putExtra("OTP_TYPE", OTPType.RESET_PASSWORD);
+                    intent.putExtra("OTP_TYPE", OTPType.RESET_PASSWORD.name());
                     startActivity(intent);
                     finish();
                 } else {
-                    Toast.makeText(ForgotPasswordActivity.this, "Failed to send reset email. Please try again.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ForgotPasswordActivity.this, "Gửi mail thất bại, vui lòng thử lại sau!", Toast.LENGTH_SHORT).show();
                 }
             }
 

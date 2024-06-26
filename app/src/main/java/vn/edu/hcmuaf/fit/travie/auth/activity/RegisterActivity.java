@@ -41,7 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
         binding = ActivityRegisterBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        authService = RetrofitService.createService(this, AuthService.class);
+        authService = RetrofitService.createPublicService(this, AuthService.class);
 
         TextWatcher afterTextChangedListener = new TextWatcher() {
             @Override

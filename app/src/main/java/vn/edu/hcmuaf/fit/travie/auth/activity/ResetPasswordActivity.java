@@ -29,7 +29,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
         binding = ActivityResetPasswordBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        authService = RetrofitService.createService(this, AuthService.class);
+        authService = RetrofitService.createPublicService(this, AuthService.class);
 
         binding.buttonResetPassword.setOnClickListener(new View.OnClickListener() {
             @Override

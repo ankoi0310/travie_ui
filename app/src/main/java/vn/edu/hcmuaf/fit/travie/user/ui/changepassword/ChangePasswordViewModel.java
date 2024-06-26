@@ -32,7 +32,7 @@ public class ChangePasswordViewModel extends ViewModel {
     private final UserService userService;
 
     ChangePasswordViewModel(Context context) {
-        this.userService = RetrofitService.createService(context, UserService.class);
+        this.userService = RetrofitService.createPublicService(context, UserService.class);
     }
 
     LiveData<ChangePasswordFormState> getChangePasswordFormState() {

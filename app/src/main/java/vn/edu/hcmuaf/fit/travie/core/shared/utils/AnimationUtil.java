@@ -10,6 +10,7 @@ public class AnimationUtil {
             view.setAlpha(0);
         }
         view.setVisibility(View.VISIBLE);
+        view.setClickable(false);
         view.animate()
                 .setDuration(duration)
                 .alpha(show ? toAlpha : 0)

@@ -33,7 +33,7 @@ public class HotelViewModel extends ViewModel {
     private final HotelService hotelService;
 
     public HotelViewModel(Context context) {
-        this.hotelService = RetrofitService.createService(context, HotelService.class);
+        this.hotelService = RetrofitService.createPublicService(context, HotelService.class);
     }
 
     public LiveData<HotelListResult> getNearByHotelList() {

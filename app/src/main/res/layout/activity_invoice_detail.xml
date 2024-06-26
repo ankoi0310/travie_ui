@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_scrollFlags="noScroll"
-            app:title="@string/invoice_detail"
+            app:title="@string/booking_info"
             app:titleTextColor="@color/text"
             app:titleCentered="true"
             app:menu="@menu/invoice_detail_menu"

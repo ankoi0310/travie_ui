@@ -1,6 +1,8 @@
 package vn.edu.hcmuaf.fit.travie.core.shared.utils;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.util.DisplayMetrics;
 import android.view.View;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -49,5 +51,9 @@ public class AppUtil {
     public static String toTimeString(long hour) {
         // if < 10, add 0 before
         return (hour < 10 ? "0" : "") + hour;
+    }
+
+    public static float convertPixelsToDp(float px, Context context) {
+        return px / ((float) context.getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
     }
 }

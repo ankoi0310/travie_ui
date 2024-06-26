@@ -6,15 +6,15 @@ import vn.edu.hcmuaf.fit.travie.R;
 
 public enum BookingStatus {
     PENDING,
-    CONFIRMED,
+    SUCCESS,
     REJECTED,
     COMPLETED,
     CANCELLED;
 
     public static @StringRes int getResId(BookingStatus status) {
         switch (status) {
-            case CONFIRMED:
-                return R.string.booking_status_confirmed;
+            case SUCCESS:
+                return R.string.booking_status_success;
             case REJECTED:
                 return R.string.booking_status_rejected;
             case COMPLETED:
