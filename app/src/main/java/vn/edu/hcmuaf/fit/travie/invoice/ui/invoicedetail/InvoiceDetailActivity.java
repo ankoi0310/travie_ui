@@ -2,16 +2,20 @@ package vn.edu.hcmuaf.fit.travie.invoice.ui.invoicedetail;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import java.time.LocalDateTime;
 
 import vn.edu.hcmuaf.fit.travie.booking.ui.fragment.SelectedRoomFragment;
 import vn.edu.hcmuaf.fit.travie.booking.ui.fragment.SelectedTimeFragment;
 import vn.edu.hcmuaf.fit.travie.core.common.ui.BaseActivity;
+import vn.edu.hcmuaf.fit.travie.core.common.ui.cancellationpolicy.CancellationPolicyFragment;
 import vn.edu.hcmuaf.fit.travie.core.shared.enums.invoice.BookingStatus;
 import vn.edu.hcmuaf.fit.travie.core.shared.enums.invoice.PaymentStatus;
 import vn.edu.hcmuaf.fit.travie.core.shared.utils.AnimationUtil;
@@ -35,10 +39,20 @@ public class InvoiceDetailActivity extends BaseActivity {
         binding = ActivityInvoiceDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        ViewCompat.setOnApplyWindowInsetsListener(binding.main, (v, insets) -> {
+            Insets stautusBars = insets.getInsets(WindowInsetsCompat.Type.statusBars());
+            // unit of stautusBars.top is px, so we need to convert it to dp
+            int statusBarHeight = stautusBars.top / (getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+            binding.toolbar.setPadding(0, statusBarHeight + binding.toolbar.getPaddingBottom(), 0,  binding.toolbar.getPaddingBottom());
+            binding.toolbar.setTitleMarginTop(statusBarHeight - 4);
+            v.setPadding(0, 0, 0, stautusBars.bottom);
+            return WindowInsetsCompat.CONSUMED;
+        });
+
         AnimationUtil.animateView(binding.loadingView.getRoot(), View.VISIBLE, 0.4f, 200);
 
         invoiceViewModel = new InvoiceViewModelFactory(this).create(InvoiceViewModel.class);
-        invoiceViewModel.getInvoice().observe(this, result -> new Handler(Looper.getMainLooper()).postDelayed(() -> {
+        invoiceViewModel.getInvoice().observe(this, result -> {
             if (result.getError() != null) {
                 Toast.makeText(this, result.getError(), Toast.LENGTH_SHORT).show();
             }
@@ -54,7 +68,7 @@ public class InvoiceDetailActivity extends BaseActivity {
             if (binding.loadingView.getRoot().getVisibility() == View.VISIBLE) {
                 AnimationUtil.animateView(binding.loadingView.getRoot(), View.GONE, 0, 200);
             }
-        }, 1000));
+        });
 
         Intent intent = getIntent();
         Invoice invoice = intent.getParcelableExtra("invoice", Invoice.class);
@@ -64,6 +78,10 @@ public class InvoiceDetailActivity extends BaseActivity {
         } else {
             updateUI(invoice);
             binding.swipeRefreshLayout.setOnRefreshListener(() -> invoiceViewModel.fetchInvoiceById(invoice.getId()));
+
+            if (binding.loadingView.getRoot().getVisibility() == View.VISIBLE) {
+                AnimationUtil.animateView(binding.loadingView.getRoot(), View.GONE, 0, 200);
+            }
         }
     }
 
@@ -80,6 +98,7 @@ public class InvoiceDetailActivity extends BaseActivity {
         binding.totalPriceTxt.setText(AppUtil.formatCurrency(invoice.getTotalPrice()));
         binding.promotionPriceTxt.setText(AppUtil.formatCurrency(invoice.getTotalPrice() - invoice.getFinalPrice()));
         binding.finalPriceTxt.setText(AppUtil.formatCurrency(invoice.getFinalPrice()));
+        initCancelationPolicyFragment();
     }
 
     private void initSelectedRoomFragment(Room room) {
@@ -91,6 +110,12 @@ public class InvoiceDetailActivity extends BaseActivity {
     private void initSelectedTimeFragment(LocalDateTime checkIn, LocalDateTime checkOut, BookingType bookingType) {
         getSupportFragmentManager().beginTransaction()
                 .replace(binding.selectedTimeFragment.getId(), SelectedTimeFragment.newInstance(checkIn, checkOut, bookingType))
+                .commit();
+    }
+
+    private void initCancelationPolicyFragment() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(binding.cancellationPolicyFragment.getId(), CancellationPolicyFragment.newInstance())
                 .commit();
     }
 }

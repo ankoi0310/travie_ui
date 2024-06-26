@@ -1,6 +1,5 @@
 package vn.edu.hcmuaf.fit.travie.room.ui;
 
-import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -27,8 +26,8 @@ public class RoomViewModel extends ViewModel {
 
     private final RoomService roomService;
 
-    public RoomViewModel(Context context) {
-        this.roomService = RetrofitService.createPublicService(context, RoomService.class);
+    public RoomViewModel() {
+        this.roomService = RetrofitService.createPublicService(RoomService.class);
     }
 
     public LiveData<RoomListResult> getRoomListResult() {

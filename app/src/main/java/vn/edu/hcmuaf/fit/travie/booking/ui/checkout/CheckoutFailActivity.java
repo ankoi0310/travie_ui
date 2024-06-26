@@ -2,8 +2,6 @@ package vn.edu.hcmuaf.fit.travie.booking.ui.checkout;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.View;
 import android.widget.Toast;
 
@@ -16,6 +14,7 @@ import vn.edu.hcmuaf.fit.travie.booking.ui.fragment.SelectedRoomFragment;
 import vn.edu.hcmuaf.fit.travie.booking.ui.fragment.SelectedTimeFragment;
 import vn.edu.hcmuaf.fit.travie.core.common.ui.BaseActivity;
 import vn.edu.hcmuaf.fit.travie.core.common.ui.MainActivity;
+import vn.edu.hcmuaf.fit.travie.core.common.ui.cancellationpolicy.CancellationPolicyFragment;
 import vn.edu.hcmuaf.fit.travie.core.shared.enums.invoice.BookingStatus;
 import vn.edu.hcmuaf.fit.travie.core.shared.enums.invoice.PaymentStatus;
 import vn.edu.hcmuaf.fit.travie.core.shared.utils.AnimationUtil;
@@ -73,7 +72,7 @@ public class CheckoutFailActivity extends BaseActivity {
     }
 
     private void handleCheckoutResult() {
-        bookingViewModel.getCheckoutResult().observe(this, result -> new Handler(Looper.getMainLooper()).postDelayed(() -> {
+        bookingViewModel.getCheckoutResult().observe(this, result -> {
             if (result.getError() != null) {
                 Toast.makeText(this, result.getError(), Toast.LENGTH_SHORT).show();
             }
@@ -92,12 +91,13 @@ public class CheckoutFailActivity extends BaseActivity {
                 binding.totalPriceTxt.setText(AppUtil.formatCurrency(invoice.getTotalPrice()));
                 binding.promotionPriceTxt.setText(AppUtil.formatCurrency(invoice.getTotalPrice() - invoice.getFinalPrice()));
                 binding.finalPriceTxt.setText(AppUtil.formatCurrency(invoice.getFinalPrice()));
+                initCancelationPolicyFragment();
             }
 
             if (binding.loadingView.getRoot().getVisibility() == View.VISIBLE) {
                 AnimationUtil.animateView(binding.loadingView.getRoot(), View.GONE, 0, 200);
             }
-        }, 1000));
+        });
     }
 
     private void initSelectedRoomFragment(Room room) {
@@ -109,6 +109,12 @@ public class CheckoutFailActivity extends BaseActivity {
     private void initSelectedTimeFragment(LocalDateTime checkIn, LocalDateTime checkOut, BookingType bookingType) {
         getSupportFragmentManager().beginTransaction()
                 .replace(binding.selectedTimeFragment.getId(), SelectedTimeFragment.newInstance(checkIn, checkOut, bookingType))
+                .commit();
+    }
+
+    private void initCancelationPolicyFragment() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(binding.cancellationPolicyFragment.getId(), CancellationPolicyFragment.newInstance())
                 .commit();
     }
 }

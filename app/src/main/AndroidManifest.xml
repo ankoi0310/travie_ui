@@ -19,6 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Travie">
         <activity
+            android:name=".hotel.ui.viewall.ViewAllHotelActivity"
+            android:exported="false" />
+        <activity
             android:name=".booking.ui.checkout.CheckoutFailActivity"
             android:exported="false" />
         <activity
@@ -60,9 +63,9 @@
             android:exported="false" />
         <activity
             android:name=".core.common.ui.MainActivity"
-            android:launchMode="singleTask"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:exported="true">
+            android:exported="true"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

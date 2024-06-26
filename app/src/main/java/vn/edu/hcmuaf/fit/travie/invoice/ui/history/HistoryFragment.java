@@ -3,12 +3,14 @@ package vn.edu.hcmuaf.fit.travie.invoice.ui.history;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.os.Handler;
-import android.os.Looper;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,6 +64,17 @@ public class HistoryFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         MainActivity mainActivity = (MainActivity) requireActivity();
+
+        ViewCompat.setOnApplyWindowInsetsListener(mainActivity.findViewById(R.id.main), (v, insets) -> {
+            Insets stautusBars = insets.getInsets(WindowInsetsCompat.Type.statusBars());
+            // unit of stautusBars.top is px, so we need to convert it to dp
+            int statusBarHeight = stautusBars.top / (getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+            binding.toolbar.setPadding(0, statusBarHeight + binding.toolbar.getPaddingBottom(), 0,  binding.toolbar.getPaddingBottom());
+//            binding.toolbar.setTitleMarginTop(statusBarHeight - 4);
+            v.setPadding(0, 0, 0, stautusBars.bottom);
+            return WindowInsetsCompat.CONSUMED;
+        });
+
         loadingView = mainActivity.findViewById(R.id.loadingView);
         AnimationUtil.animateView(loadingView, View.VISIBLE, 0.4f, 200);
 
@@ -76,7 +89,7 @@ public class HistoryFragment extends Fragment {
     }
 
     private void handleFetchingBookingHistory() {
-        viewModel.getInvoices().observe(getViewLifecycleOwner(), result -> new Handler(Looper.getMainLooper()).postDelayed(() -> {
+        viewModel.getInvoices().observe(getViewLifecycleOwner(), result -> {
             if (result.getError() != null) {
                 Toast.makeText(requireContext(), result.getError(), Toast.LENGTH_SHORT).show();
             }
@@ -93,6 +106,6 @@ public class HistoryFragment extends Fragment {
             if (loadingView.getVisibility() == View.VISIBLE) {
                 AnimationUtil.animateView(loadingView, View.GONE, 0, 200);
             }
-        }, 1000));
+        });
     }
 }

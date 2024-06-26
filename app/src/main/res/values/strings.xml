@@ -73,7 +73,7 @@
     <!-- Payment Status -->
     <string name="payment_status_unpaid">Chưa thanh toán</string>
     <string name="payment_status_paid">Thanh toán thành công</string>
-    <string name="payment_status_failed">Thanh toán thất bại</string>
+    <string name="payment_status_failed">Thanh toán bị lỗi</string>
     <string name="payment_status_refunded">Đã hoàn tiền</string>
 
     <string name="explore_subtitle">Những khách sạn lý tưởng không thể bỏ lỡ</string>

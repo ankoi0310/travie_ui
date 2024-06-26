@@ -2,8 +2,6 @@ package vn.edu.hcmuaf.fit.travie.booking.ui.chooseroom;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.View;
 import android.widget.Toast;
 
@@ -38,24 +36,23 @@ public class ChooseRoomActivity extends BaseActivity {
         setContentView(binding.getRoot());
 
         roomViewModel = new ViewModelProvider(this, new RoomViewModelFactory(this)).get(RoomViewModel.class);
-        roomViewModel.getRoomListResult().observe(this, result -> new Handler(Looper.getMainLooper())
-                .postDelayed(() -> {
-                    if (result.getError() != null) {
-                        Toast.makeText(this, result.getError(), Toast.LENGTH_SHORT).show();
-                    }
+        roomViewModel.getRoomListResult().observe(this, result -> {
+            if (result.getError() != null) {
+                Toast.makeText(this, result.getError(), Toast.LENGTH_SHORT).show();
+            }
 
-                    if (result.getSuccess() != null) {
-                        ArrayList<Room> rooms = result.getSuccess();
-                        ChooseRoomAdapter adapter = new ChooseRoomAdapter(rooms);
-                        binding.rvRoom.setAdapter(adapter);
-                        binding.rvRoom.setVisibility(rooms.isEmpty() ? View.GONE : View.VISIBLE);
-                        binding.noRoomTxt.setVisibility(rooms.isEmpty() ? View.VISIBLE : View.GONE);
-                    }
+            if (result.getSuccess() != null) {
+                ArrayList<Room> rooms = result.getSuccess();
+                ChooseRoomAdapter adapter = new ChooseRoomAdapter(rooms);
+                binding.rvRoom.setAdapter(adapter);
+                binding.rvRoom.setVisibility(rooms.isEmpty() ? View.GONE : View.VISIBLE);
+                binding.noRoomTxt.setVisibility(rooms.isEmpty() ? View.VISIBLE : View.GONE);
+            }
 
-                    if (binding.loadingView.getRoot().getVisibility() == View.VISIBLE) {
-                        AnimationUtil.animateView(binding.loadingView.getRoot(), View.GONE, 0, 200);
-                    }
-                }, 2000));
+            if (binding.loadingView.getRoot().getVisibility() == View.VISIBLE) {
+                AnimationUtil.animateView(binding.loadingView.getRoot(), View.GONE, 0, 200);
+            }
+        });
 
         binding.toolbar.setNavigationOnClickListener(v -> finish());
 

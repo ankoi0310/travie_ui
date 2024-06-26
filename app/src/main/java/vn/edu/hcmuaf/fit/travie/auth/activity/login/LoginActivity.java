@@ -43,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
 
         tokenManager = new TokenManager(this);
 
-        authService = RetrofitService.createPublicService(this, AuthService.class);
+        authService = RetrofitService.createPublicService(AuthService.class);
 
         TextWatcher afterTextChangedListener = new TextWatcher() {
             @Override

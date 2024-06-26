@@ -17,7 +17,7 @@ public class RoomViewModelFactory implements ViewModelProvider.Factory {
     @SuppressWarnings("unchecked")
     public <T extends ViewModel> T create(Class<T> modelClass) {
         if (modelClass.isAssignableFrom(RoomViewModel.class)) {
-            return (T) new RoomViewModel(context);
+            return (T) new RoomViewModel();
         }
         throw new IllegalArgumentException("Unknown ViewModel class");
     }

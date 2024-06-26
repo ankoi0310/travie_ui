@@ -5,16 +5,21 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -52,13 +57,6 @@ public class MainActivity extends BaseActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        ViewCompat.setOnApplyWindowInsetsListener(binding.main, (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
-            layoutParams.setMargins(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            v.setLayoutParams(layoutParams);
-            return WindowInsetsCompat.CONSUMED;
-        });
 
         sharedViewModel = new ViewModelProvider(this, new SharedViewModelFactory()).get(SharedViewModel.class);
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
@@ -123,7 +121,6 @@ public class MainActivity extends BaseActivity {
         fusedLocationProviderClient.getLastLocation().addOnSuccessListener(location -> {
             if (location != null) {
                 sharedViewModel.setLastLocation(location);
-                Log.d("HomeFragment", "onCreate: " + location.getLatitude() + " " + location.getLongitude());
             }
         });
     }

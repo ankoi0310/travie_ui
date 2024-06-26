@@ -2,7 +2,6 @@ package vn.edu.hcmuaf.fit.travie.hotel.ui.hoteldetail;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Looper;
 import android.util.DisplayMetrics;
 import android.view.Menu;
@@ -62,7 +61,6 @@ public class HotelDetailActivity extends BaseActivity {
             v.setPadding(0, 0, 0, stautusBars.bottom);
             return WindowInsetsCompat.CONSUMED;
         });
-        ;
 
         binding.rootLayout.setVisibility(View.GONE);
         AnimationUtil.animateView(binding.loadingView.getRoot(), View.VISIBLE, 0.4f, 200);
@@ -123,50 +121,49 @@ public class HotelDetailActivity extends BaseActivity {
         Intent intent = getIntent();
         long hotelId = intent.getLongExtra("hotelId", 0);
         hotelViewModel.getHotelById(hotelId);
-        hotelViewModel.getHotel().observe(this, result -> new Handler(Looper.getMainLooper())
-                .postDelayed(() -> {
-                    if (result.getError() != null) {
-                        Toast.makeText(this, result.getError(), Toast.LENGTH_SHORT).show();
-                        finish();
-                    }
+        hotelViewModel.getHotel().observe(this, result -> {
+            if (result.getError() != null) {
+                Toast.makeText(this, result.getError(), Toast.LENGTH_SHORT).show();
+                finish();
+            }
 
-                    if (result.getSuccess() != null) {
-                        hotel = result.getSuccess();
+            if (result.getSuccess() != null) {
+                hotel = result.getSuccess();
 
-                        Glide.with(this)
-                                .load(hotel.getImages().get(0))
-                                .centerCrop()
-                                .placeholder(R.drawable.hotel_demo)
-                                .into(binding.hotelImg);
+                Glide.with(this)
+                        .load(hotel.getImages().get(0))
+                        .centerCrop()
+                        .placeholder(R.drawable.hotel_demo)
+                        .into(binding.hotelImg);
 
-                        binding.nameTxt.setText(hotel.getName());
-                        binding.addressTxt.setText(hotel.getAddress().getFullAddress());
-                        binding.averageMarkTxt1.setText(String.valueOf(hotel.getAverageMark()));
-                        binding.reviewCountTxt1.setText(String.format(Locale.getDefault(), "(%d)", hotel.getReviews().size()));
-                        binding.averageMarkTxt2.setText(String.valueOf(hotel.getAverageMark()));
-                        binding.reviewCountTxt2.setText(String.format(Locale.getDefault(), "%d đánh giá", hotel.getReviews().size()));
+                binding.nameTxt.setText(hotel.getName());
+                binding.addressTxt.setText(hotel.getAddress().getFullAddress());
+                binding.averageMarkTxt1.setText(String.valueOf(hotel.getAverageMark()));
+                binding.reviewCountTxt1.setText(String.format(Locale.getDefault(), "(%d)", hotel.getReviews().size()));
+                binding.averageMarkTxt2.setText(String.valueOf(hotel.getAverageMark()));
+                binding.reviewCountTxt2.setText(String.format(Locale.getDefault(), "%d đánh giá", hotel.getReviews().size()));
 
-                        markwon.setMarkdown(binding.introductionTxt, hotel.getIntroduction());
+                markwon.setMarkdown(binding.introductionTxt, hotel.getIntroduction());
 
-                        BookingTypeAdapter bookingTypeAdapter = new BookingTypeAdapter(hotel.getBookingTypes());
-                        binding.bookingTypeRv.setLayoutManager(new LinearLayoutManager(this));
-                        binding.bookingTypeRv.setAdapter(bookingTypeAdapter);
+                BookingTypeAdapter bookingTypeAdapter = new BookingTypeAdapter(hotel.getBookingTypes());
+                binding.bookingTypeRv.setLayoutManager(new LinearLayoutManager(this));
+                binding.bookingTypeRv.setAdapter(bookingTypeAdapter);
 
-                        if (hotel.getRooms() != null) {
-                            int price = hotel.getRooms().stream().mapToInt(Room::getFirstHoursOrigin).min().orElse(0);
-                            binding.priceTxt.setText(AppUtil.formatCurrency(price));
-                        }
+                if (hotel.getRooms() != null) {
+                    int price = hotel.getRooms().stream().mapToInt(Room::getFirstHoursOrigin).min().orElse(0);
+                    binding.priceTxt.setText(AppUtil.formatCurrency(price));
+                }
 
-                        BookingRequest bookingRequest = new BookingRequest();
-                        BookingRequestHolder.getInstance().setBookingRequest(bookingRequest);
-                        initChooseTimeFragment();
-                    }
+                BookingRequest bookingRequest = new BookingRequest();
+                BookingRequestHolder.getInstance().setBookingRequest(bookingRequest);
+                initChooseTimeFragment();
+            }
 
-                    if (binding.loadingView.getRoot().getVisibility() == View.VISIBLE) {
-                        AnimationUtil.animateView(binding.loadingView.getRoot(), View.GONE, 0, 200);
-                        binding.rootLayout.setVisibility(View.VISIBLE);
-                    }
-                }, 2000));
+            if (binding.loadingView.getRoot().getVisibility() == View.VISIBLE) {
+                AnimationUtil.animateView(binding.loadingView.getRoot(), View.GONE, 0, 200);
+                binding.rootLayout.setVisibility(View.VISIBLE);
+            }
+        });
 
         markwon.setMarkdown(binding.cancellationPolicyTxt, AppConstant.cancellationPolicyText);
     }

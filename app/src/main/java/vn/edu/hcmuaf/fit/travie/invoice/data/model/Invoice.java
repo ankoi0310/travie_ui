@@ -35,30 +35,17 @@ public class Invoice extends BaseModel {
     private BookingStatus bookingStatus;
     private PaymentStatus paymentStatus;
 
-    public Invoice(long id, String code, Room room, LocalDateTime checkIn, LocalDateTime checkOut,
-                   int totalPrice, int finalPrice, BookingType bookingType, PaymentMethod paymentMethod, BookingStatus bookingStatus, PaymentStatus paymentStatus) {
-        super(id, LocalDateTime.now(), LocalDateTime.now());
-        this.code = code;
-        this.room = room;
-        this.checkIn = checkIn;
-        this.checkOut = checkOut;
-        this.totalPrice = totalPrice;
-        this.finalPrice = finalPrice;
-        this.bookingType = bookingType;
-        this.paymentMethod = paymentMethod;
-        this.bookingStatus = bookingStatus;
-        this.paymentStatus = paymentStatus;
-    }
-
     public Invoice(Parcel in) {
         super(in);
         code = in.readString();
-        room = in.readParcelable(Room.class.getClassLoader());
+        room = in.readParcelable(Room.class.getClassLoader(), Room.class);
+        guestName = in.readString();
+        guestPhone = in.readString();
         checkIn = LocalDateTime.parse(in.readString());
         checkOut = LocalDateTime.parse(in.readString());
         totalPrice = in.readInt();
         finalPrice = in.readInt();
-        bookingType = in.readParcelable(BookingType.class.getClassLoader());
+        bookingType = in.readParcelable(BookingType.class.getClassLoader(), BookingType.class);
         paymentMethod = PaymentMethod.valueOf(in.readString());
         bookingStatus = BookingStatus.valueOf(in.readString());
         paymentStatus = PaymentStatus.valueOf(in.readString());
@@ -69,6 +56,8 @@ public class Invoice extends BaseModel {
         super.writeToParcel(dest, flags);
         dest.writeString(code);
         dest.writeParcelable(room, flags);
+        dest.writeString(guestName);
+        dest.writeString(guestPhone);
         dest.writeString(checkIn.toString());
         dest.writeString(checkOut.toString());
         dest.writeInt(totalPrice);

@@ -1,7 +1,5 @@
 package vn.edu.hcmuaf.fit.travie.hotel.ui;
 
-import android.content.Context;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -31,8 +29,8 @@ public class HotelViewModel extends ViewModel {
 
     private final HotelService hotelService;
 
-    public HotelViewModel(Context context) {
-        this.hotelService = RetrofitService.createPublicService(context, HotelService.class);
+    public HotelViewModel() {
+        this.hotelService = RetrofitService.createPublicService(HotelService.class);
     }
 
     public LiveData<HotelListResult> getNearByHotelList() {

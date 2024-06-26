@@ -47,7 +47,7 @@ public class RetrofitService {
             .readTimeout(60, TimeUnit.SECONDS)
             .writeTimeout(60, TimeUnit.SECONDS);
 
-    public static <S> S createPublicService(Context context, @NotNull Class<S> serviceClass) {
+    public static <S> S createPublicService(@NotNull Class<S> serviceClass) {
         OkHttpClient client = clientBuilder.build();
         Retrofit retrofit = builder.client(client).build();
         return retrofit.create(serviceClass);

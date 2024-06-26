@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModelProvider;
 import javax.inject.Inject;
 
 import lombok.RequiredArgsConstructor;
-import vn.edu.hcmuaf.fit.travie.hotel.data.service.HotelService;
 
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class HotelViewModelFactory implements ViewModelProvider.Factory {
@@ -20,7 +19,7 @@ public class HotelViewModelFactory implements ViewModelProvider.Factory {
     @SuppressWarnings("unchecked")
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if (modelClass.isAssignableFrom(HotelViewModel.class)) {
-            return (T) new HotelViewModel(context);
+            return (T) new HotelViewModel();
         }
         throw new IllegalArgumentException("Unknown ViewModel class");
     }
