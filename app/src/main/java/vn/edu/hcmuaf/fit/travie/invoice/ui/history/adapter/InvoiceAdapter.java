@@ -27,7 +27,7 @@ public class InvoiceAdapter extends RecyclerView.Adapter<InvoiceAdapter.InvoiceV
 
     @NonNull
     @Override
-    public InvoiceAdapter.InvoiceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public InvoiceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
         binding = ViewHolderInvoiceBinding.inflate(LayoutInflater.from(context), parent, false);
         return new InvoiceViewHolder(binding);
@@ -40,7 +40,7 @@ public class InvoiceAdapter extends RecyclerView.Adapter<InvoiceAdapter.InvoiceV
     }
 
     @Override
-    public void onBindViewHolder(@NonNull InvoiceAdapter.InvoiceViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull InvoiceViewHolder holder, int position) {
         Invoice invoice = invoices.get(position);
 
         setBookingStatus(holder, invoice.getBookingStatus());
@@ -62,6 +62,7 @@ public class InvoiceAdapter extends RecyclerView.Adapter<InvoiceAdapter.InvoiceV
         // Set background tint and text color based on booking status
         int backgroundTint, textColor;
         switch (bookingStatus) {
+            case PENDING:
             case COMPLETED:
                 backgroundTint = R.color.success_20;
                 textColor = R.color.success_80;
@@ -84,7 +85,7 @@ public class InvoiceAdapter extends RecyclerView.Adapter<InvoiceAdapter.InvoiceV
         holder.binding.bookingStatusTxt.setTextColor(AppCompatResources.getColorStateList(context, textColor));
     }
 
-    private void initActionMenu(@NonNull InvoiceAdapter.InvoiceViewHolder holder) {
+    private void initActionMenu(@NonNull InvoiceViewHolder holder) {
         MenuInflater inflater = new MenuInflater(holder.binding.getRoot().getContext());
         inflater.inflate(R.menu.invoice_detail_menu, holder.binding.actionMenuView.getMenu());
 

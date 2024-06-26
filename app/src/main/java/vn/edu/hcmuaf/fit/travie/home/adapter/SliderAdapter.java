@@ -57,7 +57,7 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapter
         return mSliderItems.size();
     }
 
-    public static class SliderAdapterVH extends SliderViewAdapter.ViewHolder {
+    public static class SliderAdapterVH extends ViewHolder {
         ImageSliderLayoutItemBinding binding;
         ImageView imageViewBackground;
         ImageView imageGifContainer;

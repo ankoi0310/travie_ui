@@ -42,7 +42,7 @@ public class ProfileMenuAdapter extends RecyclerView.Adapter<ProfileMenuAdapter.
 
     @NonNull
     @Override
-    public ProfileMenuAdapter.ProfileMenuViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ProfileMenuViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
         tokenManager = new TokenManager(context);
         binding = ViewHolderProfileMenuBinding.inflate(LayoutInflater.from(context), parent, false);
@@ -50,7 +50,7 @@ public class ProfileMenuAdapter extends RecyclerView.Adapter<ProfileMenuAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProfileMenuAdapter.ProfileMenuViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ProfileMenuViewHolder holder, int position) {
         ProfileMenu profileMenu = profileMenuItems.get(position);
         holder.binding.menuTitleTxt.setText(profileMenu.getTitle());
         holder.binding.menuIcon.setImageDrawable(ContextCompat.getDrawable(context, profileMenu.getIcon()));

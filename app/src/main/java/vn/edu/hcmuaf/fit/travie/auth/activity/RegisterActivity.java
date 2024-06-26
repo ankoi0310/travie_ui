@@ -26,7 +26,6 @@ import vn.edu.hcmuaf.fit.travie.auth.model.RegisterResponse;
 import vn.edu.hcmuaf.fit.travie.auth.service.AuthService;
 import vn.edu.hcmuaf.fit.travie.core.handler.domain.HttpResponse;
 import vn.edu.hcmuaf.fit.travie.core.service.RetrofitService;
-import vn.edu.hcmuaf.fit.travie.core.service.TokenManager;
 import vn.edu.hcmuaf.fit.travie.core.shared.enums.otp.OTPType;
 import vn.edu.hcmuaf.fit.travie.databinding.ActivityRegisterBinding;
 
