@@ -6,6 +6,7 @@ import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 
 import androidx.lifecycle.ViewModelProvider;
@@ -22,7 +23,6 @@ import vn.edu.hcmuaf.fit.travie.databinding.ActivityChangePasswordBinding;
 public class ChangePasswordActivity extends BaseActivity {
     ActivityChangePasswordBinding binding;
     ChangePasswordViewModel viewModel;
-
     private CustomEditText currentEdt, newEdt, confirmEdt;
 
     @Override
@@ -52,10 +52,9 @@ public class ChangePasswordActivity extends BaseActivity {
         });
 
         binding.submitBtn.setOnClickListener(v -> {
-            // loadingProgressBar.setVisibility(View.VISIBLE);
-//            String currentPassword = currentEdt.getText() != null ? currentEdt.getText().toString() : "";
-//            String newPassword = newEdt.getText() != null ? newEdt.getText().toString() : "";
-//            viewModel.changePassword(currentPassword, newPassword);
+            String currentPassword = currentEdt.getText() != null ? currentEdt.getText().toString() : "";
+            String newPassword = newEdt.getText() != null ? newEdt.getText().toString() : "";
+            viewModel.changePassword(currentPassword, newPassword);
             finish();
         });
     }
@@ -141,8 +140,6 @@ public class ChangePasswordActivity extends BaseActivity {
             if (result == null) {
                 return;
             }
-
-            // loadingProgressBar.setVisibility(View.GONE);
 
             if (result.getError() != null) {
                 showSnackBar(result.getError());

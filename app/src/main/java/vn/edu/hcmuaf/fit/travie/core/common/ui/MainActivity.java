@@ -3,14 +3,20 @@ package vn.edu.hcmuaf.fit.travie.core.common.ui;
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -23,9 +29,12 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import it.koi.flashytabbar.TabFlashyAnimator;
 import vn.edu.hcmuaf.fit.travie.R;
+import vn.edu.hcmuaf.fit.travie.booking.ui.checkout.CheckoutFailActivity;
+import vn.edu.hcmuaf.fit.travie.booking.ui.checkout.CheckoutSuccessActivity;
 import vn.edu.hcmuaf.fit.travie.core.shared.constant.AppConstant;
 import vn.edu.hcmuaf.fit.travie.core.shared.utils.AnimationUtil;
 import vn.edu.hcmuaf.fit.travie.databinding.ActivityMainBinding;
@@ -46,6 +55,14 @@ public class MainActivity extends BaseActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        ViewCompat.setOnApplyWindowInsetsListener(binding.main, (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
+            layoutParams.setMargins(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            v.setLayoutParams(layoutParams);
+            return WindowInsetsCompat.CONSUMED;
+        });
+
         AnimationUtil.animateView(binding.loadingView.getRoot(), View.VISIBLE, 0.4f, 200);
 
         sharedViewModel = new ViewModelProvider(this, new SharedViewModelFactory()).get(SharedViewModel.class);
@@ -55,6 +72,7 @@ public class MainActivity extends BaseActivity {
 
         PageAdapter adapter = new PageAdapter(this);
         binding.viewPager.setAdapter(adapter);
+        binding.viewPager.setUserInputEnabled(false);
 
         new TabLayoutMediator(binding.tabLayout, binding.viewPager, (tab, position) -> {
         }).attach();
