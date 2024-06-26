@@ -10,4 +10,7 @@ import vn.edu.hcmuaf.fit.travie.invoice.data.model.Invoice;
 public interface InvoiceService {
     @GET("invoice")
     Call<HttpResponse<ArrayList<Invoice>>> getInvoices();
+
+    @GET("invoice/{id}")
+    Call<HttpResponse<Invoice>> getInvoice(long id);
 }

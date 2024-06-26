@@ -7,9 +7,13 @@ import android.os.Looper;
 import android.view.View;
 import android.widget.Toast;
 
+import java.time.LocalDateTime;
+
 import vn.edu.hcmuaf.fit.travie.R;
 import vn.edu.hcmuaf.fit.travie.booking.ui.BookingViewModel;
 import vn.edu.hcmuaf.fit.travie.booking.ui.BookingViewModelFactory;
+import vn.edu.hcmuaf.fit.travie.booking.ui.fragment.SelectedRoomFragment;
+import vn.edu.hcmuaf.fit.travie.booking.ui.fragment.SelectedTimeFragment;
 import vn.edu.hcmuaf.fit.travie.core.common.ui.BaseActivity;
 import vn.edu.hcmuaf.fit.travie.core.shared.enums.invoice.BookingStatus;
 import vn.edu.hcmuaf.fit.travie.core.shared.enums.invoice.PaymentStatus;
@@ -17,7 +21,9 @@ import vn.edu.hcmuaf.fit.travie.core.shared.utils.AnimationUtil;
 import vn.edu.hcmuaf.fit.travie.core.shared.utils.AppUtil;
 import vn.edu.hcmuaf.fit.travie.core.shared.utils.BookingUtil;
 import vn.edu.hcmuaf.fit.travie.databinding.ActivityCheckoutSuccessBinding;
+import vn.edu.hcmuaf.fit.travie.hotel.data.model.BookingType;
 import vn.edu.hcmuaf.fit.travie.invoice.data.model.Invoice;
+import vn.edu.hcmuaf.fit.travie.room.data.model.Room;
 
 public class CheckoutSuccessActivity extends BaseActivity {
     ActivityCheckoutSuccessBinding binding;
@@ -60,6 +66,8 @@ public class CheckoutSuccessActivity extends BaseActivity {
                     binding.codeTxt.setText(invoice.getCode());
                     binding.guestPhoneTxt.setText(invoice.getGuestPhone());
                     binding.guestNameTxt.setText(invoice.getGuestName());
+                    initSelectedRoomFragment(invoice.getRoom());
+                    initSelectedTimeFragment(invoice.getCheckIn(), invoice.getCheckOut(), invoice.getBookingType());
                     binding.paymentStatusTxt.setText(PaymentStatus.getResId(invoice.getPaymentStatus()));
                     binding.paymentMethodTxt.setText(invoice.getPaymentMethod().getLabelResId());
                     binding.totalPriceTxt.setText(AppUtil.formatCurrency(invoice.getTotalPrice()));
@@ -72,5 +80,17 @@ public class CheckoutSuccessActivity extends BaseActivity {
                 }
             }, 1000);
         });
+    }
+
+    private void initSelectedRoomFragment(Room room) {
+        getSupportFragmentManager().beginTransaction()
+                .replace(binding.selectedRoomFragment.getId(), SelectedRoomFragment.newInstance(room))
+                .commit();
+    }
+
+    private void initSelectedTimeFragment(LocalDateTime checkIn, LocalDateTime checkOut, BookingType bookingType) {
+        getSupportFragmentManager().beginTransaction()
+                .replace(binding.selectedTimeFragment.getId(), SelectedTimeFragment.newInstance(checkIn, checkOut, bookingType))
+                .commit();
     }
 }

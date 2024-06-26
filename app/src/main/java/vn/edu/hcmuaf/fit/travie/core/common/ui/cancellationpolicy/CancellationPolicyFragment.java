@@ -22,7 +22,7 @@ import java.util.List;
 import vn.edu.hcmuaf.fit.travie.R;
 import vn.edu.hcmuaf.fit.travie.databinding.FragmentCancellationPolicyBinding;
 import vn.edu.hcmuaf.fit.travie.invoice.data.model.LinkTextItem;
-import vn.edu.hcmuaf.fit.travie.invoice.ui.history.InvoiceDetailActivity;
+import vn.edu.hcmuaf.fit.travie.invoice.ui.invoicedetail.InvoiceDetailActivity;
 
 /**
  * A simple {@link Fragment} subclass.

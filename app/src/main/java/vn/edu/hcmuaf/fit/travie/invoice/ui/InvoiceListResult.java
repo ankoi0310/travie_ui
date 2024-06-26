@@ -1,4 +1,4 @@
-package vn.edu.hcmuaf.fit.travie.invoice.ui.history;
+package vn.edu.hcmuaf.fit.travie.invoice.ui;
 
 import java.util.ArrayList;
 

@@ -43,7 +43,7 @@
             android:name=".booking.ui.chooseroom.ChooseRoomActivity"
             android:exported="false" />
         <activity
-            android:name=".invoice.ui.history.InvoiceDetailActivity"
+            android:name=".invoice.ui.invoicedetail.InvoiceDetailActivity"
             android:exported="false" />
         <activity
             android:name=".auth.activity.login.LoginActivity"

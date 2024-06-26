@@ -5,7 +5,6 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,16 +24,14 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import it.koi.flashytabbar.TabFlashyAnimator;
 import vn.edu.hcmuaf.fit.travie.R;
-import vn.edu.hcmuaf.fit.travie.booking.ui.checkout.CheckoutFailActivity;
-import vn.edu.hcmuaf.fit.travie.booking.ui.checkout.CheckoutSuccessActivity;
 import vn.edu.hcmuaf.fit.travie.core.shared.constant.AppConstant;
 import vn.edu.hcmuaf.fit.travie.core.shared.utils.AnimationUtil;
 import vn.edu.hcmuaf.fit.travie.databinding.ActivityMainBinding;
@@ -63,8 +60,6 @@ public class MainActivity extends BaseActivity {
             return WindowInsetsCompat.CONSUMED;
         });
 
-        AnimationUtil.animateView(binding.loadingView.getRoot(), View.VISIBLE, 0.4f, 200);
-
         sharedViewModel = new ViewModelProvider(this, new SharedViewModelFactory()).get(SharedViewModel.class);
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -73,6 +68,14 @@ public class MainActivity extends BaseActivity {
         PageAdapter adapter = new PageAdapter(this);
         binding.viewPager.setAdapter(adapter);
         binding.viewPager.setUserInputEnabled(false);
+        binding.viewPager.setOffscreenPageLimit(1);
+        binding.viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                tabFlashyAnimator.highLightTab(position);
+            }
+        });
 
         new TabLayoutMediator(binding.tabLayout, binding.viewPager, (tab, position) -> {
         }).attach();
@@ -83,15 +86,6 @@ public class MainActivity extends BaseActivity {
         tabFlashyAnimator.addTabItem(AppConstant.MenuTitle.HISTORY, R.drawable.clock);
         tabFlashyAnimator.addTabItem(AppConstant.MenuTitle.PROFILE, R.drawable.user);
         tabFlashyAnimator.highLightTab(0);
-
-        binding.viewPager.setOffscreenPageLimit(1);
-        binding.viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-                tabFlashyAnimator.highLightTab(position);
-            }
-        });
     }
 
     @Override

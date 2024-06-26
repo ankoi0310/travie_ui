@@ -4,17 +4,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 import vn.edu.hcmuaf.fit.travie.booking.data.model.BookingRequest;
+import vn.edu.hcmuaf.fit.travie.booking.data.model.LinkCreationResponse;
 import vn.edu.hcmuaf.fit.travie.booking.data.service.BookingRequestHolder;
 import vn.edu.hcmuaf.fit.travie.booking.ui.BookingViewModel;
 import vn.edu.hcmuaf.fit.travie.booking.ui.BookingViewModelFactory;
@@ -71,8 +69,7 @@ public class CheckoutActivity extends BaseActivity {
             BookingRequest bookingRequest = bookingRequestHolder.getBookingRequest();
             bookingRequest.setGuestName(binding.guestNameTxt.getText().toString());
             bookingRequest.setGuestPhone(binding.guestPhoneTxt.getText().toString());
-//            bookingViewModel.checkout();
-            openWebPage("https://pay.payos.vn/web/a759a46c402f494ab58513a00489fbdc");
+            bookingViewModel.checkout();
         });
         bookingViewModel.getBookingResult().observe(this, result -> {
             if (result.getError() != null) {
@@ -81,24 +78,23 @@ public class CheckoutActivity extends BaseActivity {
             }
 
             if (result.getSuccess() != null) {
-                Log.d("CheckoutActivity", "Checkout success: " + result.getSuccess().getCheckoutUrl());
-//                LinkCreationResponse linkCreationResponse = result.getSuccess();
-//                openWebPage(linkCreationResponse.getCheckoutUrl());
+                LinkCreationResponse linkCreationResponse = result.getSuccess();
+                openWebPage(linkCreationResponse.getCheckoutUrl());
             }
         });
     }
 
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//
-//        if (isResumedFromBrowser) {
-//            isResumedFromBrowser = false;
-//            Intent intent = new Intent(this, CheckoutSuccessActivity.class);
-//            startActivity(intent);
-//            finish();
-//        }
-//    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (isResumedFromBrowser) {
+            isResumedFromBrowser = false;
+            Intent intent = new Intent(this, CheckoutFailActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
 
     public void openWebPage(String url) {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));

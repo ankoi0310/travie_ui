@@ -7,15 +7,21 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.util.Log;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import vn.edu.hcmuaf.fit.travie.R;
+import vn.edu.hcmuaf.fit.travie.core.common.ui.MainActivity;
 import vn.edu.hcmuaf.fit.travie.core.common.ui.SpaceItemDecoration;
-import vn.edu.hcmuaf.fit.travie.core.shared.utils.AppUtil;
+import vn.edu.hcmuaf.fit.travie.core.shared.utils.AnimationUtil;
 import vn.edu.hcmuaf.fit.travie.databinding.FragmentHistoryBinding;
-import vn.edu.hcmuaf.fit.travie.invoice.ui.history.adapter.InvoiceAdapter;
+import vn.edu.hcmuaf.fit.travie.invoice.ui.InvoiceViewModel;
+import vn.edu.hcmuaf.fit.travie.invoice.ui.InvoiceViewModelFactory;
+import vn.edu.hcmuaf.fit.travie.invoice.ui.adapter.InvoiceAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,10 +30,9 @@ import vn.edu.hcmuaf.fit.travie.invoice.ui.history.adapter.InvoiceAdapter;
  */
 public class HistoryFragment extends Fragment {
     FragmentHistoryBinding binding;
+    View loadingView;
 
     InvoiceViewModel viewModel;
-
-    private InvoiceAdapter invoiceAdapter;
 
     public HistoryFragment() {
         // Required empty public constructor
@@ -56,29 +61,38 @@ public class HistoryFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        MainActivity mainActivity = (MainActivity) requireActivity();
+        loadingView = mainActivity.findViewById(R.id.loadingView);
+        AnimationUtil.animateView(loadingView, View.VISIBLE, 0.4f, 200);
+
         viewModel = new ViewModelProvider(this, new InvoiceViewModelFactory(requireContext())).get(InvoiceViewModel.class);
-        fetchInvoices();
-        invoiceAdapter = new InvoiceAdapter();
-        binding.invoiceRv.setAdapter(invoiceAdapter);
+        viewModel.fetchBookingHistory();
+        handleFetchingBookingHistory();
+
+        binding.swipeRefreshLayout.setOnRefreshListener(() -> viewModel.fetchBookingHistory());
+
         binding.invoiceRv.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.invoiceRv.addItemDecoration(new SpaceItemDecoration(32));
     }
 
-    private void fetchInvoices() {
-        viewModel.fetchInvoices();
-        viewModel.getInvoices().observe(getViewLifecycleOwner(), invoiceResult -> {
-            if (invoiceResult == null) {
-                return;
+    private void handleFetchingBookingHistory() {
+        viewModel.getInvoices().observe(getViewLifecycleOwner(), result -> new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            if (result.getError() != null) {
+                Toast.makeText(requireContext(), result.getError(), Toast.LENGTH_SHORT).show();
             }
 
-            if (invoiceResult.getError() != null) {
-                Log.e("HistoryFragment", "Error: " + invoiceResult.getError());
-                AppUtil.showSnackbar(binding.getRoot(), invoiceResult.getError());
+            if (result.getSuccess() != null) {
+                InvoiceAdapter invoiceAdapter = new InvoiceAdapter(result.getSuccess());
+                binding.invoiceRv.setAdapter(invoiceAdapter);
             }
 
-            if (invoiceResult.getSuccess() != null) {
-                invoiceAdapter.setInvoices(invoiceResult.getSuccess());
+            if (binding.swipeRefreshLayout.isRefreshing()) {
+                binding.swipeRefreshLayout.setRefreshing(false);
             }
-        });
+
+            if (loadingView.getVisibility() == View.VISIBLE) {
+                AnimationUtil.animateView(loadingView, View.GONE, 0, 200);
+            }
+        }, 1000));
     }
 }

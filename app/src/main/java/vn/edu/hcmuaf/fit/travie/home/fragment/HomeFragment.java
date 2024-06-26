@@ -77,6 +77,7 @@ public class HomeFragment extends Fragment {
         MainActivity mainActivity = (MainActivity) requireActivity();
         loadingView = mainActivity.findViewById(R.id.loadingView);
 
+        AnimationUtil.animateView(loadingView, View.VISIBLE, 0.4f, 200);
         sharedViewModel = new ViewModelProvider(requireActivity(), new SharedViewModelFactory()).get(SharedViewModel.class);
         sharedViewModel.getLastLocation().observe(getViewLifecycleOwner(), location -> {
             binding.currentLocationTxt.setText(getCityName(getContext(), location));
@@ -110,6 +111,10 @@ public class HomeFragment extends Fragment {
                         ArrayList<Hotel> hotels = result.getSuccess();
                         HotelAdapter hotelAdapter = new HotelAdapter(hotels);
                         binding.popularRecyclerView.setAdapter(hotelAdapter);
+                    }
+
+                    if (binding.swipeRefreshLayout.isRefreshing()) {
+                        binding.swipeRefreshLayout.setRefreshing(false);
                     }
 
                     if (loadingView.getVisibility() == View.VISIBLE) {
