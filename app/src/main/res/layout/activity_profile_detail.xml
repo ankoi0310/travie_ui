@@ -20,18 +20,34 @@
         android:layout_below="@id/appBar">
 
         <LinearLayout
+            android:id="@+id/rootLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingHorizontal="@dimen/padding_16">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_12"
-                android:text="@string/account_info"
-                android:textSize="@dimen/text_size_large"
-                android:textStyle="bold" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingVertical="@dimen/padding_4">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/account_info"
+                    android:textSize="@dimen/text_size_large"
+                    android:textStyle="bold" />
+
+                <ImageButton
+                    android:id="@+id/button_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/baseline_edit_24" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -63,7 +79,8 @@
                     android:text=""
                     android:textColor="@color/text"
                     android:textSize="@dimen/text_size_medium"
-                    tools:ignore="LabelFor" />
+                    tools:ignore="LabelFor"
+                    android:enabled="false"/>
             </LinearLayout>
 
             <LinearLayout
@@ -97,7 +114,8 @@
                     android:paddingVertical="@dimen/padding_4"
                     android:text=""
                     android:textColor="@color/text_secondary"
-                    android:textSize="@dimen/text_size_medium" />
+                    android:textSize="@dimen/text_size_medium"
+                    android:enabled="false"/>
             </LinearLayout>
 
             <LinearLayout
@@ -130,17 +148,9 @@
                     android:text=""
                     android:textColor="@color/text_secondary"
                     android:textSize="@dimen/text_size_medium"
-                    tools:ignore="LabelFor" />
+                    tools:ignore="LabelFor"
+                    android:enabled="false"/>
             </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_12"
-                android:layout_marginBottom="@dimen/margin_8"
-                android:text="@string/personal_info"
-                android:textSize="@dimen/text_size_large"
-                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -171,7 +181,8 @@
                     android:text=""
                     android:textColor="@color/text"
                     android:textSize="@dimen/text_size_medium"
-                    tools:ignore="LabelFor" />
+                    tools:ignore="LabelFor"
+                    android:enabled="false"/>
             </LinearLayout>
 
             <LinearLayout
@@ -202,7 +213,8 @@
                     android:paddingVertical="@dimen/padding_4"
                     android:text=""
                     android:textColor="@color/text"
-                    android:textSize="@dimen/text_size_medium" />
+                    android:textSize="@dimen/text_size_medium"
+                    android:enabled="false"/>
             </LinearLayout>
 
             <LinearLayout
@@ -233,7 +245,8 @@
                     android:minHeight="48dp"
                     android:text=""
                     android:textColor="@color/text"
-                    android:textSize="@dimen/text_size_medium" />
+                    android:textSize="@dimen/text_size_medium"
+                    android:enabled="false"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -268,4 +281,7 @@
                 android:textStyle="bold" />
         </com.google.android.material.bottomappbar.BottomAppBar>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <include
+        android:id="@+id/loadingView"
+        layout="@layout/loading_view" />
 </RelativeLayout>

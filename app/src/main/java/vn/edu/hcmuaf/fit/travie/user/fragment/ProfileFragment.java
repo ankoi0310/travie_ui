@@ -1,8 +1,13 @@
 package vn.edu.hcmuaf.fit.travie.user.fragment;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -29,11 +34,10 @@ import vn.edu.hcmuaf.fit.travie.databinding.FragmentProfileBinding;
 
 public class ProfileFragment extends Fragment {
     private FragmentProfileBinding binding;
-    private ProfileMenuAdapter adapter;
 
     private UserService userService;
-
     private UserProfile userProfile;
+    private ActivityResultLauncher<Intent> activityResultLauncher;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -49,20 +53,37 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Intent intent = result.getData();
+                        if (intent != null) {
+                            userProfile = intent.getParcelableExtra("userProfile", UserProfile.class);
+                            if (userProfile != null) {
+                                setProfile();
+                            }
+                        }
+                    }
+                });
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
-        userService = RetrofitService.createPrivateService(requireContext(), UserService.class);
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        getUserProfile();
         super.onViewCreated(view, savedInstanceState);
-        initProfileMenuList();
+
+        userService = RetrofitService.createPrivateService(requireContext(), UserService.class);
+
+        getUserProfile();
+
+        // Create LayoutManager
+        binding.recyclerViewProfileMenu.setLayoutManager(new LinearLayoutManager(requireContext()));
     }
 
     private void getUserProfile() {
@@ -81,8 +102,7 @@ public class ProfileFragment extends Fragment {
                 }
 
                 userProfile = httpResponse.getData();
-                Log.d("UserProfile", userProfile.getFullName());
-                setProfile(userProfile);
+                setProfile();
             }
 
             @Override
@@ -92,18 +112,13 @@ public class ProfileFragment extends Fragment {
         });
     }
 
-    private void setProfile(UserProfile userProfile) {
+    private void setProfile() {
         binding.fullNameTxt.setText(userProfile.getFullName());
         binding.usernameTxt.setText(userProfile.getUsername());
 
         Glide.with(requireContext()).load(userProfile.getAvatar()).into(binding.avatar);
 
-        adapter.setUserProfile(userProfile);
-    }
-
-    private void initProfileMenuList() {
-        adapter = new ProfileMenuAdapter(userProfile);
-        binding.recyclerViewProfileMenu.setLayoutManager(new LinearLayoutManager(requireContext()));
+        ProfileMenuAdapter adapter = new ProfileMenuAdapter(userProfile, activityResultLauncher);
         binding.recyclerViewProfileMenu.setAdapter(adapter);
     }
 }

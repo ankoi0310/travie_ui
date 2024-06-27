@@ -20,54 +20,55 @@
         android:theme="@style/Theme.Travie">
         <activity
             android:name=".booking.ui.checkout.CheckoutFailActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".booking.ui.checkout.CheckoutSuccessActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".user.activity.PaymentMethodActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".user.ui.changepassword.ChangePasswordActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".booking.ui.payment.ChoosePaymentMethodActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".room.ui.detail.RoomDetailActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".booking.ui.checkout.CheckoutActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".booking.ui.chooseroom.ChooseRoomActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".invoice.ui.invoicedetail.InvoiceDetailActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".auth.activity.login.LoginActivity"
-            android:exported="false"
-            android:label="@string/title_activity_login" />
-        <activity
-            android:name=".hotel.ui.hoteldetail.HotelDetailActivity"
-            android:exported="false" />
-        <activity
-            android:name=".user.activity.ProfileDetailActivity"
-            android:exported="false" />
-        <activity
-            android:name=".core.common.ui.BaseActivity"
-            android:exported="false" />
-        <activity
-            android:name=".core.common.ui.MainActivity"
-            android:launchMode="singleTask"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:exported="true">
+            android:exported="true"
+            android:label="@string/title_activity_login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".hotel.ui.hoteldetail.HotelDetailActivity"
+            android:exported="true" />
+        <activity
+            android:name=".user.activity.ProfileDetailActivity"
+            android:exported="true" />
+        <activity
+            android:name=".core.common.ui.BaseActivity"
+            android:exported="true" />
+        <activity
+            android:name=".core.common.ui.MainActivity"
+            android:launchMode="singleTask"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="true">
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
 

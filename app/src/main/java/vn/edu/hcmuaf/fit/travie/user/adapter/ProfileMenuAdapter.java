@@ -2,12 +2,15 @@ package vn.edu.hcmuaf.fit.travie.user.adapter;
 
 import static vn.edu.hcmuaf.fit.travie.core.shared.constant.AppConstant.INTENT_USER_PROFILE;
 
-import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,17 +30,13 @@ public class ProfileMenuAdapter extends RecyclerView.Adapter<ProfileMenuAdapter.
     Context context;
 
     UserProfile userProfile;
+    ActivityResultLauncher<Intent> activityResult;
     private final List<ProfileMenu> profileMenuItems = ProfileMenu.getProfileMenuItems();
     private TokenManager tokenManager;
 
-    public ProfileMenuAdapter(UserProfile userProfile) {
+    public ProfileMenuAdapter(UserProfile userProfile, ActivityResultLauncher<Intent> activityResult) {
         this.userProfile = userProfile;
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    public void setUserProfile(UserProfile userProfile) {
-        this.userProfile = userProfile;
-        notifyDataSetChanged();
+        this.activityResult = activityResult;
     }
 
     @NonNull
@@ -61,7 +60,7 @@ public class ProfileMenuAdapter extends RecyclerView.Adapter<ProfileMenuAdapter.
                 case PROFILE_DETAIL:
                     Intent intentProfileDetail = new Intent(context, ProfileDetailActivity.class);
                     intentProfileDetail.putExtra(INTENT_USER_PROFILE, userProfile);
-                    context.startActivity(intentProfileDetail);
+                    activityResult.launch(intentProfileDetail);
                     break;
                 case CHANGE_PASSWORD:
                     Intent intentChangePassword = new Intent(context, ChangePasswordActivity.class);
@@ -82,6 +81,7 @@ public class ProfileMenuAdapter extends RecyclerView.Adapter<ProfileMenuAdapter.
         tokenManager.clearLoggedInUser();
         Intent intent = new Intent(context, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        Toast.makeText(context, "Đăng xuất thành công", Toast.LENGTH_SHORT).show();
         context.startActivity(intent);
     }
 
