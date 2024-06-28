@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".hotel.ui.search.SearchHotelActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary_light"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/padding_12"
+        android:paddingVertical="@dimen/padding_16"
+        app:liftOnScrollColor="@color/primary_light">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/search_edt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_rounded_search_box"
+            android:drawableStart="@drawable/search"
+            android:drawablePadding="@dimen/padding_8"
+            android:hint="Tìm địa điểm, khách sạn"
+            android:paddingHorizontal="@dimen/padding_16"
+            android:paddingVertical="@dimen/padding_12"
+            android:text=""
+            android:textColor="@color/black_overlay"
+            android:textSize="@dimen/text_size_small" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/hotelListContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_16">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_hotel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:id="@+id/tv_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/margin_12"
+                android:textColor="@color/text_secondary"
+                android:textSize="@dimen/text_size_normal"
+                android:text="@string/no_data_matching" />
+
+            <ProgressBar
+                android:id="@+id/loading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16"
+                android:alpha="0.4"
+                android:indeterminate="true"
+                android:indeterminateTint="@color/primary"
+                android:visibility="gone" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

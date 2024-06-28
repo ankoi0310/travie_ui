@@ -45,8 +45,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <ImageView
-                        android:id="@+id/imageView2"
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_marginStart="8dp"
@@ -55,7 +54,7 @@
                         app:layout_constraintStart_toEndOf="@+id/textView"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="end"
@@ -70,21 +69,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawablePadding="@dimen/padding_4"
-                    android:text="Hồ Chí Minh"
+                    android:text=""
                     android:textSize="@dimen/text_size_medium"
                     android:textStyle="bold"
                     app:drawableStartCompat="@drawable/location"
                     app:drawableTint="@color/icon_primary" />
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/searchCardView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_transparent"
                     android:clipChildren="false"
                     android:outlineSpotShadowColor="@color/black_overlay"
                     app:cardCornerRadius="32dp"
-                    app:cardElevation="8dp"
+                    android:layout_marginVertical="@dimen/margin_8"
                     app:cardPreventCornerOverlap="false"
+                    app:cardElevation="4dp"
+                    android:clipToPadding="true"
                     app:cardUseCompatPadding="true">
 
                     <LinearLayout
@@ -93,9 +95,10 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingHorizontal="@dimen/padding_16"
-                        android:paddingVertical="@dimen/padding_12">
+                        android:paddingVertical="@dimen/padding_12"
+                        tools:ignore="UseCompoundDrawables">
 
-                        <ImageView
+                        <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_marginEnd="8dp"
@@ -107,7 +110,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Tìm địa điểm, khách sạn"
-                            android:textColor="@color/black_overlay"
+                            android:textColor="@color/text_secondary"
                             android:textSize="@dimen/text_size_small" />
                     </LinearLayout>
 

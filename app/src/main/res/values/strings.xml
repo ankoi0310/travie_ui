@@ -98,4 +98,7 @@
     <string name="payment_method">Phương thức thanh toán</string>
     <string name="room_price">Tiền phòng</string>
     <string name="invoice_code_invalid">Mã hoá đơn không hợp lệ</string>
+    <string name="data_loaded">Đã tải hết dữ liệu phù hợp</string>
+    <string name="no_data_matching">Không tìm thấy dữ liệu phù hợp</string>
+    <string name="please_enter_keyword">Vui lòng nhập từ khoá để tìm kiếm</string>
 </resources>

@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:enableOnBackInvokedCallback="true"
@@ -18,6 +19,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Travie">
+        <activity
+            android:name=".hotel.ui.search.SearchHotelActivity"
+            android:exported="false" />
         <activity
             android:name=".hotel.ui.viewall.ViewAllHotelActivity"
             android:exported="false" />

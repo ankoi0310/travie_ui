@@ -1,5 +1,6 @@
 package vn.edu.hcmuaf.fit.travie.home.fragment;
 
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -16,14 +17,17 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
+import android.os.Looper;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-
-import javax.inject.Inject;
+import java.util.Objects;
 
 import vn.edu.hcmuaf.fit.travie.R;
 import vn.edu.hcmuaf.fit.travie.core.common.ui.MainActivity;
@@ -36,8 +40,11 @@ import vn.edu.hcmuaf.fit.travie.home.adapter.HotelAdapter;
 import vn.edu.hcmuaf.fit.travie.hotel.data.model.Hotel;
 import vn.edu.hcmuaf.fit.travie.hotel.ui.HotelViewModel;
 import vn.edu.hcmuaf.fit.travie.hotel.ui.HotelViewModelFactory;
+import vn.edu.hcmuaf.fit.travie.hotel.ui.search.SearchHotelActivity;
 
 public class HomeFragment extends Fragment {
+    private final int NEARBY_HOTEL_SIZE = 5;
+    private final int POPULAR_HOTEL_SIZE = 5;
     private final MutableLiveData<Address> address = new MutableLiveData<>();
 
     FragmentHomeBinding binding;
@@ -45,7 +52,6 @@ public class HomeFragment extends Fragment {
 
     SharedViewModel sharedViewModel;
 
-    @Inject
     HotelViewModel hotelViewModel;
 
     public HomeFragment() {
@@ -73,7 +79,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
 
         MainActivity mainActivity = (MainActivity) requireActivity();
         loadingView = mainActivity.findViewById(R.id.loadingView);
@@ -135,6 +140,11 @@ public class HomeFragment extends Fragment {
 
         binding.swipeRefreshLayout.setOnRefreshListener(this::fetchHotelList);
 
+        binding.searchCardView.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), SearchHotelActivity.class);
+            startActivity(intent);
+        });
+
         binding.nearbyRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         binding.nearbyRecyclerView.addItemDecoration(new SpaceItemDecoration(12, RecyclerView.HORIZONTAL));
         binding.popularRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
@@ -155,8 +165,8 @@ public class HomeFragment extends Fragment {
     }
 
     private void fetchHotelList() {
-        hotelViewModel.fetchNearByHotelList("Hồ Chí Minh");
-        hotelViewModel.fetchPopularHotelList();
+        hotelViewModel.fetchNearByHotelList("Hồ Chí Minh", 1, NEARBY_HOTEL_SIZE);
+        hotelViewModel.fetchPopularHotelList(1, POPULAR_HOTEL_SIZE);
     }
 
     private void getCityName(Location location) {
