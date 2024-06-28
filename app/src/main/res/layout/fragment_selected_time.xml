@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:baselineAligned="false"
+    android:orientation="horizontal"
+    tools:context=".booking.ui.fragment.SelectedTimeFragment">
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        app:cardElevation="0dp"
+        android:layout_marginEnd="@dimen/margin_8"
+        app:cardCornerRadius="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/timeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_gradient_day"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/timeIcon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_8"
+                app:srcCompat="@drawable/moon"
+                app:tint="@color/text_on_primary" />
+
+            <TextView
+                android:id="@+id/timeAmountTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="1 gio"
+                android:textSize="@dimen/text_size_small"
+                android:textColor="@color/icon_on_primary"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2.5"
+        android:background="@drawable/invoice_bg"
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="@dimen/padding_12">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_4"
+            android:textColor="@color/text_secondary"
+            android:text="Nhận phòng"
+            android:textSize="@dimen/text_size_small" />
+
+        <TextView
+            android:id="@+id/checkInTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_8"
+            android:text="00:00 - 00/00/0000"
+            android:textSize="@dimen/text_size_small"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_4"
+            android:textColor="@color/text_secondary"
+            android:text="Trả phòng"
+            android:textSize="@dimen/text_size_small" />
+
+        <TextView
+            android:id="@+id/checkOutTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_8"
+            android:text="00:00 - 00/00/0000"
+            android:textSize="@dimen/text_size_small"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</LinearLayout>

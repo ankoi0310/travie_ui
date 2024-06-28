@@ -1,8 +1,24 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
-    <style name="Base.Theme.Travie" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.Travie" parent="Theme.Material3.Light.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="android:textColorPrimary">@color/primary</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:windowBackground">@color/surface</item>
+        <item name="android:navigationBarColor">
+            @android:color/transparent
+        </item>
+
+        <!-- Optional: set to transparent if your app is drawing behind the status bar. -->
+        <item name="android:statusBarColor">
+            @android:color/transparent
+        </item>
+
+        <!-- Optional: set for a light status bar with dark content. -->
+        <item name="android:windowLightStatusBar">
+            true
+        </item>
     </style>
 
     <style name="Theme.Travie" parent="Base.Theme.Travie" />

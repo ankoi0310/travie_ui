@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.AppCompatEditText xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/searchEdt"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="@dimen/margin_8"
+    android:background="@drawable/bg_rounded_search_box"
+    android:drawableStart="@drawable/search"
+    android:drawablePadding="@dimen/padding_8"
+    android:hint="Tìm địa điểm, khách sạn"
+    android:paddingHorizontal="@dimen/padding_16"
+    android:paddingVertical="@dimen/padding_12"
+    android:text=""
+    android:textColor="@color/black_overlay"
+    android:textSize="@dimen/text_size_small" />
