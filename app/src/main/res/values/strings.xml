@@ -62,6 +62,7 @@
     <string name="booking_code">Mã đặt phòng</string>
     <string name="booking_time">Thời gian</string>
     <string name="final_price">Tổng thanh toán</string>
+    <string name="action_register_short">Đăng ký</string>
 
     <!-- Booking Status -->
     <string name="booking_status_pending">Chờ xác nhận</string>

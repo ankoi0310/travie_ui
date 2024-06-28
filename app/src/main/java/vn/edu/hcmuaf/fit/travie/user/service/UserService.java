@@ -10,6 +10,7 @@ import vn.edu.hcmuaf.fit.travie.core.handler.domain.HttpResponse;
 import vn.edu.hcmuaf.fit.travie.invoice.data.model.Invoice;
 import vn.edu.hcmuaf.fit.travie.user.model.ChangePasswordRequest;
 import vn.edu.hcmuaf.fit.travie.user.model.UserProfile;
+import vn.edu.hcmuaf.fit.travie.user.model.UserProfileRequest;
 
 public interface UserService {
     @GET("user/profile")
@@ -20,4 +21,7 @@ public interface UserService {
 
     @GET("user/booking-history")
     Call<HttpResponse<ArrayList<Invoice>>> getBookingHistory();
+
+    @PUT("user/profile")
+    Call<HttpResponse<UserProfile>> updateProfile(@Body UserProfileRequest request);
 }

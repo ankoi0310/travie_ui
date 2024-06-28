@@ -1,4 +1,4 @@
-package vn.edu.hcmuaf.fit.travie.auth.activity.login;
+package vn.edu.hcmuaf.fit.travie.auth.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +8,13 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.text.Editable;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextWatcher;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Toast;
@@ -79,6 +85,36 @@ public class LoginActivity extends AppCompatActivity {
             String password = binding.password.getText().toString();
             handleLogin(new LoginRequest(username, password));
         });
+
+        setupForgotPasswordClickableSpan();
+    }
+
+    private void setupForgotPasswordClickableSpan() {
+        String text = "Quên mật khẩu";
+        SpannableString spannableString = new SpannableString(text);
+        String keyword = "Quên mật khẩu";
+
+        int startIndex = text.indexOf(keyword);
+        int endIndex = startIndex + keyword.length();
+
+        spannableString.setSpan(
+                new ForegroundColorSpan(getResources().getColor(R.color.primary)),
+                startIndex,
+                endIndex,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        );
+
+        ClickableSpan clickableSpan = new ClickableSpan() {
+            @Override
+            public void onClick(@NonNull View widget) {
+                startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class));
+            }
+        };
+
+        spannableString.setSpan(clickableSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        binding.forgotpassword.setText(spannableString);
+        binding.forgotpassword.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     private void handleLogin(LoginRequest request) {

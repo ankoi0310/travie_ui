@@ -76,11 +76,6 @@ public class ChooseRoomActivity extends BaseActivity {
 
         binding.rvRoom.setLayoutManager(new LinearLayoutManager(this));
         binding.rvRoom.addItemDecoration(new SpaceItemDecoration(32));
-
-        Intent intent = getIntent();
-        long hotelId = intent.getLongExtra("hotelId", 0);
-        roomViewModel.search(hotelId, null);
-        AnimationUtil.animateView(binding.loadingView.getRoot(), View.VISIBLE, 0.4f, 200);
     }
 
     @Override
