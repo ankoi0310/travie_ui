@@ -25,7 +25,7 @@ import vn.edu.hcmuaf.fit.travie.hotel.data.service.HotelService;
 public class HotelViewModel extends ViewModel {
     private final MutableLiveData<HotelListResult> nearByHotelList = new MutableLiveData<>();
     private final MutableLiveData<HotelListResult> popularHotelList = new MutableLiveData<>();
-    private final MutableLiveData<HotelListResult> exploreHotelList = new MutableLiveData<>();
+    private final MutableLiveData<HotelListResult> exploreResult = new MutableLiveData<>();
     private final MutableLiveData<HotelListResult> searchResult = new MutableLiveData<>();
     private final MutableLiveData<HotelResult> hotel = new MutableLiveData<>();
 
@@ -43,8 +43,8 @@ public class HotelViewModel extends ViewModel {
         return popularHotelList;
     }
 
-    public LiveData<HotelListResult> getExploreHotelList() {
-        return exploreHotelList;
+    public LiveData<HotelListResult> getExploreResult() {
+        return exploreResult;
     }
 
     public LiveData<HotelListResult> getSearchResult() {
@@ -65,18 +65,18 @@ public class HotelViewModel extends ViewModel {
                         Type type = new TypeToken<HttpResponse<String>>() {
                         }.getType();
                         HttpResponse<String> httpResponse = gson.fromJson(errorBody.charStream(), type);
-                        exploreHotelList.postValue(new HotelListResult(null, httpResponse.getMessage()));
+                        exploreResult.postValue(new HotelListResult(null, httpResponse.getMessage()));
                         return;
                     }
 
                     if (response.body() == null) {
-                        exploreHotelList.postValue(new HotelListResult(null, "Something went wrong"));
+                        exploreResult.postValue(new HotelListResult(null, "Something went wrong"));
                         return;
                     }
 
                     HttpResponse<Page<Hotel>> httpResponse = response.body();
                     if (!httpResponse.isSuccess()) {
-                        exploreHotelList.postValue(new HotelListResult(null, httpResponse.getMessage()));
+                        exploreResult.postValue(new HotelListResult(null, httpResponse.getMessage()));
                         return;
                     }
 
@@ -86,7 +86,7 @@ public class HotelViewModel extends ViewModel {
 
             @Override
             public void onFailure(@NonNull Call<HttpResponse<Page<Hotel>>> call, @NonNull Throwable t) {
-                exploreHotelList.postValue(new HotelListResult(null, "Something went wrong"));
+                exploreResult.postValue(new HotelListResult(null, "Something went wrong"));
             }
         });
     }
@@ -101,18 +101,18 @@ public class HotelViewModel extends ViewModel {
                         Type type = new TypeToken<HttpResponse<String>>() {
                         }.getType();
                         HttpResponse<String> httpResponse = gson.fromJson(errorBody.charStream(), type);
-                        exploreHotelList.postValue(new HotelListResult(null, httpResponse.getMessage()));
+                        exploreResult.postValue(new HotelListResult(null, httpResponse.getMessage()));
                         return;
                     }
 
                     if (response.body() == null) {
-                        exploreHotelList.postValue(new HotelListResult(null, "Something went wrong"));
+                        exploreResult.postValue(new HotelListResult(null, "Something went wrong"));
                         return;
                     }
 
                     HttpResponse<Page<Hotel>> httpResponse = response.body();
                     if (!httpResponse.isSuccess()) {
-                        exploreHotelList.postValue(new HotelListResult(null, httpResponse.getMessage()));
+                        exploreResult.postValue(new HotelListResult(null, httpResponse.getMessage()));
                         return;
                     }
 
@@ -122,13 +122,13 @@ public class HotelViewModel extends ViewModel {
 
             @Override
             public void onFailure(@NonNull Call<HttpResponse<Page<Hotel>>> call, @NonNull Throwable t) {
-                exploreHotelList.postValue(new HotelListResult(null, "Something went wrong"));
+                exploreResult.postValue(new HotelListResult(null, "Something went wrong"));
             }
         });
     }
 
-    public void fetchExploreHotelList() {
-        hotelService.getExploreHotelList().enqueue(new Callback<HttpResponse<Page<Hotel>>>() {
+    public void fetchExploreHotelList(Integer page, Integer size) {
+        hotelService.getExploreHotelList(page, size).enqueue(new Callback<HttpResponse<Page<Hotel>>>() {
             @Override
             public void onResponse(@NonNull Call<HttpResponse<Page<Hotel>>> call, @NonNull Response<HttpResponse<Page<Hotel>>> response) {
                 try (ResponseBody errorBody = response.errorBody()) {
@@ -137,28 +137,28 @@ public class HotelViewModel extends ViewModel {
                         Type type = new TypeToken<HttpResponse<String>>() {
                         }.getType();
                         HttpResponse<String> httpResponse = gson.fromJson(errorBody.charStream(), type);
-                        exploreHotelList.postValue(new HotelListResult(null, httpResponse.getMessage()));
+                        exploreResult.postValue(new HotelListResult(null, httpResponse.getMessage()));
                         return;
                     }
 
                     if (response.body() == null) {
-                        exploreHotelList.postValue(new HotelListResult(null, "Something went wrong"));
+                        exploreResult.postValue(new HotelListResult(null, "Something went wrong"));
                         return;
                     }
 
                     HttpResponse<Page<Hotel>> httpResponse = response.body();
                     if (!httpResponse.isSuccess()) {
-                        exploreHotelList.postValue(new HotelListResult(null, httpResponse.getMessage()));
+                        exploreResult.postValue(new HotelListResult(null, httpResponse.getMessage()));
                         return;
                     }
 
-                    exploreHotelList.postValue(new HotelListResult(httpResponse.getData().getContent(), null));
+                    exploreResult.postValue(new HotelListResult(httpResponse.getData().getContent(), null));
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<HttpResponse<Page<Hotel>>> call, @NonNull Throwable t) {
-                exploreHotelList.postValue(new HotelListResult(null, "Something went wrong"));
+                exploreResult.postValue(new HotelListResult(null, "Something went wrong"));
             }
         });
     }

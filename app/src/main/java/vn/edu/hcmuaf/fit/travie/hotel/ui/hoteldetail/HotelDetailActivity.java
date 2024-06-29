@@ -12,7 +12,6 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
@@ -65,7 +64,7 @@ public class HotelDetailActivity extends BaseActivity {
         AnimationUtil.animateView(binding.loadingView.getRoot(), View.VISIBLE, 0.4f, 200);
 
         markwon = Markwon.create(this);
-        hotelViewModel = new ViewModelProvider(this, new HotelViewModelFactory(this)).get(HotelViewModel.class);
+        hotelViewModel = new HotelViewModelFactory().create(HotelViewModel.class);
 
         fetchHotelDetail();
 

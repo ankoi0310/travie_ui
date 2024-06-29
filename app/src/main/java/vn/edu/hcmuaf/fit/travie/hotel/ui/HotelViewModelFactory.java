@@ -1,18 +1,17 @@
 package vn.edu.hcmuaf.fit.travie.hotel.ui;
 
-import android.content.Context;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import lombok.RequiredArgsConstructor;
 
+@Singleton
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class HotelViewModelFactory implements ViewModelProvider.Factory {
-    private final Context context;
 
     @NonNull
     @Override

@@ -24,7 +24,8 @@ public interface HotelService {
                                                         @Query("size") Integer size);
 
     @GET("hotel/explore")
-    Call<HttpResponse<Page<Hotel>>> getExploreHotelList();
+    Call<HttpResponse<Page<Hotel>>> getExploreHotelList(@Query("page") Integer page,
+                                                        @Query("size") Integer size);
 
     @GET("hotel/{id}")
     Call<HttpResponse<Hotel>> getHotelById(@Path("id") long id);

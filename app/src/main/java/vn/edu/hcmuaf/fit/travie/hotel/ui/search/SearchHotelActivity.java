@@ -7,7 +7,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -45,7 +44,7 @@ public class SearchHotelActivity extends BaseActivity {
         binding = ActivitySearchHotelBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        hotelViewModel = new HotelViewModelFactory(this).create(HotelViewModel.class);
+        hotelViewModel = new HotelViewModelFactory().create(HotelViewModel.class);
         handleSearchHotel();
 
         binding.hotelListContainer.setOnTouchListener((View v, MotionEvent event) -> {
