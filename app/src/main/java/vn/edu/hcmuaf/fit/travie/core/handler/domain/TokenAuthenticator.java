@@ -12,14 +12,12 @@ import java.io.IOException;
 
 import okhttp3.Authenticator;
 import okhttp3.Interceptor;
-import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.Route;
-import retrofit2.Retrofit;
-import vn.edu.hcmuaf.fit.travie.auth.model.RefreshTokenRequest;
-import vn.edu.hcmuaf.fit.travie.auth.model.RefreshTokenResponse;
-import vn.edu.hcmuaf.fit.travie.auth.service.AuthService;
+import vn.edu.hcmuaf.fit.travie.auth.data.model.RefreshTokenRequest;
+import vn.edu.hcmuaf.fit.travie.auth.data.model.RefreshTokenResponse;
+import vn.edu.hcmuaf.fit.travie.auth.data.service.AuthService;
 import vn.edu.hcmuaf.fit.travie.core.service.RetrofitService;
 import vn.edu.hcmuaf.fit.travie.core.service.TokenManager;
 
@@ -70,9 +68,7 @@ public class TokenAuthenticator implements Authenticator, Interceptor {
     }
 
     synchronized private HttpResponse<RefreshTokenResponse> renewAccessToken(String refreshToken) throws IOException {
-        OkHttpClient client = RetrofitService.clientBuilder.build();
-        Retrofit retrofit = RetrofitService.builder.client(client).build();
-        AuthService service = retrofit.create(AuthService.class);
+        AuthService service = RetrofitService.createPublicService(AuthService.class);
         RefreshTokenRequest request = new RefreshTokenRequest(refreshToken);
         retrofit2.Response<HttpResponse<RefreshTokenResponse>> response = service.refreshToken(request).execute();
         return response.body();

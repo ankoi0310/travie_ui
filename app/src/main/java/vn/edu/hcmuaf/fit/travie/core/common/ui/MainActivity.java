@@ -5,22 +5,13 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.os.Build;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -34,15 +25,15 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import it.koi.flashytabbar.TabFlashyAnimator;
 import vn.edu.hcmuaf.fit.travie.R;
 import vn.edu.hcmuaf.fit.travie.core.shared.constant.AppConstant;
-import vn.edu.hcmuaf.fit.travie.core.shared.utils.AnimationUtil;
 import vn.edu.hcmuaf.fit.travie.databinding.ActivityMainBinding;
 import vn.edu.hcmuaf.fit.travie.hotel.ui.explore.ExploreFragment;
 import vn.edu.hcmuaf.fit.travie.invoice.ui.history.HistoryFragment;
-import vn.edu.hcmuaf.fit.travie.home.fragment.HomeFragment;
+import vn.edu.hcmuaf.fit.travie.home.ui.home.HomeFragment;
 import vn.edu.hcmuaf.fit.travie.user.fragment.ProfileFragment;
 
 public class MainActivity extends BaseActivity {
@@ -57,16 +48,13 @@ public class MainActivity extends BaseActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
-        sharedViewModel = new ViewModelProvider(this, new SharedViewModelFactory()).get(SharedViewModel.class);
+        sharedViewModel = new SharedViewModelFactory().create(SharedViewModel.class);
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-
         getLastLocation();
 
         PageAdapter adapter = new PageAdapter(this);
         binding.viewPager.setAdapter(adapter);
         binding.viewPager.setUserInputEnabled(false);
-        binding.viewPager.setOffscreenPageLimit(1);
         binding.viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
@@ -84,6 +72,27 @@ public class MainActivity extends BaseActivity {
         tabFlashyAnimator.addTabItem(AppConstant.MenuTitle.HISTORY, R.drawable.clock);
         tabFlashyAnimator.addTabItem(AppConstant.MenuTitle.PROFILE, R.drawable.user);
         tabFlashyAnimator.highLightTab(0);
+    }
+
+    @Override
+    protected void onNewIntent(@NonNull Intent intent) {
+        super.onNewIntent(intent);
+        handleDeepLink(intent);
+    }
+
+    private void handleDeepLink(Intent intent) {
+        String action = intent.getAction();
+        Uri data = intent.getData();
+
+        if (Intent.ACTION_VIEW.equals(action) && data != null) {
+            Optional<String> path = data.getPathSegments().stream().findFirst();
+
+            if (path.isPresent()) {
+                if (path.get().equals("explore")) {
+                    binding.viewPager.setCurrentItem(1);
+                }
+            }
+        }
     }
 
     @Override

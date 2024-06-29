@@ -1,4 +1,4 @@
-package vn.edu.hcmuaf.fit.travie.home.fragment;
+package vn.edu.hcmuaf.fit.travie.home.ui.home;
 
 import android.content.Intent;
 import android.location.Address;
@@ -17,17 +17,12 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Handler;
-import android.os.Looper;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 import vn.edu.hcmuaf.fit.travie.R;
 import vn.edu.hcmuaf.fit.travie.core.common.ui.MainActivity;
@@ -36,7 +31,7 @@ import vn.edu.hcmuaf.fit.travie.core.common.ui.SharedViewModelFactory;
 import vn.edu.hcmuaf.fit.travie.core.common.ui.SpaceItemDecoration;
 import vn.edu.hcmuaf.fit.travie.core.shared.utils.AnimationUtil;
 import vn.edu.hcmuaf.fit.travie.databinding.FragmentHomeBinding;
-import vn.edu.hcmuaf.fit.travie.home.adapter.HotelAdapter;
+import vn.edu.hcmuaf.fit.travie.home.ui.banner.BannerFragment;
 import vn.edu.hcmuaf.fit.travie.hotel.data.model.Hotel;
 import vn.edu.hcmuaf.fit.travie.hotel.ui.HotelViewModel;
 import vn.edu.hcmuaf.fit.travie.hotel.ui.HotelViewModelFactory;
@@ -101,7 +96,9 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        hotelViewModel = new ViewModelProvider(requireActivity(), new HotelViewModelFactory(requireContext())).get(HotelViewModel.class);
+        initBannerSlider();
+
+        hotelViewModel = new HotelViewModelFactory().create(HotelViewModel.class);
         fetchHotelList();
         hotelViewModel.getNearByHotelList().observe(getViewLifecycleOwner(), result -> {
             if (result.getError() != null) {
@@ -149,19 +146,12 @@ public class HomeFragment extends Fragment {
         binding.nearbyRecyclerView.addItemDecoration(new SpaceItemDecoration(12, RecyclerView.HORIZONTAL));
         binding.popularRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         binding.popularRecyclerView.addItemDecoration(new SpaceItemDecoration(12, RecyclerView.HORIZONTAL));
+    }
 
-//        SliderView sliderView = binding.imageSlider;
-//
-//        SliderAdapter adapter = new SliderAdapter(getContext());
-//        sliderView.setSliderAdapter(adapter);
-//        sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM);
-//        sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
-//        sliderView.setIndicatorSelectedColor(Color.WHITE);
-//        sliderView.setIndicatorUnselectedColor(Color.GRAY);
-//        sliderView.setScrollTimeInSec(3);
-//        sliderView.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
-//        sliderView.setAutoCycle(true);
-//        sliderView.startAutoCycle();
+    private void initBannerSlider() {
+        requireActivity().getSupportFragmentManager().beginTransaction()
+                .replace(binding.bannerFragmentContainer.getId(), BannerFragment.newInstance())
+                .commit();
     }
 
     private void fetchHotelList() {

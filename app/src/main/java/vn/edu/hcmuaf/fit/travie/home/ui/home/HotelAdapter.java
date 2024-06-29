@@ -1,4 +1,4 @@
-package vn.edu.hcmuaf.fit.travie.home.adapter;
+package vn.edu.hcmuaf.fit.travie.home.ui.home;
 
 import android.content.Context;
 import android.content.Intent;

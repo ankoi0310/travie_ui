@@ -26,29 +26,20 @@
             android:name=".hotel.ui.viewall.ViewAllHotelActivity"
             android:exported="false" />
         <activity
-            android:name=".auth.activity.LogoutActivity"
+            android:name=".auth.ui.forgotpassword.ResetPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".auth.activity.ResetPasswordActivity"
-            android:exported="true" />
-        <activity
             android:name=".welcome.WelcomeActivity"
-            android:exported="true"></activity>
+            android:exported="false" />
         <activity
-            android:name=".auth.activity.RegisterActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:name=".auth.ui.register.RegisterActivity"
+            android:exported="false" />
         <activity
-            android:name=".auth.activity.EnterOTPActivity"
-            android:exported="true" />
+            android:name=".auth.ui.otp.OTPActivity"
+            android:exported="false" />
         <activity
-            android:name=".auth.activity.ForgotPasswordActivity"
-            android:exported="true" />
+            android:name=".auth.ui.forgotpassword.ForgotPasswordActivity"
+            android:exported="false" />
         <activity
             android:name=".booking.ui.checkout.CheckoutFailActivity"
             android:exported="false" />
@@ -77,9 +68,8 @@
             android:name=".invoice.ui.invoicedetail.InvoiceDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".auth.activity.login.LoginActivity"
-            android:exported="false"
-            android:label="@string/title_activity_login" />
+            android:name=".auth.ui.login.LoginActivity"
+            android:exported="false" />
         <activity
             android:name=".hotel.ui.hoteldetail.HotelDetailActivity"
             android:exported="false" />
