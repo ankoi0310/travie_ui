@@ -111,7 +111,7 @@ public class SelectedTimeFragment extends Fragment {
         binding.timeIcon.setImageResource(iconRes);
 
         // Change amount of time with unit
-        binding.timeAmountTxt.setText(String.format(Locale.getDefault(), "%d %s", amount, bookingType.getUnit().getLabel()));
+        binding.timeAmountTxt.setText(String.format(Locale.getDefault(), "%d %s", amount, bookingType.getUnit().getSuffix()));
 
         // Change background drawable
         binding.timeLayout.setBackgroundResource(backgroundRes);

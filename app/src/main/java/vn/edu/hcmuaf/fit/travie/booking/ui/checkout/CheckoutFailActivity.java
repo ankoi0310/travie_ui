@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.ViewModelProvider;
 
 import java.time.LocalDateTime;
 
@@ -52,7 +53,7 @@ public class CheckoutFailActivity extends BaseActivity {
         });
 
         AnimationUtil.animateView(binding.loadingView.getRoot(), View.VISIBLE, 0.4f, 200);
-        bookingViewModel = new BookingViewModelFactory(this).create(BookingViewModel.class);
+        bookingViewModel = new ViewModelProvider(this, new BookingViewModelFactory(this)).get(BookingViewModel.class);
         fetchCheckoutResult();
         handleCheckoutResult();
 

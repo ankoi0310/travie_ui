@@ -13,12 +13,12 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.ViewModelProvider;
 
 import java.time.LocalDateTime;
 
 import vn.edu.hcmuaf.fit.travie.booking.data.model.BookingRequest;
 import vn.edu.hcmuaf.fit.travie.booking.data.model.LinkCreationResponse;
-import vn.edu.hcmuaf.fit.travie.booking.data.service.BookingRequestHolder;
 import vn.edu.hcmuaf.fit.travie.booking.ui.BookingViewModel;
 import vn.edu.hcmuaf.fit.travie.booking.ui.BookingViewModelFactory;
 import vn.edu.hcmuaf.fit.travie.booking.ui.fragment.SelectedRoomFragment;
@@ -37,7 +37,7 @@ public class CheckoutActivity extends BaseActivity {
     ActivityCheckoutBinding binding;
 
     BookingViewModel bookingViewModel;
-    BookingRequestHolder bookingRequestHolder = BookingRequestHolder.getInstance();
+    BookingRequest bookingRequest = BookingRequest.getInstance();
 
     private boolean isResumedFromBrowser = false;
 
@@ -57,7 +57,7 @@ public class CheckoutActivity extends BaseActivity {
             return WindowInsetsCompat.CONSUMED;
         });
 
-        bookingViewModel = new BookingViewModelFactory(this).create(BookingViewModel.class);
+        bookingViewModel = new ViewModelProvider(this, new BookingViewModelFactory(this)).get(BookingViewModel.class);
 
         handleBookingRequest();
 
@@ -82,7 +82,6 @@ public class CheckoutActivity extends BaseActivity {
         initCancelationPolicyFragment();
 
         binding.checkoutBtn.setOnClickListener(v -> {
-            BookingRequest bookingRequest = bookingRequestHolder.getBookingRequest();
             PaymentMethod paymentMethod = bookingRequest.getPaymentMethod();
             if (paymentMethod == null) {
                 Toast.makeText(this, "Vui lòng chọn phương thức thanh toán", Toast.LENGTH_SHORT).show();
@@ -133,7 +132,6 @@ public class CheckoutActivity extends BaseActivity {
     }
 
     private void handleBookingRequest() {
-        BookingRequest bookingRequest = bookingRequestHolder.getBookingRequest();
         if (bookingRequest.getRoom() != null) {
             initSelectedRoomFragment(bookingRequest.getRoom());
             binding.originalPriceTxt.setText(String.valueOf(bookingRequest.getRoom().getOneDayOrigin()));

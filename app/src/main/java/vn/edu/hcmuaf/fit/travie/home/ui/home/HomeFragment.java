@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,17 +25,17 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
 import vn.edu.hcmuaf.fit.travie.R;
 import vn.edu.hcmuaf.fit.travie.core.common.ui.MainActivity;
 import vn.edu.hcmuaf.fit.travie.core.common.ui.SharedViewModel;
-import vn.edu.hcmuaf.fit.travie.core.common.ui.SharedViewModelFactory;
 import vn.edu.hcmuaf.fit.travie.core.common.ui.SpaceItemDecoration;
 import vn.edu.hcmuaf.fit.travie.core.shared.utils.AnimationUtil;
 import vn.edu.hcmuaf.fit.travie.databinding.FragmentHomeBinding;
 import vn.edu.hcmuaf.fit.travie.home.ui.banner.BannerFragment;
 import vn.edu.hcmuaf.fit.travie.hotel.data.model.Hotel;
 import vn.edu.hcmuaf.fit.travie.hotel.ui.HotelViewModel;
-import vn.edu.hcmuaf.fit.travie.hotel.ui.HotelViewModelFactory;
 import vn.edu.hcmuaf.fit.travie.hotel.ui.search.SearchHotelActivity;
 
 public class HomeFragment extends Fragment {
@@ -45,6 +46,7 @@ public class HomeFragment extends Fragment {
     FragmentHomeBinding binding;
     View loadingView;
 
+    @Inject
     SharedViewModel sharedViewModel;
 
     HotelViewModel hotelViewModel;
@@ -78,18 +80,9 @@ public class HomeFragment extends Fragment {
         MainActivity mainActivity = (MainActivity) requireActivity();
         loadingView = mainActivity.findViewById(R.id.loadingView);
 
-        ViewCompat.setOnApplyWindowInsetsListener(mainActivity.findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
-            layoutParams.setMargins(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            v.setLayoutParams(layoutParams);
-            return WindowInsetsCompat.CONSUMED;
-        });
-
         AnimationUtil.animateView(loadingView, View.VISIBLE, 0.4f, 200);
-        sharedViewModel = new ViewModelProvider(requireActivity(), new SharedViewModelFactory()).get(SharedViewModel.class);
+        sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
         sharedViewModel.getLastLocation().observe(getViewLifecycleOwner(), this::getCityName);
-
         address.observe(getViewLifecycleOwner(), address -> {
             if (address != null) {
                 binding.currentLocationTxt.setText(address.getAdminArea());
@@ -98,7 +91,7 @@ public class HomeFragment extends Fragment {
 
         initBannerSlider();
 
-        hotelViewModel = new HotelViewModelFactory().create(HotelViewModel.class);
+        hotelViewModel = new ViewModelProvider(this).get(HotelViewModel.class);
         fetchHotelList();
         hotelViewModel.getNearByHotelList().observe(getViewLifecycleOwner(), result -> {
             if (result.getError() != null) {
@@ -160,8 +153,10 @@ public class HomeFragment extends Fragment {
     }
 
     private void getCityName(Location location) {
+        Log.d("HomeFragment", "getCityName: " + location);
         Geocoder geocoder = new Geocoder(requireContext());
         geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1, addresses -> {
+            Log.d("HomeFragment", "getCityName: " + addresses);
             if (!addresses.isEmpty()) {
                 address.postValue(addresses.get(0));
             }

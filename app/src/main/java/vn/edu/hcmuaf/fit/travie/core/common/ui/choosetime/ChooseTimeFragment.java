@@ -1,5 +1,6 @@
 package vn.edu.hcmuaf.fit.travie.core.common.ui.choosetime;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,9 +16,12 @@ import java.time.temporal.ChronoUnit;
 import java.util.Locale;
 
 import vn.edu.hcmuaf.fit.travie.booking.data.model.BookingRequest;
-import vn.edu.hcmuaf.fit.travie.booking.data.service.BookingRequestHolder;
+import vn.edu.hcmuaf.fit.travie.booking.data.service.ChooseTimeByHourHandler;
+import vn.edu.hcmuaf.fit.travie.booking.ui.chooseroom.ChooseRoomActivity;
+import vn.edu.hcmuaf.fit.travie.booking.ui.choosetime.ChooseTimeDialogFragment;
 import vn.edu.hcmuaf.fit.travie.core.shared.enums.invoice.TimeUnit;
 import vn.edu.hcmuaf.fit.travie.core.shared.utils.AppUtil;
+import vn.edu.hcmuaf.fit.travie.core.shared.utils.BookingUtil;
 import vn.edu.hcmuaf.fit.travie.core.shared.utils.DateTimeUtil;
 import vn.edu.hcmuaf.fit.travie.databinding.FragmentChooseTimeBinding;
 import vn.edu.hcmuaf.fit.travie.hotel.data.model.BookingType;
@@ -34,9 +38,10 @@ public class ChooseTimeFragment extends Fragment {
     private Hotel hotel;
 
     private final DateTimeFormatter formatter = DateTimeUtil.getDateTimeFormatter("HH:mm, dd/MM");
+    private final ChooseTimeByHourHandler handler = ChooseTimeByHourHandler.getInstance();
 
     FragmentChooseTimeBinding binding;
-    BookingRequestHolder bookingRequestHolder = BookingRequestHolder.getInstance();
+    BookingRequest bookingRequest = BookingRequest.getInstance();
 
     public ChooseTimeFragment() {
         // Required empty public constructor
@@ -76,24 +81,41 @@ public class ChooseTimeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        handleBookingRequest();
+        updateUI();
 
-        // Get booking request
-        BookingRequest bookingRequest = bookingRequestHolder.getBookingRequest();
+        binding.chooseRoomBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(requireContext(), ChooseRoomActivity.class);
+            intent.putExtra("hotel", hotel);
+            startActivity(intent);
+        });
 
-        if (bookingRequest != null) {
-            BookingRequest updatedBookingRequest = handleBookingRequest(bookingRequest);
-            initUI(updatedBookingRequest);
-            bookingRequestHolder.setBookingRequest(updatedBookingRequest);
-        }
+        initChooseTimeBottomSheet();
     }
 
-    private void initUI(BookingRequest bookingRequest) {
+    private void initChooseTimeBottomSheet() {
+        binding.chooseTimeBtn.setOnClickListener(v -> {
+            ChooseTimeDialogFragment chooseTimeDialogFragment = ChooseTimeDialogFragment.newInstance(hotel);
+            chooseTimeDialogFragment.show(getParentFragmentManager(), "dialog");
+        });
+    }
+
+    public void updateUI() {
         LocalDateTime checkIn = bookingRequest.getCheckIn();
         LocalDateTime checkOut = bookingRequest.getCheckOut();
 
-        long timeAmount = DateTimeUtil.calculateDuration(checkIn, checkOut);
-        String timeString = AppUtil.toTimeString(timeAmount);
-        binding.hourAmountTxt.setText(String.format(Locale.getDefault(), "%s %s", timeString, bookingRequest.getBookingType().getUnit().getLabel()));
+        switch (bookingRequest.getBookingType().getUnit()) {
+            case HOUR -> {
+                long amount = ChronoUnit.HOURS.between(bookingRequest.getCheckIn(), bookingRequest.getCheckOut());
+                binding.timeAmountTxt.setText(String.format(Locale.getDefault(), "%s %s", amount, TimeUnit.HOUR.getSuffix()));
+            }
+            case OVERNIGHT -> binding.timeAmountTxt.setText(String.format(Locale.getDefault(), "%s %s", 1, TimeUnit.OVERNIGHT.getSuffix()));
+            case DAY -> {
+                long amount = ChronoUnit.DAYS.between(bookingRequest.getCheckIn().truncatedTo(ChronoUnit.DAYS),
+                        bookingRequest.getCheckOut().truncatedTo(ChronoUnit.DAYS));
+                binding.timeAmountTxt.setText(String.format(Locale.getDefault(), "%s %s", amount, TimeUnit.DAY.getSuffix()));
+            }
+        }
 
         // check if both checkIn and checkOut are the same day
         if (checkIn.getDayOfYear() == checkOut.getDayOfYear()) {
@@ -103,25 +125,39 @@ public class ChooseTimeFragment extends Fragment {
         }
 
         binding.checkOutTxtFragment.setText(checkOut.format(formatter));
+
+        if (hotel.getRooms() != null) {
+            bookingRequest.setRoom(hotel.getRooms().get(0));
+            BookingUtil.calculateTotalPrice(bookingRequest);
+            binding.priceTxt.setText(AppUtil.formatCurrency(bookingRequest.getTotalPrice()));
+        }
     }
 
-    private BookingRequest handleBookingRequest(BookingRequest bookingRequest) {
-        // Get current time
-        LocalDateTime currentTime = LocalDateTime.now().plusHours(1);
+    private void handleBookingRequest() {
+        LocalDateTime currentTime = LocalDateTime.now().plusMinutes(30);
+        if (currentTime.getMinute() < 30) {
+            currentTime = currentTime.withMinute(30);
+        } else if (currentTime.getMinute() > 30) {
+            currentTime = currentTime.plusHours(1).truncatedTo(ChronoUnit.HOURS);
+        }
+
         int hour = currentTime.getHour();
 
-        // check hour is bettween start hourly and end hourly
         if (hotel.getStartHourly() <= hour && hour + hotel.getFirstHours() <= hotel.getEndHourly()) {
             BookingType hourlyBookingType = hotel.getBookingTypes().stream()
                     .filter(bookingType -> bookingType.getUnit().equals(TimeUnit.HOUR))
                     .findFirst()
-                    .orElse(null);
+                    .orElseThrow();
             bookingRequest.setBookingType(hourlyBookingType);
 
-            LocalDateTime checkIn = currentTime.truncatedTo(ChronoUnit.HOURS);
-            LocalDateTime checkOut = checkIn.plusHours(hotel.getFirstHours());
+            handler.setStartTime(currentTime.toLocalTime());
+            handler.setHourAmount(hotel.getFirstHours());
+            long maxHours = currentTime.toLocalTime().until(hourlyBookingType.getEndTime(), ChronoUnit.HOURS);
+            handler.setMaxHours(maxHours);
 
-            bookingRequest.setCheckIn(checkIn);
+            LocalDateTime checkOut = currentTime.plusHours(hotel.getFirstHours());
+
+            bookingRequest.setCheckIn(currentTime);
             bookingRequest.setCheckOut(checkOut);
         } else {
             BookingType dailyBookingType = hotel.getBookingTypes().stream()
@@ -130,18 +166,14 @@ public class ChooseTimeFragment extends Fragment {
                     .orElse(null);
             bookingRequest.setBookingType(dailyBookingType);
 
-            LocalDateTime checkIn;
+            LocalDateTime checkIn = currentTime;
             if (hour < hotel.getStartOvernight()) {
                 checkIn = currentTime.withHour(hotel.getStartOvernight()).truncatedTo(ChronoUnit.HOURS);
-            } else {
-                checkIn = currentTime.truncatedTo(ChronoUnit.HOURS);
             }
             LocalDateTime checkOut = checkIn.plusDays(1).withHour(hotel.getEndOvernight());
 
             bookingRequest.setCheckIn(checkIn);
             bookingRequest.setCheckOut(checkOut);
         }
-
-        return bookingRequest;
     }
 }

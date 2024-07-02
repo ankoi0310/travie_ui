@@ -6,13 +6,14 @@ import android.content.SharedPreferences;
 import java.util.Arrays;
 import java.util.Set;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import vn.edu.hcmuaf.fit.travie.R;
 
 public class LocalStorage {
     private final SharedPreferences prefs;
+
+    public static final String USER_NICKNAME = "user_nickname";
+    public static final String USER_PHONE = "user_phone";
+    public static final String USER_AVATAR = "user_avatar";
 
     public LocalStorage(Context context) {
         this.prefs = context.getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE);

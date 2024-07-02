@@ -31,7 +31,7 @@ public class ChangePasswordActivity extends BaseActivity {
         binding = ActivityChangePasswordBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.appBar.titleTxt.setText(R.string.change_password);
+        binding.toolbar.setNavigationOnClickListener(v -> finish());
 
         currentEdt = binding.currentEdt;
         newEdt = binding.newEdt;

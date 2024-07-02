@@ -16,7 +16,6 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import vn.edu.hcmuaf.fit.travie.booking.data.model.BookingRequest;
 import vn.edu.hcmuaf.fit.travie.booking.data.model.LinkCreationResponse;
-import vn.edu.hcmuaf.fit.travie.booking.data.service.BookingRequestHolder;
 import vn.edu.hcmuaf.fit.travie.booking.data.service.BookingService;
 import vn.edu.hcmuaf.fit.travie.core.handler.domain.HttpResponse;
 import vn.edu.hcmuaf.fit.travie.core.service.RetrofitService;
@@ -42,7 +41,7 @@ public class BookingViewModel extends ViewModel {
     }
 
     public void checkout() {
-        BookingRequest bookingRequest = BookingRequestHolder.getInstance().getBookingRequest();
+        BookingRequest bookingRequest = BookingRequest.getInstance();
         bookingService.booking(bookingRequest).enqueue(new retrofit2.Callback<HttpResponse<LinkCreationResponse>>() {
             @Override
             public void onResponse(@NonNull Call<HttpResponse<LinkCreationResponse>> call, @NonNull retrofit2.Response<HttpResponse<LinkCreationResponse>> response) {

@@ -2,8 +2,10 @@ package vn.edu.hcmuaf.fit.travie.core.shared.enums;
 
 import androidx.annotation.StringRes;
 
+import lombok.Getter;
 import vn.edu.hcmuaf.fit.travie.R;
 
+@Getter
 public enum Gender {
     MALE, FEMALE, OTHER, PREFER_NOT_TO_SAY;
 

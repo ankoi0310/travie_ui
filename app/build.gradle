@@ -16,18 +16,20 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "API_URL", "\"http://10.0.2.2:8080/api/\"")
+//        buildConfigField("String", "API_URL", "\"http://10.0.2.2:8080/api/\"")
+        buildConfigField("String", "API_URL", "\"http://192.168.1.9:8080/api/\"")
     }
 
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "API_URL", "\"http://192.168.1.9:8080/api/\"")
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     buildFeatures {
@@ -59,13 +61,21 @@ dependencies {
     implementation libs.dagger
     implementation libs.play.services.location
     implementation libs.play.services.maps
-
-//    implementation fileTree(dir: 'libs', include: ['*.aar'])
-    implementation project(':flashytabbar')
+    implementation libs.core.splashscreen
     implementation libs.annotation
     implementation libs.view
     implementation libs.recyclerview
     implementation libs.swiperefreshlayout
+    implementation libs.shimmer
+    implementation libs.guava
+    implementation project(':flashytabbar')
+    implementation libs.lifecycle.livedata.ktx
+    implementation libs.lifecycle.viewmodel.ktx
+    implementation libs.commons.text
+    implementation libs.firebase.auth
+    implementation 'com.facebook.android:facebook-login:latest.release'
+    implementation("com.google.android.gms:play-services-auth:21.2.0")
+    implementation libs.security.crypto
 
     annotationProcessor libs.lombok
     annotationProcessor libs.dagger.compiler

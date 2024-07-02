@@ -19,14 +19,13 @@ import java.util.Objects;
 
 import vn.edu.hcmuaf.fit.travie.R;
 import vn.edu.hcmuaf.fit.travie.booking.data.model.BookingRequest;
-import vn.edu.hcmuaf.fit.travie.booking.data.service.BookingRequestHolder;
 import vn.edu.hcmuaf.fit.travie.core.common.ui.BaseActivity;
 import vn.edu.hcmuaf.fit.travie.core.shared.enums.invoice.PaymentMethod;
 import vn.edu.hcmuaf.fit.travie.databinding.ActivityChoosePaymentMethodBinding;
 
 public class ChoosePaymentMethodActivity extends BaseActivity {
     ActivityChoosePaymentMethodBinding binding;
-    BookingRequestHolder bookingRequestHolder = BookingRequestHolder.getInstance();
+    BookingRequest bookingRequest = BookingRequest.getInstance();
     List<RadioButton> radioButtons;
 
     @Override
@@ -39,7 +38,7 @@ public class ChoosePaymentMethodActivity extends BaseActivity {
             Insets stautusBars = insets.getInsets(WindowInsetsCompat.Type.statusBars());
             // unit of stautusBars.top is px, so we need to convert it to dp
             int statusBarHeight = stautusBars.top / (getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
-            binding.toolbar.setPadding(0, statusBarHeight + binding.toolbar.getPaddingBottom(), 0,  binding.toolbar.getPaddingBottom());
+            binding.toolbar.setPadding(0, statusBarHeight + binding.toolbar.getPaddingBottom(), 0, binding.toolbar.getPaddingBottom());
             binding.toolbar.setTitleMarginTop(statusBarHeight - 4);
             v.setPadding(0, 0, 0, stautusBars.bottom);
             return WindowInsetsCompat.CONSUMED;
@@ -62,11 +61,7 @@ public class ChoosePaymentMethodActivity extends BaseActivity {
             int resId = binding.paymentMethodGroup.getCheckedRadioButtonId();
             PaymentMethod paymentMethod = PaymentMethod.fromResId(resId);
 
-            BookingRequest bookingRequest = bookingRequestHolder.getBookingRequest();
-            if (bookingRequest != null) {
-                bookingRequest.setPaymentMethod(paymentMethod);
-                bookingRequestHolder.setBookingRequest(bookingRequest);
-            }
+            bookingRequest.setPaymentMethod(paymentMethod);
 
             setResult(RESULT_OK, new Intent().putExtra("paymentMethod", paymentMethod));
             finish();
@@ -74,17 +69,14 @@ public class ChoosePaymentMethodActivity extends BaseActivity {
     }
 
     private void setSelectedPaymentMethod() {
-        BookingRequest bookingRequest = bookingRequestHolder.getBookingRequest();
-        if (bookingRequest != null) {
-            PaymentMethod paymentMethod = bookingRequest.getPaymentMethod();
-            if (paymentMethod != null) {
-                if (paymentMethod == PaymentMethod.ATM) {
-                    binding.rbATM.setChecked(true);
-                    binding.rbATM.setCompoundDrawablesWithIntrinsicBounds(null, null, getCheckedDrawable(), null);
-                } else if (paymentMethod == PaymentMethod.MOMO) {
-                    binding.rbMomo.setChecked(true);
-                    binding.rbMomo.setCompoundDrawablesWithIntrinsicBounds(null, null, getCheckedDrawable(), null);
-                }
+        PaymentMethod paymentMethod = bookingRequest.getPaymentMethod();
+        if (paymentMethod != null) {
+            if (paymentMethod == PaymentMethod.ATM) {
+                binding.rbATM.setChecked(true);
+                binding.rbATM.setCompoundDrawablesWithIntrinsicBounds(null, null, getCheckedDrawable(), null);
+            } else if (paymentMethod == PaymentMethod.MOMO) {
+                binding.rbMomo.setChecked(true);
+                binding.rbMomo.setCompoundDrawablesWithIntrinsicBounds(null, null, getCheckedDrawable(), null);
             }
         }
     }

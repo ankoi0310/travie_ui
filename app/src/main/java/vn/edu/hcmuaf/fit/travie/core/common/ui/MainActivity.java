@@ -20,11 +20,8 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import it.koi.flashytabbar.TabFlashyAnimator;
@@ -34,7 +31,7 @@ import vn.edu.hcmuaf.fit.travie.databinding.ActivityMainBinding;
 import vn.edu.hcmuaf.fit.travie.hotel.ui.explore.ExploreFragment;
 import vn.edu.hcmuaf.fit.travie.invoice.ui.history.HistoryFragment;
 import vn.edu.hcmuaf.fit.travie.home.ui.home.HomeFragment;
-import vn.edu.hcmuaf.fit.travie.user.fragment.ProfileFragment;
+import vn.edu.hcmuaf.fit.travie.user.ui.profile.ProfileFragment;
 
 public class MainActivity extends BaseActivity {
     ActivityMainBinding binding;
@@ -48,7 +45,7 @@ public class MainActivity extends BaseActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        sharedViewModel = new SharedViewModelFactory().create(SharedViewModel.class);
+        sharedViewModel = new ViewModelProvider(this).get(SharedViewModel.class);
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         getLastLocation();
 
@@ -67,10 +64,10 @@ public class MainActivity extends BaseActivity {
         }).attach();
 
         tabFlashyAnimator = new TabFlashyAnimator(binding.tabLayout, R.color.primary);
-        tabFlashyAnimator.addTabItem(AppConstant.MenuTitle.HOME, R.drawable.home);
-        tabFlashyAnimator.addTabItem(AppConstant.MenuTitle.EXPLORE, R.drawable.location);
-        tabFlashyAnimator.addTabItem(AppConstant.MenuTitle.HISTORY, R.drawable.clock);
-        tabFlashyAnimator.addTabItem(AppConstant.MenuTitle.PROFILE, R.drawable.user);
+        tabFlashyAnimator.addTabItem(getString(AppConstant.MenuTitle.HOME), R.drawable.home);
+        tabFlashyAnimator.addTabItem(getString(AppConstant.MenuTitle.EXPLORE), R.drawable.location);
+        tabFlashyAnimator.addTabItem(getString(AppConstant.MenuTitle.HISTORY), R.drawable.clock);
+        tabFlashyAnimator.addTabItem(getString(AppConstant.MenuTitle.PROFILE), R.drawable.user);
         tabFlashyAnimator.highLightTab(0);
     }
 
@@ -135,13 +132,6 @@ public class MainActivity extends BaseActivity {
     }
 
     public static class PageAdapter extends FragmentStateAdapter {
-        private final List<Fragment> mFragmentList = new ArrayList<Fragment>() {{
-            add(HomeFragment.newInstance());
-            add(ExploreFragment.newInstance());
-            add(HistoryFragment.newInstance());
-            add(ProfileFragment.newInstance());
-        }};
-
         public PageAdapter(@NonNull FragmentActivity fragmentActivity) {
             super(fragmentActivity);
         }
@@ -149,12 +139,17 @@ public class MainActivity extends BaseActivity {
         @NonNull
         @Override
         public Fragment createFragment(int position) {
-            return mFragmentList.get(position);
+            return switch (position) {
+                case 1 -> ExploreFragment.newInstance();
+                case 2 -> HistoryFragment.newInstance();
+                case 3 -> ProfileFragment.newInstance();
+                default -> HomeFragment.newInstance();
+            };
         }
 
         @Override
         public int getItemCount() {
-            return mFragmentList.size();
+            return 4;
         }
     }
 }

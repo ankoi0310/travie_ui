@@ -12,6 +12,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
@@ -21,9 +22,7 @@ import java.util.Locale;
 import io.noties.markwon.Markwon;
 import vn.edu.hcmuaf.fit.travie.R;
 import vn.edu.hcmuaf.fit.travie.booking.data.model.BookingRequest;
-import vn.edu.hcmuaf.fit.travie.booking.data.service.BookingRequestHolder;
-import vn.edu.hcmuaf.fit.travie.booking.ui.chooseroom.ChooseRoomActivity;
-import vn.edu.hcmuaf.fit.travie.booking.ui.choosetime.ChooseTimeDialogFragment;
+import vn.edu.hcmuaf.fit.travie.booking.data.service.ChooseTimeByHourHandler;
 import vn.edu.hcmuaf.fit.travie.core.common.ui.BaseActivity;
 import vn.edu.hcmuaf.fit.travie.core.common.ui.choosetime.ChooseTimeFragment;
 import vn.edu.hcmuaf.fit.travie.core.shared.constant.AppConstant;
@@ -32,8 +31,6 @@ import vn.edu.hcmuaf.fit.travie.core.shared.utils.AppUtil;
 import vn.edu.hcmuaf.fit.travie.databinding.ActivityHotelDetailBinding;
 import vn.edu.hcmuaf.fit.travie.hotel.data.model.Hotel;
 import vn.edu.hcmuaf.fit.travie.hotel.ui.HotelViewModel;
-import vn.edu.hcmuaf.fit.travie.hotel.ui.HotelViewModelFactory;
-import vn.edu.hcmuaf.fit.travie.room.data.model.Room;
 
 public class HotelDetailActivity extends BaseActivity {
     ActivityHotelDetailBinding binding;
@@ -64,7 +61,7 @@ public class HotelDetailActivity extends BaseActivity {
         AnimationUtil.animateView(binding.loadingView.getRoot(), View.VISIBLE, 0.4f, 200);
 
         markwon = Markwon.create(this);
-        hotelViewModel = new HotelViewModelFactory().create(HotelViewModel.class);
+        hotelViewModel = new ViewModelProvider(this).get(HotelViewModel.class);
 
         fetchHotelDetail();
 
@@ -102,21 +99,13 @@ public class HotelDetailActivity extends BaseActivity {
                 }
             }
         });
-
-        binding.chooseRoomBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(this, ChooseRoomActivity.class);
-            intent.putExtra("hotelId", hotel.getId());
-            startActivity(intent);
-        });
-
-        initChooseTimeBottomSheet();
     }
 
-    private void initChooseTimeBottomSheet() {
-        binding.chooseTimeFragment.setOnClickListener(v -> {
-            ChooseTimeDialogFragment chooseTimeDialogFragment = ChooseTimeDialogFragment.newInstance(hotel.getBookingTypes());
-            chooseTimeDialogFragment.show(getSupportFragmentManager(), "dialog");
-        });
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ChooseTimeByHourHandler.destroyInstance();
+        BookingRequest.destroyInstance();
     }
 
     private void initChooseTimeFragment() {
@@ -157,13 +146,6 @@ public class HotelDetailActivity extends BaseActivity {
                 binding.bookingTypeRv.setLayoutManager(new LinearLayoutManager(this));
                 binding.bookingTypeRv.setAdapter(bookingTypeAdapter);
 
-                if (hotel.getRooms() != null) {
-                    int price = hotel.getRooms().stream().mapToInt(Room::getFirstHoursOrigin).min().orElse(0);
-                    binding.priceTxt.setText(AppUtil.formatCurrency(price));
-                }
-
-                BookingRequest bookingRequest = new BookingRequest();
-                BookingRequestHolder.getInstance().setBookingRequest(bookingRequest);
                 initChooseTimeFragment();
             }
 

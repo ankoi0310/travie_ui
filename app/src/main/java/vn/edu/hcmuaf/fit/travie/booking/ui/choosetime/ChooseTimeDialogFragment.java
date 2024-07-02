@@ -1,35 +1,23 @@
 package vn.edu.hcmuaf.fit.travie.booking.ui.choosetime;
 
-import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.tabs.TabLayout;
 
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-
-import vn.edu.hcmuaf.fit.travie.booking.ui.BookingViewModel;
-import vn.edu.hcmuaf.fit.travie.booking.ui.BookingViewModelFactory;
-import vn.edu.hcmuaf.fit.travie.booking.ui.choosetime.adapter.UnitTimeAdapter;
-import vn.edu.hcmuaf.fit.travie.core.shared.utils.DateTimeUtil;
+import vn.edu.hcmuaf.fit.travie.booking.data.model.BookingRequest;
+import vn.edu.hcmuaf.fit.travie.booking.ui.choosetime.adapter.BookingTypeAdapter;
 import vn.edu.hcmuaf.fit.travie.databinding.FragmentChooseTimeDialogBinding;
-import vn.edu.hcmuaf.fit.travie.hotel.data.model.BookingType;
+import vn.edu.hcmuaf.fit.travie.hotel.data.model.Hotel;
 
 /**
  * <p>A fragment that shows a list of items as a modal bottom sheet.</p>
@@ -41,14 +29,14 @@ import vn.edu.hcmuaf.fit.travie.hotel.data.model.BookingType;
 public class ChooseTimeDialogFragment extends BottomSheetDialogFragment {
     private FragmentChooseTimeDialogBinding binding;
 
-    private static final String ARG_BOOKING_TYPES = "bookingTypes";
+    private static final String ARG_HOTEL = "hotel";
 
-    private ArrayList<BookingType> bookingTypes;
+    private Hotel hotel;
 
-    public static ChooseTimeDialogFragment newInstance(ArrayList<BookingType> bookingTypes) {
+    public static ChooseTimeDialogFragment newInstance(Hotel hotel) {
         final ChooseTimeDialogFragment fragment = new ChooseTimeDialogFragment();
         final Bundle args = new Bundle();
-        args.putParcelableArrayList(ARG_BOOKING_TYPES, bookingTypes);
+        args.putParcelable(ARG_HOTEL, hotel);
         fragment.setArguments(args);
         return fragment;
     }
@@ -57,7 +45,7 @@ public class ChooseTimeDialogFragment extends BottomSheetDialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            bookingTypes = getArguments().getParcelableArrayList(ARG_BOOKING_TYPES);
+            hotel = getArguments().getParcelable(ARG_HOTEL, Hotel.class);
         }
     }
 
@@ -66,12 +54,6 @@ public class ChooseTimeDialogFragment extends BottomSheetDialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = FragmentChooseTimeDialogBinding.inflate(inflater, container, false);
-
-//        BottomSheetBehavior<View> behavior = BottomSheetBehavior.from((View) binding.getRoot().getParent());
-//        behavior.setPeekHeight(0);
-//        behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-//        behavior.setExpandedOffset(0);
-
         return binding.getRoot();
     }
 
@@ -80,33 +62,15 @@ public class ChooseTimeDialogFragment extends BottomSheetDialogFragment {
         super.onViewCreated(view, savedInstanceState);
 
         initTabLayout();
+        BottomSheetBehavior<FrameLayout> behavior = BottomSheetBehavior.from((FrameLayout) view.getParent());
+        behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        behavior.setSkipCollapsed(true);
     }
 
-    @NonNull
-    @Override
-    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        Dialog dialog = super.onCreateDialog(savedInstanceState);
-        dialog.setOnShowListener(dialog1 -> {
-            BottomSheetDialog bottomSheetDialog = (BottomSheetDialog) dialog1;
-            FrameLayout bottomSheet = bottomSheetDialog.findViewById(com.google.android.material.R.id.design_bottom_sheet);
-            if (bottomSheet != null) {
-                BottomSheetBehavior<FrameLayout> behavior = BottomSheetBehavior.from(bottomSheet);
-                behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-            }
-        });
-        return dialog;
-    }
-
-    @SuppressLint("ClickableViewAccessibility")
     private void initTabLayout() {
-        List<Fragment> fragments = new ArrayList<>();
-        fragments.add(ChooseTimeByHourFragment.newInstance(bookingTypes.get(0)));
-        fragments.add(ChooseTimeByNightFragment.newInstance(bookingTypes.get(1)));
-        fragments.add(new ChooseTimeByDayFragment());
-        UnitTimeAdapter adapter = new UnitTimeAdapter(requireActivity(), fragments);
+        BookingTypeAdapter adapter = new BookingTypeAdapter(requireActivity(), hotel.getBookingTypes());
         binding.viewPager.setAdapter(adapter);
         binding.viewPager.setUserInputEnabled(false);
-        binding.viewPager.setOffscreenPageLimit(3);
         binding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -124,17 +88,16 @@ public class ChooseTimeDialogFragment extends BottomSheetDialogFragment {
             }
         });
 
-        binding.nestedScrollView.setOnTouchListener((v, event) -> {
-            v.getParent().requestDisallowInterceptTouchEvent(true);
-            if (event.getAction() == MotionEvent.ACTION_UP) {
-                v.performClick();
-            }
-            return false;
-        });
-
-        TabLayout.Tab tab = binding.tabLayout.getTabAt(1);
-        if (tab != null) {
-            tab.select();
+        BookingRequest bookingRequest = BookingRequest.getInstance();
+        if (bookingRequest.getBookingType() != null) {
+            int position = hotel.getBookingTypes().indexOf(bookingRequest.getBookingType());
+            binding.tabLayout.selectTab(binding.tabLayout.getTabAt(position));
+        } else {
+            binding.tabLayout.selectTab(binding.tabLayout.getTabAt(0));
         }
+//        TabLayout.Tab tab = binding.tabLayout.getTabAt(1);
+//        if (tab != null) {
+//            tab.select();
+//        }
     }
 }

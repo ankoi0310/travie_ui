@@ -60,6 +60,12 @@ public class BannerFragment extends Fragment {
         handleLoadBanners();
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
+
     private void initSlider() {
         binding.imageSlider.setIndicatorAnimation(IndicatorAnimationType.WORM);
         binding.imageSlider.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);

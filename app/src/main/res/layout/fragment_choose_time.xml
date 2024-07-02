@@ -4,53 +4,114 @@
     android:id="@+id/chooseTimeLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_lavender_rounded_32"
-    android:gravity="center_vertical"
-    android:paddingHorizontal="10dp"
-    android:paddingVertical="8dp"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/padding_12"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".core.common.ui.choosetime.ChooseTimeFragment">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        app:srcCompat="@drawable/clock" />
-
-    <TextView
-        android:id="@+id/hour_amount_txt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:id="@+id/choose_time_btn"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:text="01 giờ"
-        android:textSize="@dimen/text_size_small" />
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="8dp"
+        android:background="@drawable/bg_lavender_rounded_32"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            app:srcCompat="@drawable/clock" />
 
-    <TextView
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/time_amount_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="01 giờ"
+            android:textSize="@dimen/text_size_small" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="4dp"
+            android:text="|" />
+
+        <TextView
+            android:id="@+id/check_in_txt_fragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="17:00, 03/06"
+            android:textSize="@dimen/text_size_small" />
+
+        <ImageView
+            android:layout_width="12dp"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="6dp"
+            app:srcCompat="@drawable/arrow_right" />
+
+        <TextView
+            android:id="@+id/check_out_txt_fragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="18:00, 03/06"
+            android:textSize="@dimen/text_size_small" />
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/margin_8"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="4dp"
-        android:text="|" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timeInfoLayout">
 
-    <TextView
-        android:id="@+id/check_in_txt_fragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:text="17:00, 03/06"
-        android:textSize="@dimen/text_size_small" />
+        <TextView
+            android:id="@+id/priceTitleTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chỉ từ"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:layout_width="12dp"
-        android:layout_height="match_parent"
-        android:layout_marginHorizontal="6dp"
-        app:srcCompat="@drawable/arrow_right" />
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:visibility="gone"
+            android:foreground="@drawable/strike_through_line"
+            android:text="230.000"
+            android:textColor="@color/text_secondary"
+            app:layout_constraintBottom_toBottomOf="@+id/priceTitleTxt"
+            app:layout_constraintStart_toEndOf="@+id/priceTitleTxt"
+            app:layout_constraintTop_toTopOf="@+id/priceTitleTxt" />
 
-    <TextView
-        android:id="@+id/check_out_txt_fragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:text="18:00, 03/06"
-        android:textSize="@dimen/text_size_small" />
+        <TextView
+            android:id="@+id/price_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="200.000"
+            android:textSize="@dimen/text_size_xlarge"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/priceTitleTxt"
+            app:layout_constraintTop_toBottomOf="@+id/priceTitleTxt" />
+
+        <Button
+            android:id="@+id/choose_room_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chọn phòng"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

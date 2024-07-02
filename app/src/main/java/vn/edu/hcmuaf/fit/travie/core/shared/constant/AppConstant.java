@@ -1,12 +1,24 @@
 package vn.edu.hcmuaf.fit.travie.core.shared.constant;
 
+import androidx.annotation.StringRes;
+
+import java.util.Arrays;
+import java.util.List;
+
+import vn.edu.hcmuaf.fit.travie.R;
+import vn.edu.hcmuaf.fit.travie.core.shared.enums.Gender;
+
 public class AppConstant {
     public static class MenuTitle {
-        public static final String HOME = "Home";
-        public static final String EXPLORE = "Explore";
-        public static final String HISTORY = "History";
-        public static final String PROFILE = "Profile";
+        public static final @StringRes int HOME = R.string.home;
+        public static final @StringRes int EXPLORE = R.string.explore;
+        public static final @StringRes int HISTORY = R.string.history;
+        public static final @StringRes int PROFILE = R.string.profile;
     }
+
+    public static List<String> FACEBOOK_PERMISSIONS = Arrays.asList("email", "public_profile");
+
+    public static int DEFAULT_GENDER = Gender.PREFER_NOT_TO_SAY.ordinal();
 
     public static String TOKEN_PREFIX = "Bearer ";
 

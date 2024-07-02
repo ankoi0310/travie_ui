@@ -1,23 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/profileDetail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".user.activity.ProfileDetailActivity">
+    android:orientation="vertical"
+    tools:context=".user.ui.profiledetail.ProfileDetailActivity">
 
-    <include
-        android:id="@+id/appBar"
-        layout="@layout/fragment_custom_app_bar"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
 
-    <ScrollView
+        <com.google.android.material.appbar.MaterialToolbar
+            android:layout_width="match_parent"
+            android:fitsSystemWindows="true"
+            app:navigationIcon="@drawable/circle_arrow_left"
+            app:titleTextAppearance="@style/TextBoldLarge"
+            app:title="Hồ sơ cá nhân"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/bottomNav"
-        android:layout_below="@id/appBar">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -40,12 +47,6 @@
                     android:textSize="@dimen/text_size_large"
                     android:textStyle="bold" />
 
-                <ImageButton
-                    android:id="@+id/button_edit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/baseline_edit_24" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -56,20 +57,20 @@
                 android:paddingVertical="@dimen/padding_4">
 
                 <TextView
-                    android:id="@+id/usernameLabel"
+                    android:id="@+id/nicknameLbl"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:text="@string/username"
+                    android:text="@string/nickname"
                     android:textSize="@dimen/text_size_medium"
+                    android:labelFor="@id/nickname"
                     android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/usernameTxt"
-                    android:layout_width="0dp"
+                    android:id="@+id/nickname"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:autofillHints="username"
                     android:background="@drawable/bg_transparent"
                     android:ems="10"
@@ -77,9 +78,7 @@
                     android:minHeight="48dp"
                     android:text=""
                     android:textColor="@color/text"
-                    android:textSize="@dimen/text_size_medium"
-                    tools:ignore="LabelFor"
-                    android:enabled="false"/>
+                    android:textSize="@dimen/text_size_medium" />
             </LinearLayout>
 
             <LinearLayout
@@ -97,14 +96,13 @@
                     android:gravity="center_vertical"
                     android:text="@string/phone_number"
                     android:textSize="@dimen/text_size_medium"
-                    android:textStyle="bold"
-                    android:labelFor="@id/phoneTxt"/>
+                    android:labelFor="@id/phone"
+                    android:textStyle="bold"/>
 
                 <EditText
-                    android:id="@+id/phoneTxt"
-                    android:layout_width="0dp"
+                    android:id="@+id/phone"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:autofillHints="phone"
                     android:background="@drawable/bg_transparent"
                     android:ems="10"
@@ -113,8 +111,7 @@
                     android:paddingVertical="@dimen/padding_4"
                     android:text=""
                     android:textColor="@color/text_secondary"
-                    android:textSize="@dimen/text_size_medium"
-                    android:enabled="false"/>
+                    android:textSize="@dimen/text_size_medium" />
             </LinearLayout>
 
             <LinearLayout
@@ -132,13 +129,13 @@
                     android:gravity="center_vertical"
                     android:text="@string/email"
                     android:textSize="@dimen/text_size_medium"
+                    android:labelFor="@id/email"
                     android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/emailTxt"
-                    android:layout_width="0dp"
+                    android:id="@+id/email"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:autofillHints="email"
                     android:background="@drawable/bg_transparent"
                     android:ems="10"
@@ -148,40 +145,7 @@
                     android:textColor="@color/text_secondary"
                     android:textSize="@dimen/text_size_medium"
                     tools:ignore="LabelFor"
-                    android:enabled="false"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingVertical="@dimen/padding_4">
-
-                <TextView
-                    android:id="@+id/fullNameLbl"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:text="@string/fullname"
-                    android:textSize="@dimen/text_size_medium"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/fullNameTxt"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:autofillHints="fullName"
-                    android:background="@drawable/bg_transparent"
-                    android:inputType="textEmailAddress"
-                    android:minHeight="48dp"
-                    android:text=""
-                    android:textColor="@color/text"
-                    android:textSize="@dimen/text_size_medium"
-                    tools:ignore="LabelFor"
-                    android:enabled="false"/>
+                    android:enabled="false" />
             </LinearLayout>
 
             <LinearLayout
@@ -202,18 +166,16 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/genderTxt"
-                    android:layout_width="0dp"
+                    android:id="@+id/gender"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:background="@drawable/bg_transparent"
                     android:gravity="center_vertical"
                     android:minHeight="48dp"
                     android:paddingVertical="@dimen/padding_4"
                     android:text=""
                     android:textColor="@color/text"
-                    android:textSize="@dimen/text_size_medium"
-                    android:enabled="false"/>
+                    android:textSize="@dimen/text_size_medium" />
             </LinearLayout>
 
             <LinearLayout
@@ -231,13 +193,13 @@
                     android:gravity="center_vertical"
                     android:text="@string/birth_day"
                     android:textSize="@dimen/text_size_medium"
+                    android:labelFor="@id/birthday"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/birthdayTxt"
-                    android:layout_width="0dp"
+                    android:id="@+id/birthday"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:autofillHints="birthday"
                     android:background="@drawable/bg_transparent"
                     android:gravity="center_vertical"
@@ -250,15 +212,11 @@
 
         </LinearLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/bottomNav"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true">
+        android:layout_height="wrap_content">
 
         <com.google.android.material.bottomappbar.BottomAppBar
             android:layout_width="match_parent"
@@ -268,8 +226,9 @@
             app:contentInsetEnd="0dp"
             app:contentInsetStart="0dp">
 
-            <Button
-                android:id="@+id/updateProfileBtn"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/update_btn"
+                app:cornerRadius="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -280,4 +239,4 @@
                 android:textStyle="bold" />
         </com.google.android.material.bottomappbar.BottomAppBar>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-</RelativeLayout>
+</LinearLayout>

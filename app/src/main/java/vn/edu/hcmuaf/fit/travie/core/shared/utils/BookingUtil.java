@@ -1,5 +1,7 @@
 package vn.edu.hcmuaf.fit.travie.core.shared.utils;
 
+import android.util.Log;
+
 import java.util.Locale;
 
 import vn.edu.hcmuaf.fit.travie.booking.data.model.BookingRequest;
@@ -46,6 +48,7 @@ public class BookingUtil {
 
         bookingRequest.setTotalPrice(price);
         bookingRequest.setFinalPrice(price);
+        Log.d("BookingUtil", String.format(Locale.getDefault(), "Total price: %d", price));
     }
 
     public static String generateDescription(Invoice invoice) {

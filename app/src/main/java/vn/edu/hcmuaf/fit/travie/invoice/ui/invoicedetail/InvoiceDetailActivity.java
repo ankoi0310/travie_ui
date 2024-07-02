@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.ViewModelProvider;
 
 import java.time.LocalDateTime;
 
@@ -25,7 +26,6 @@ import vn.edu.hcmuaf.fit.travie.databinding.ActivityInvoiceDetailBinding;
 import vn.edu.hcmuaf.fit.travie.hotel.data.model.BookingType;
 import vn.edu.hcmuaf.fit.travie.invoice.data.model.Invoice;
 import vn.edu.hcmuaf.fit.travie.invoice.ui.InvoiceViewModel;
-import vn.edu.hcmuaf.fit.travie.invoice.ui.InvoiceViewModelFactory;
 import vn.edu.hcmuaf.fit.travie.room.data.model.Room;
 
 public class InvoiceDetailActivity extends BaseActivity {
@@ -51,7 +51,7 @@ public class InvoiceDetailActivity extends BaseActivity {
 
         AnimationUtil.animateView(binding.loadingView.getRoot(), View.VISIBLE, 0.4f, 200);
 
-        invoiceViewModel = new InvoiceViewModelFactory(this).create(InvoiceViewModel.class);
+        invoiceViewModel = new ViewModelProvider(this).get(InvoiceViewModel.class);
         invoiceViewModel.getInvoice().observe(this, result -> {
             if (result.getError() != null) {
                 Toast.makeText(this, result.getError(), Toast.LENGTH_SHORT).show();

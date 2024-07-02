@@ -13,6 +13,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,7 +26,6 @@ import vn.edu.hcmuaf.fit.travie.core.common.ui.SpaceItemDecoration;
 import vn.edu.hcmuaf.fit.travie.databinding.ActivitySearchHotelBinding;
 import vn.edu.hcmuaf.fit.travie.hotel.data.model.Hotel;
 import vn.edu.hcmuaf.fit.travie.hotel.ui.HotelViewModel;
-import vn.edu.hcmuaf.fit.travie.hotel.ui.HotelViewModelFactory;
 import vn.edu.hcmuaf.fit.travie.hotel.ui.explore.ExploreHotelAdapter;
 
 public class SearchHotelActivity extends BaseActivity {
@@ -44,7 +44,7 @@ public class SearchHotelActivity extends BaseActivity {
         binding = ActivitySearchHotelBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        hotelViewModel = new HotelViewModelFactory().create(HotelViewModel.class);
+        hotelViewModel = new ViewModelProvider(this).get(HotelViewModel.class);
         handleSearchHotel();
 
         binding.hotelListContainer.setOnTouchListener((View v, MotionEvent event) -> {

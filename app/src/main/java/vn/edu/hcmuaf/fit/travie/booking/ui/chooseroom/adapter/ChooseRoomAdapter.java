@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import vn.edu.hcmuaf.fit.travie.booking.data.model.BookingRequest;
-import vn.edu.hcmuaf.fit.travie.booking.data.service.BookingRequestHolder;
 import vn.edu.hcmuaf.fit.travie.booking.ui.checkout.CheckoutActivity;
 import vn.edu.hcmuaf.fit.travie.core.shared.utils.AppUtil;
 import vn.edu.hcmuaf.fit.travie.core.shared.utils.BookingUtil;
@@ -33,7 +32,7 @@ public class ChooseRoomAdapter extends RecyclerView.Adapter<ChooseRoomAdapter.Vi
 
     private final ArrayList<Room> rooms;
 
-    BookingRequestHolder bookingRequestHolder = BookingRequestHolder.getInstance();
+    BookingRequest bookingRequest = BookingRequest.getInstance();
 
     public ChooseRoomAdapter(ArrayList<Room> rooms) {
         this.rooms = rooms;
@@ -49,8 +48,6 @@ public class ChooseRoomAdapter extends RecyclerView.Adapter<ChooseRoomAdapter.Vi
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        BookingRequest bookingRequest = bookingRequestHolder.getBookingRequest();
-
         Room room = rooms.get(position);
         holder.roomTxt.setText(room.getName());
         holder.amenitiesTxt.setText(room.getAmenities().stream().map(Amenity::getName).reduce((a, b) -> a + " - " + b).orElse(""));
@@ -75,7 +72,6 @@ public class ChooseRoomAdapter extends RecyclerView.Adapter<ChooseRoomAdapter.Vi
         holder.bookBtn.setOnClickListener(v -> {
             bookingRequest.setRoom(room);
             BookingUtil.calculateTotalPrice(bookingRequest);
-            bookingRequestHolder.setBookingRequest(bookingRequest);
 
             Intent intent = new Intent(context, CheckoutActivity.class);
             context.startActivity(intent);

@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,7 +21,6 @@ import vn.edu.hcmuaf.fit.travie.core.common.ui.SpaceItemDecoration;
 import vn.edu.hcmuaf.fit.travie.databinding.FragmentExploreBinding;
 import vn.edu.hcmuaf.fit.travie.hotel.data.model.Hotel;
 import vn.edu.hcmuaf.fit.travie.hotel.ui.HotelViewModel;
-import vn.edu.hcmuaf.fit.travie.hotel.ui.HotelViewModelFactory;
 
 public class ExploreFragment extends Fragment {
     private FragmentExploreBinding binding;
@@ -55,7 +55,7 @@ public class ExploreFragment extends Fragment {
 
         binding.loading.setVisibility(View.VISIBLE);
 
-        hotelViewModel = new HotelViewModelFactory().create(HotelViewModel.class);
+        hotelViewModel = new ViewModelProvider(this).get(HotelViewModel.class);
         hotelViewModel.fetchExploreHotelList(1, 5);
         handleLoadExploreHotel();
 

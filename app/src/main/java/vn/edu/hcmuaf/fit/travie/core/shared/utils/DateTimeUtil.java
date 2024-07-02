@@ -7,9 +7,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
-
-import vn.edu.hcmuaf.fit.travie.core.shared.constant.AppConstant;
 
 public class DateTimeUtil {
     public static DateTimeFormatter getDateTimeFormatter() {
@@ -23,14 +20,14 @@ public class DateTimeUtil {
         return DateTimeFormatter.ofPattern(pattern);
     }
 
-    public static List<String> generateTimeList(LocalTime startTime, LocalTime endTime) {
-        List<String> timeList = new ArrayList<>();
+    public static List<LocalTime> generateTimeList(LocalTime startTime, LocalTime endTime) {
+        List<LocalTime> timeList = new ArrayList<>();
         while (startTime.isBefore(endTime)) {
-            timeList.add(startTime.format(getDateTimeFormatter("HH:mm")));
+            timeList.add(startTime);
             startTime = startTime.plusMinutes(30);
 
             // check startTime is exist in timeList or not
-            if (timeList.contains(startTime.format(getDateTimeFormatter("HH:mm")))) {
+            if (timeList.contains(startTime)) {
                 break;
             }
         }
@@ -50,10 +47,10 @@ public class DateTimeUtil {
         return time.plusHours(1).withMinute(0);
     }
 
-    public static List<String> generateHourList(int i) {
-        List<String> hours = new ArrayList<>();
-        for (int j = 1; j <= i; j++) {
-            hours.add(String.format(Locale.getDefault(), "%d" + AppConstant.HOUR_SUFFIX, j));
+    public static List<Integer> generateHourList(int min, int max) {
+        List<Integer> hours = new ArrayList<>();
+        for (int j = min; j <= max; j++) {
+            hours.add(j);
         }
         return hours;
     }

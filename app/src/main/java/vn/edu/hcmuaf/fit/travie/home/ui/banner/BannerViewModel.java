@@ -40,13 +40,14 @@ public class BannerViewModel extends ViewModel {
     }
 
     public void loadBanners(int page, int size) {
-        bannerService.getBanners(page, size).enqueue(new Callback<HttpResponse<Page<Banner>>>() {
+        bannerService.getBanners(page, size).enqueue(new Callback<>() {
             @Override
             public void onResponse(@NonNull Call<HttpResponse<Page<Banner>>> call, @NonNull Response<HttpResponse<Page<Banner>>> response) {
                 try (ResponseBody errorBody = response.errorBody()) {
                     if (!response.isSuccessful() && errorBody != null) {
                         Gson gson = AppUtil.getGson();
-                        Type type = new TypeToken<HttpResponse<String>>() {}.getType();
+                        Type type = new TypeToken<HttpResponse<String>>() {
+                        }.getType();
                         HttpResponse<String> httpResponse = gson.fromJson(errorBody.charStream(), type);
                         bannerListResult.postValue(new BannerListResult(null, httpResponse.getMessage()));
                         return;

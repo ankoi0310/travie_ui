@@ -22,8 +22,8 @@ import retrofit2.Response;
 import vn.edu.hcmuaf.fit.travie.core.handler.domain.HttpResponse;
 import vn.edu.hcmuaf.fit.travie.core.service.RetrofitService;
 import vn.edu.hcmuaf.fit.travie.core.shared.utils.AppUtil;
-import vn.edu.hcmuaf.fit.travie.user.model.ChangePasswordRequest;
-import vn.edu.hcmuaf.fit.travie.user.service.UserService;
+import vn.edu.hcmuaf.fit.travie.user.data.model.ChangePasswordRequest;
+import vn.edu.hcmuaf.fit.travie.user.data.service.UserService;
 
 public class ChangePasswordViewModel extends ViewModel {
     private final MutableLiveData<ChangePasswordFormState> changePasswordFormState = new MutableLiveData<>();
@@ -32,7 +32,7 @@ public class ChangePasswordViewModel extends ViewModel {
     private final UserService userService;
 
     ChangePasswordViewModel(Context context) {
-        this.userService = RetrofitService.createPublicService(context, UserService.class);
+        this.userService = RetrofitService.createPrivateService(context, UserService.class);
     }
 
     LiveData<ChangePasswordFormState> getChangePasswordFormState() {
