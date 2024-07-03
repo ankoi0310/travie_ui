@@ -129,4 +129,5 @@
     <string name="facebook_app_id">1475845473137882</string>
     <string name="fb_login_protocol_scheme">fb1475845473137882</string>
     <string name="facebook_client_token">84ddd3ba2a38d8506823079a79aa269d</string>
+    <string name="reset_password">Đặt lại mật khẩu</string>
 </resources>

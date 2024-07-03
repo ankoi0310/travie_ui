@@ -18,6 +18,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import vn.edu.hcmuaf.fit.travie.auth.data.model.forgotpassword.ResetPasswordRequest;
 import vn.edu.hcmuaf.fit.travie.auth.data.model.login.LoginRequest;
 import vn.edu.hcmuaf.fit.travie.auth.data.model.login.LoginResponse;
 import vn.edu.hcmuaf.fit.travie.auth.data.model.register.RegisterRequest;
@@ -32,8 +33,18 @@ import vn.edu.hcmuaf.fit.travie.core.shared.utils.AppUtil;
 public class AuthViewModel extends ViewModel {
     @Getter
     private final MutableLiveData<HttpResponse<String>> checkEmailResponse = new MutableLiveData<>();
+
     @Getter
     private final MutableLiveData<RegisterResult> registerResult = new MutableLiveData<>();
+
+    @Getter
+    private final MutableLiveData<HttpResponse<String>> forgotPasswordResponse = new MutableLiveData<>();
+
+    @Getter
+    private final MutableLiveData<HttpResponse<String>> resetPasswordResponse = new MutableLiveData<>();
+
+    @Getter
+    private final MutableLiveData<HttpResponse<String>> verifyResponse = new MutableLiveData<>();
 
     @Getter
     private final MutableLiveData<LoginResult> loginResult = new MutableLiveData<>();
@@ -75,7 +86,7 @@ public class AuthViewModel extends ViewModel {
 
             @Override
             public void onFailure(@NonNull Call<HttpResponse<String>> call, @NonNull Throwable t) {
-
+                checkEmailResponse.postValue(null);
             }
         });
     }
@@ -127,6 +138,100 @@ public class AuthViewModel extends ViewModel {
 
         RequestBody requestFile = RequestBody.create(avatarFile, MediaType.parse("image/*"));
         return MultipartBody.Part.createFormData("avatar", avatarFile.getName(), requestFile);
+    }
+
+    public void verify(String code) {
+        authService.verify(code).enqueue(new Callback<>() {
+            @Override
+            public void onResponse(@NonNull Call<HttpResponse<String>> call, @NonNull Response<HttpResponse<String>> response) {
+                try (ResponseBody errorBody = response.errorBody()) {
+                    if (!response.isSuccessful() && errorBody != null) {
+                        Gson gson = AppUtil.getGson();
+                        Type type = new TypeToken<HttpResponse<String>>() {
+                        }.getType();
+                        HttpResponse<String> httpResponse = gson.fromJson(errorBody.charStream(), type);
+                        verifyResponse.postValue(httpResponse);
+                        return;
+                    }
+
+                    if (response.body() == null) {
+                        verifyResponse.postValue(null);
+                        return;
+                    }
+
+                    HttpResponse<String> httpResponse = response.body();
+                    verifyResponse.postValue(httpResponse);
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<HttpResponse<String>> call, @NonNull Throwable t) {
+                verifyResponse.postValue(null);
+            }
+        });
+    }
+
+    public void forgotPassword(String email) {
+        authService.forgotPassword(email).enqueue(new Callback<>() {
+            @Override
+            public void onResponse(@NonNull Call<HttpResponse<String>> call, @NonNull Response<HttpResponse<String>> response) {
+                try (ResponseBody errorBody = response.errorBody()) {
+                    if (!response.isSuccessful() && errorBody != null) {
+                        Gson gson = AppUtil.getGson();
+                        Type type = new TypeToken<HttpResponse<String>>() {
+                        }.getType();
+                        HttpResponse<String> httpResponse = gson.fromJson(errorBody.charStream(), type);
+                        forgotPasswordResponse.postValue(httpResponse);
+                        return;
+                    }
+
+                    if (response.body() == null) {
+                        forgotPasswordResponse.postValue(null);
+                        return;
+                    }
+
+                    HttpResponse<String> httpResponse = response.body();
+                    forgotPasswordResponse.postValue(httpResponse);
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<HttpResponse<String>> call, @NonNull Throwable t) {
+                forgotPasswordResponse.postValue(null);
+            }
+        });
+    }
+
+    public void resetPassword(String email, String newPassword) {
+        ResetPasswordRequest request = new ResetPasswordRequest(email, newPassword);
+        authService.resetPassword(request).enqueue(new Callback<>() {
+            @Override
+            public void onResponse(@NonNull Call<HttpResponse<String>> call, @NonNull Response<HttpResponse<String>> response) {
+                try (ResponseBody errorBody = response.errorBody()) {
+                    if (!response.isSuccessful() && errorBody != null) {
+                        Gson gson = AppUtil.getGson();
+                        Type type = new TypeToken<HttpResponse<String>>() {
+                        }.getType();
+                        HttpResponse<String> httpResponse = gson.fromJson(errorBody.charStream(), type);
+                        resetPasswordResponse.postValue(httpResponse);
+                        return;
+                    }
+
+                    if (response.body() == null) {
+                        resetPasswordResponse.postValue(null);
+                        return;
+                    }
+
+                    HttpResponse<String> httpResponse = response.body();
+                    resetPasswordResponse.postValue(httpResponse);
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<HttpResponse<String>> call, @NonNull Throwable t) {
+                resetPasswordResponse.postValue(null);
+            }
+        });
     }
 
     public void login(LoginRequest loginRequest) {

@@ -33,6 +33,7 @@ import vn.edu.hcmuaf.fit.travie.auth.viewmodel.AuthViewModel;
 import vn.edu.hcmuaf.fit.travie.core.common.ui.BaseActivity;
 import vn.edu.hcmuaf.fit.travie.core.service.FileService;
 import vn.edu.hcmuaf.fit.travie.core.shared.enums.Gender;
+import vn.edu.hcmuaf.fit.travie.core.shared.enums.otp.OTPType;
 import vn.edu.hcmuaf.fit.travie.core.shared.utils.AnimationUtil;
 import vn.edu.hcmuaf.fit.travie.core.shared.utils.DateTimeUtil;
 import vn.edu.hcmuaf.fit.travie.databinding.ActivityFillProfileBinding;
@@ -99,7 +100,7 @@ public class FillProfileActivity extends BaseActivity {
         Instant instant = calendar.toInstant();
         LocalDate birthday = instant.atZone(ZoneId.systemDefault()).toLocalDate();
         binding.birthday.setText(birthday.format(formatter));
-        registerRequest.setBirthday(LocalDate.parse(binding.birthday.getText(), formatter));
+        registerRequest.setBirthday(birthday);
     }
 
     private void initNicknameListener() {
@@ -189,6 +190,7 @@ public class FillProfileActivity extends BaseActivity {
                 RegisterResponse response = registerResult.success();
                 RegisterRequest.finalizeInstance();
                 Intent intent = new Intent(this, OTPActivity.class);
+                intent.putExtra("otpType", OTPType.VERIFY_EMAIL.name());
                 intent.putExtra("email", response.getEmail());
                 startActivity(intent);
             }

@@ -1,6 +1,7 @@
 package vn.edu.hcmuaf.fit.travie.user.ui.profiledetail;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,11 +20,14 @@ import java.util.Calendar;
 
 import vn.edu.hcmuaf.fit.travie.R;
 import vn.edu.hcmuaf.fit.travie.core.common.ui.BaseActivity;
+import vn.edu.hcmuaf.fit.travie.core.service.AuthManager;
+import vn.edu.hcmuaf.fit.travie.core.service.LocalStorage;
 import vn.edu.hcmuaf.fit.travie.core.shared.enums.Gender;
 import vn.edu.hcmuaf.fit.travie.core.shared.utils.DateTimeUtil;
 import vn.edu.hcmuaf.fit.travie.databinding.ActivityProfileDetailBinding;
 import vn.edu.hcmuaf.fit.travie.databinding.GenderBottomSheetBinding;
 import vn.edu.hcmuaf.fit.travie.user.data.model.UserProfile;
+import vn.edu.hcmuaf.fit.travie.user.data.model.UserProfileRequest;
 import vn.edu.hcmuaf.fit.travie.user.ui.UserViewModel;
 import vn.edu.hcmuaf.fit.travie.user.ui.UserViewModelFactory;
 
@@ -35,9 +39,14 @@ public class ProfileDetailActivity extends BaseActivity {
 
     private final Calendar calendar = Calendar.getInstance();
     private Gender currentGender = Gender.MALE;
+    private boolean isUpdating = false;
 
     private GenderBottomSheetBinding genderBinding;
     private BottomSheetDialog genderDialog;
+
+    private LocalStorage localStorage;
+
+    private final UserProfileRequest userProfileRequest = UserProfileRequest.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,12 +54,14 @@ public class ProfileDetailActivity extends BaseActivity {
         binding = ActivityProfileDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        localStorage = new LocalStorage(this);
+
         userViewModel = new ViewModelProvider(this, new UserViewModelFactory(this)).get(UserViewModel.class);
         userViewModel.getProfile();
 
         handleLoadUserProfile();
 
-        TextWatcher textWatcher = new TextWatcher() {
+        binding.nickname.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -63,29 +74,44 @@ public class ProfileDetailActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
+                userProfileRequest.setNickname(s.toString());
             }
-        };
+        });
+        binding.phone.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-        binding.nickname.addTextChangedListener(textWatcher);
-        binding.phone.addTextChangedListener(textWatcher);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                userProfileRequest.setPhone(s.toString());
+            }
+        });
+
         binding.updateBtn.setOnClickListener(v -> {
+            isUpdating = true;
             // Hide keyboard
             InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
-            UserProfile userProfile = new UserProfile();
-            userProfile.setNickname(binding.nickname.getText().toString());
-            userProfile.setPhone(binding.phone.getText().toString());
-            userProfile.setGender(currentGender);
-            userProfile.setBirthday(LocalDate.parse(binding.birthday.getText(), formatter));
+            userProfileRequest.setNickname(binding.nickname.getText().toString());
+            userProfileRequest.setEmail(binding.email.getText().toString());
+            userProfileRequest.setPhone(binding.phone.getText().toString());
+            userProfileRequest.setGender(currentGender);
+            userProfileRequest.setBirthday(LocalDate.parse(binding.birthday.getText(), formatter));
 
-            userViewModel.updateUserProfile(userProfile);
+            userViewModel.updateUserProfile(userProfileRequest);
         });
 
         genderBinding = GenderBottomSheetBinding.inflate(getLayoutInflater());
         genderDialog = new BottomSheetDialog(this);
         initGenderDialog();
-        initDatePickerDialog();
     }
 
     private void initGenderDialog() {
@@ -148,6 +174,7 @@ public class ProfileDetailActivity extends BaseActivity {
         Instant instant = calendar.toInstant();
         LocalDate birthday = instant.atZone(ZoneId.systemDefault()).toLocalDate();
         binding.birthday.setText(birthday.format(formatter));
+        userProfileRequest.setBirthday(birthday);
     }
 
     private void handleLoadUserProfile() {
@@ -159,6 +186,17 @@ public class ProfileDetailActivity extends BaseActivity {
             if (result.success() != null) {
                 UserProfile userProfile = result.success();
                 updateUI(userProfile);
+                initDatePickerDialog();
+
+                if (isUpdating) {
+                    Toast.makeText(this, "Cập nhật thông tin thành công", Toast.LENGTH_SHORT).show();
+                    isUpdating = false;
+
+                    localStorage.saveString(LocalStorage.USER_NICKNAME, userProfile.getNickname());
+                    localStorage.saveString(LocalStorage.USER_PHONE, userProfile.getPhone());
+
+                    finish();
+                }
             }
         });
     }

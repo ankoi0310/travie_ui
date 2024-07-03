@@ -73,7 +73,6 @@
                     android:layout_height="wrap_content"
                     android:autofillHints="username"
                     android:background="@drawable/bg_transparent"
-                    android:ems="10"
                     android:inputType="text"
                     android:minHeight="48dp"
                     android:text=""
@@ -105,7 +104,6 @@
                     android:layout_height="match_parent"
                     android:autofillHints="phone"
                     android:background="@drawable/bg_transparent"
-                    android:ems="10"
                     android:inputType="phone"
                     android:minHeight="48dp"
                     android:paddingVertical="@dimen/padding_4"
@@ -138,7 +136,6 @@
                     android:layout_height="match_parent"
                     android:autofillHints="email"
                     android:background="@drawable/bg_transparent"
-                    android:ems="10"
                     android:inputType="textEmailAddress"
                     android:minHeight="48dp"
                     android:text=""
@@ -206,8 +203,7 @@
                     android:minHeight="48dp"
                     android:text=""
                     android:textColor="@color/text"
-                    android:textSize="@dimen/text_size_medium"
-                    android:enabled="false"/>
+                    android:textSize="@dimen/text_size_medium" />
             </LinearLayout>
 
         </LinearLayout>

@@ -69,6 +69,8 @@ public class ChooseRoomAdapter extends RecyclerView.Adapter<ChooseRoomAdapter.Vi
                 .load(room.getImages().get(0))
                 .into(holder.image);
 
+        holder.outOfStockTxt.setVisibility(room.getNumOfRooms() != 0 ? View.INVISIBLE : View.VISIBLE);
+
         holder.bookBtn.setOnClickListener(v -> {
             bookingRequest.setRoom(room);
             BookingUtil.calculateTotalPrice(bookingRequest);
@@ -94,6 +96,7 @@ public class ChooseRoomAdapter extends RecyclerView.Adapter<ChooseRoomAdapter.Vi
         ImageView image;
         Button bookBtn;
         View detailBtn;
+        TextView outOfStockTxt;
 
         public ViewHolder(ViewHolderChooseRoomBinding binding) {
             super(binding.getRoot());
@@ -104,6 +107,7 @@ public class ChooseRoomAdapter extends RecyclerView.Adapter<ChooseRoomAdapter.Vi
             detailBtn = binding.detailBtn;
             priceTxt = binding.discountPriceTxt;
             roomRemainTxt = binding.roomRemainTxt;
+            outOfStockTxt = binding.outOfStockTxt;
         }
     }
 }

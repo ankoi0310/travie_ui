@@ -2,13 +2,9 @@ package vn.edu.hcmuaf.fit.travie.booking.ui.checkout;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import java.time.LocalDateTime;
@@ -41,16 +37,6 @@ public class CheckoutSuccessActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityCheckoutSuccessBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        ViewCompat.setOnApplyWindowInsetsListener(binding.main, (v, insets) -> {
-            Insets stautusBars = insets.getInsets(WindowInsetsCompat.Type.statusBars());
-            // unit of stautusBars.top is px, so we need to convert it to dp
-            int statusBarHeight = stautusBars.top / (getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
-            binding.toolbar.setPadding(0, statusBarHeight + binding.toolbar.getPaddingBottom(), 0,  binding.toolbar.getPaddingBottom());
-            binding.toolbar.setTitleMarginTop(statusBarHeight - 4);
-            v.setPadding(0, 0, 0, stautusBars.bottom);
-            return WindowInsetsCompat.CONSUMED;
-        });
 
         AnimationUtil.animateView(binding.loadingView.getRoot(), View.VISIBLE, 0.4f, 200);
         bookingViewModel = new ViewModelProvider(this, new BookingViewModelFactory(this)).get(BookingViewModel.class);

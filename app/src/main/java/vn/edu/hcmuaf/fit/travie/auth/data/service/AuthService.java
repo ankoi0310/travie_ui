@@ -11,7 +11,6 @@ import retrofit2.http.Query;
 import vn.edu.hcmuaf.fit.travie.auth.data.model.login.LoginRequest;
 import vn.edu.hcmuaf.fit.travie.auth.data.model.login.LoginResponse;
 import vn.edu.hcmuaf.fit.travie.auth.data.model.refreshtoken.RefreshTokenResponse;
-import vn.edu.hcmuaf.fit.travie.auth.data.model.register.RegisterRequest;
 import vn.edu.hcmuaf.fit.travie.auth.data.model.forgotpassword.ResetPasswordRequest;
 import vn.edu.hcmuaf.fit.travie.auth.data.model.register.RegisterResponse;
 import vn.edu.hcmuaf.fit.travie.core.handler.domain.HttpResponse;
@@ -24,6 +23,9 @@ public interface AuthService {
     @POST("auth/register")
     Call<HttpResponse<RegisterResponse>> register(@Part MultipartBody.Part avatar, @Part("request") RequestBody request);
 
+    @POST("auth/resend-otp")
+    Call<HttpResponse<String>> resendOTP(@Query("email") String email);
+
     @POST("auth/verify")
     Call<HttpResponse<String>> verify(@Query("code") String code);
 
@@ -31,7 +33,7 @@ public interface AuthService {
     Call<HttpResponse<String>> forgotPassword(@Query("email") String email);
 
     @POST("auth/reset-password")
-    Call<HttpResponse<Void>> resetPassword(@Body ResetPasswordRequest resetPasswordRequest);
+    Call<HttpResponse<String>> resetPassword(@Body ResetPasswordRequest resetPasswordRequest);
 
     @POST("auth/login")
     Call<HttpResponse<LoginResponse>> login(@Body LoginRequest loginRequest);

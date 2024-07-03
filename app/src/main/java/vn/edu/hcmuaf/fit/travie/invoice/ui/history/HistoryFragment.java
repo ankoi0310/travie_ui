@@ -1,5 +1,6 @@
 package vn.edu.hcmuaf.fit.travie.invoice.ui.history;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,8 +14,10 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import vn.edu.hcmuaf.fit.travie.R;
+import vn.edu.hcmuaf.fit.travie.auth.ui.login.LoginActivity;
 import vn.edu.hcmuaf.fit.travie.core.common.ui.MainActivity;
 import vn.edu.hcmuaf.fit.travie.core.common.ui.SpaceItemDecoration;
+import vn.edu.hcmuaf.fit.travie.core.service.AuthManager;
 import vn.edu.hcmuaf.fit.travie.core.shared.utils.AnimationUtil;
 import vn.edu.hcmuaf.fit.travie.databinding.FragmentHistoryBinding;
 import vn.edu.hcmuaf.fit.travie.invoice.ui.adapter.InvoiceAdapter;
@@ -31,6 +34,8 @@ public class HistoryFragment extends Fragment {
     View loadingView;
 
     UserViewModel userViewModel;
+
+    AuthManager authManager;
 
     public HistoryFragment() {
         // Required empty public constructor
@@ -58,6 +63,13 @@ public class HistoryFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        authManager = new AuthManager(requireContext());
+        if (!authManager.isLoggedIn()) {
+            Intent intent = new Intent(requireActivity(), LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
 
         MainActivity mainActivity = (MainActivity) requireActivity();
         loadingView = mainActivity.findViewById(R.id.loadingView);

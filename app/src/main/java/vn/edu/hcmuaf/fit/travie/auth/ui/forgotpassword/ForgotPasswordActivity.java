@@ -2,27 +2,28 @@ package vn.edu.hcmuaf.fit.travie.auth.ui.forgotpassword;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModelProvider;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import vn.edu.hcmuaf.fit.travie.auth.data.service.AuthService;
 import vn.edu.hcmuaf.fit.travie.auth.ui.otp.OTPActivity;
-import vn.edu.hcmuaf.fit.travie.core.handler.domain.HttpResponse;
-import vn.edu.hcmuaf.fit.travie.core.service.RetrofitService;
+import vn.edu.hcmuaf.fit.travie.auth.viewmodel.AuthViewModel;
 import vn.edu.hcmuaf.fit.travie.core.shared.enums.otp.OTPType;
+import vn.edu.hcmuaf.fit.travie.core.shared.utils.AnimationUtil;
 import vn.edu.hcmuaf.fit.travie.databinding.ActivityForgotPasswordBinding;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
+    private final MutableLiveData<String> email = new MutableLiveData<>();
     private ActivityForgotPasswordBinding binding;
-    private AuthService authService;
 
-    private OTPType otpType;
+    AuthViewModel authViewModel;
+
+    boolean isEmailValid = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,40 +31,54 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         binding = ActivityForgotPasswordBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        authService = RetrofitService.createPublicService(AuthService.class);
+        binding.toolbar.setNavigationOnClickListener(v -> finish());
 
-        binding.buttonSubmitEmail.setOnClickListener(new View.OnClickListener() {
+        authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
+        handleResult();
+
+        binding.email.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
-                String email = binding.editEmail.getText().toString();
-                if (email.isEmpty()) {
-                    Toast.makeText(ForgotPasswordActivity.this, "Please enter your email", Toast.LENGTH_SHORT).show();
-                } else {
-                    forgotPassword(email);
-                }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                email.setValue(s.toString());
+            }
+        });
+
+        email.observe(this, s -> isEmailValid = s.matches("^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,4}$"));
+
+        binding.submitBtn.setOnClickListener(v -> {
+            if (!isEmailValid) {
+                Toast.makeText(this, "Email không hợp lệ", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            AnimationUtil.animateView(binding.loadingView.getRoot(), View.VISIBLE, 0.4f, 200);
+            authViewModel.forgotPassword(email.getValue());
         });
     }
 
-    private void forgotPassword(String email) {
-        Call<HttpResponse<String>> call = authService.forgotPassword(email);
-        call.enqueue(new Callback<HttpResponse<String>>() {
-            @Override
-            public void onResponse(@NonNull Call<HttpResponse<String>> call, @NonNull Response<HttpResponse<String>> response) {
-                if (response.isSuccessful() && response.body() != null && response.body().isSuccess()) {
-                    Toast.makeText(ForgotPasswordActivity.this, "Xác nhận email có tồn tại.", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(ForgotPasswordActivity.this, OTPActivity.class);
-                    intent.putExtra("OTP_TYPE", OTPType.RESET_PASSWORD.name());
-                    startActivity(intent);
-                    finish();
-                } else {
-                    Toast.makeText(ForgotPasswordActivity.this, "Gửi mail thất bại, vui lòng thử lại sau!", Toast.LENGTH_SHORT).show();
-                }
+    private void handleResult() {
+        authViewModel.getForgotPasswordResponse().observe(this, response -> {
+            if (response == null) {
+                Toast.makeText(this, "Something went wrong, please try again!", Toast.LENGTH_SHORT).show();
+            } else if (!response.isSuccess()) {
+                Toast.makeText(this, response.getMessage(), Toast.LENGTH_SHORT).show();
+            } else {
+                Intent intent = new Intent(this, OTPActivity.class);
+                intent.putExtra("otpType", OTPType.RESET_PASSWORD.name());
+                intent.putExtra("email", email.getValue());
+                startActivity(intent);
             }
 
-            @Override
-            public void onFailure(@NonNull Call<HttpResponse<String>> call, @NonNull Throwable t) {
-                Toast.makeText(ForgotPasswordActivity.this, "Đã xảy ra lỗi, vui lòng thử lại sau!", Toast.LENGTH_SHORT).show();
+            if (binding.loadingView.getRoot().getVisibility() == View.VISIBLE) {
+                AnimationUtil.animateView(binding.loadingView.getRoot(), View.GONE, 0.4f, 200);
             }
         });
     }

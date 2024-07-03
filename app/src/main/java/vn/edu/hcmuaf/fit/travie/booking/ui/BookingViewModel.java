@@ -42,13 +42,14 @@ public class BookingViewModel extends ViewModel {
 
     public void checkout() {
         BookingRequest bookingRequest = BookingRequest.getInstance();
-        bookingService.booking(bookingRequest).enqueue(new retrofit2.Callback<HttpResponse<LinkCreationResponse>>() {
+        bookingService.booking(bookingRequest).enqueue(new retrofit2.Callback<>() {
             @Override
             public void onResponse(@NonNull Call<HttpResponse<LinkCreationResponse>> call, @NonNull retrofit2.Response<HttpResponse<LinkCreationResponse>> response) {
                 try (ResponseBody errorBody = response.errorBody()) {
                     if (!response.isSuccessful() && errorBody != null) {
                         Gson gson = AppUtil.getGson();
-                        Type type = new TypeToken<HttpResponse<String>>() {}.getType();
+                        Type type = new TypeToken<HttpResponse<String>>() {
+                        }.getType();
                         HttpResponse<String> httpResponse = gson.fromJson(errorBody.charStream(), type);
                         bookingResult.postValue(new BookingResult(null, httpResponse.getMessage()));
                         return;

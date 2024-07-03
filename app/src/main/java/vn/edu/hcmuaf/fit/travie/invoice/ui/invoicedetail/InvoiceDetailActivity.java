@@ -2,13 +2,9 @@ package vn.edu.hcmuaf.fit.travie.invoice.ui.invoicedetail;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import java.time.LocalDateTime;
@@ -26,6 +22,7 @@ import vn.edu.hcmuaf.fit.travie.databinding.ActivityInvoiceDetailBinding;
 import vn.edu.hcmuaf.fit.travie.hotel.data.model.BookingType;
 import vn.edu.hcmuaf.fit.travie.invoice.data.model.Invoice;
 import vn.edu.hcmuaf.fit.travie.invoice.ui.InvoiceViewModel;
+import vn.edu.hcmuaf.fit.travie.invoice.ui.InvoiceViewModelFactory;
 import vn.edu.hcmuaf.fit.travie.room.data.model.Room;
 
 public class InvoiceDetailActivity extends BaseActivity {
@@ -39,19 +36,9 @@ public class InvoiceDetailActivity extends BaseActivity {
         binding = ActivityInvoiceDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        ViewCompat.setOnApplyWindowInsetsListener(binding.main, (v, insets) -> {
-            Insets stautusBars = insets.getInsets(WindowInsetsCompat.Type.statusBars());
-            // unit of stautusBars.top is px, so we need to convert it to dp
-            int statusBarHeight = stautusBars.top / (getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
-            binding.toolbar.setPadding(0, statusBarHeight + binding.toolbar.getPaddingBottom(), 0,  binding.toolbar.getPaddingBottom());
-            binding.toolbar.setTitleMarginTop(statusBarHeight - 4);
-            v.setPadding(0, 0, 0, stautusBars.bottom);
-            return WindowInsetsCompat.CONSUMED;
-        });
-
         AnimationUtil.animateView(binding.loadingView.getRoot(), View.VISIBLE, 0.4f, 200);
 
-        invoiceViewModel = new ViewModelProvider(this).get(InvoiceViewModel.class);
+        invoiceViewModel = new ViewModelProvider(this, new InvoiceViewModelFactory(this)).get(InvoiceViewModel.class);
         invoiceViewModel.getInvoice().observe(this, result -> {
             if (result.getError() != null) {
                 Toast.makeText(this, result.getError(), Toast.LENGTH_SHORT).show();

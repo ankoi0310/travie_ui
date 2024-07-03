@@ -4,4 +4,8 @@ public enum OTPType {
     VERIFY_EMAIL,
     VERIFY_PHONE,
     RESET_PASSWORD;
+
+    public static OTPType fromString(String str) {
+        return valueOf(str);
+    }
 }

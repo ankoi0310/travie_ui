@@ -4,19 +4,16 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import java.time.LocalDateTime;
 
+import vn.edu.hcmuaf.fit.travie.auth.ui.login.LoginActivity;
 import vn.edu.hcmuaf.fit.travie.booking.data.model.BookingRequest;
 import vn.edu.hcmuaf.fit.travie.booking.data.model.LinkCreationResponse;
 import vn.edu.hcmuaf.fit.travie.booking.ui.BookingViewModel;
@@ -26,6 +23,8 @@ import vn.edu.hcmuaf.fit.travie.booking.ui.fragment.SelectedTimeFragment;
 import vn.edu.hcmuaf.fit.travie.booking.ui.payment.ChoosePaymentMethodActivity;
 import vn.edu.hcmuaf.fit.travie.core.common.ui.BaseActivity;
 import vn.edu.hcmuaf.fit.travie.core.common.ui.cancellationpolicy.CancellationPolicyFragment;
+import vn.edu.hcmuaf.fit.travie.core.service.AuthManager;
+import vn.edu.hcmuaf.fit.travie.core.service.LocalStorage;
 import vn.edu.hcmuaf.fit.travie.core.shared.enums.invoice.PaymentMethod;
 import vn.edu.hcmuaf.fit.travie.core.shared.utils.AnimationUtil;
 import vn.edu.hcmuaf.fit.travie.core.shared.utils.AppUtil;
@@ -41,21 +40,27 @@ public class CheckoutActivity extends BaseActivity {
 
     private boolean isResumedFromBrowser = false;
 
+    AuthManager authManager;
+    LocalStorage localStorage;
+
+    LinkCreationResponse linkCreationResponse;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityCheckoutBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        ViewCompat.setOnApplyWindowInsetsListener(binding.main, (v, insets) -> {
-            Insets stautusBars = insets.getInsets(WindowInsetsCompat.Type.statusBars());
-            // unit of stautusBars.top is px, so we need to convert it to dp
-            int statusBarHeight = stautusBars.top / (getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
-            binding.toolbar.setPadding(0, statusBarHeight + binding.toolbar.getPaddingBottom(), 0,  binding.toolbar.getPaddingBottom());
-            binding.toolbar.setTitleMarginTop(statusBarHeight - 4);
-            v.setPadding(0, 0, 0, stautusBars.bottom);
-            return WindowInsetsCompat.CONSUMED;
-        });
+        authManager = new AuthManager(this);
+        if (!authManager.isLoggedIn()) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
+
+        localStorage = new LocalStorage(this);
+        binding.guestNameTxt.setText(localStorage.getString(LocalStorage.USER_NICKNAME));
+        binding.guestPhoneTxt.setText(localStorage.getString(LocalStorage.USER_PHONE));
 
         bookingViewModel = new ViewModelProvider(this, new BookingViewModelFactory(this)).get(BookingViewModel.class);
 
@@ -106,7 +111,7 @@ public class CheckoutActivity extends BaseActivity {
             }
 
             if (result.getSuccess() != null) {
-                LinkCreationResponse linkCreationResponse = result.getSuccess();
+                linkCreationResponse = result.getSuccess();
                 openWebPage(linkCreationResponse.getCheckoutUrl());
             }
         });
@@ -116,9 +121,10 @@ public class CheckoutActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
 
-        if (isResumedFromBrowser) {
+        if (isResumedFromBrowser && linkCreationResponse != null) {
             isResumedFromBrowser = false;
             Intent intent = new Intent(this, CheckoutFailActivity.class);
+            intent.putExtra("orderCode", linkCreationResponse.getOrderCode());
             startActivity(intent);
             finish();
         }

@@ -23,6 +23,7 @@ import vn.edu.hcmuaf.fit.travie.core.shared.utils.AppUtil;
 import vn.edu.hcmuaf.fit.travie.invoice.data.model.Invoice;
 import vn.edu.hcmuaf.fit.travie.invoice.ui.InvoiceListResult;
 import vn.edu.hcmuaf.fit.travie.user.data.model.UserProfile;
+import vn.edu.hcmuaf.fit.travie.user.data.model.UserProfileRequest;
 import vn.edu.hcmuaf.fit.travie.user.data.service.UserService;
 import vn.edu.hcmuaf.fit.travie.user.ui.profiledetail.ProfileResult;
 
@@ -116,6 +117,39 @@ public class UserViewModel extends ViewModel {
         });
     }
 
-    public void updateUserProfile(UserProfile userProfile) {
+    public void updateUserProfile(UserProfileRequest request) {
+        userService.updateProfile(request).enqueue(new Callback<>() {
+            @Override
+            public void onResponse(@NonNull Call<HttpResponse<UserProfile>> call, @NonNull Response<HttpResponse<UserProfile>> response) {
+                try (ResponseBody errorBody = response.errorBody()) {
+                    if (!response.isSuccessful() && errorBody != null) {
+                        Gson gson = AppUtil.getGson();
+                        Type type = new TypeToken<HttpResponse<String>>() {
+                        }.getType();
+                        HttpResponse<String> httpResponse = gson.fromJson(errorBody.charStream(), type);
+                        profileResult.postValue(ProfileResult.error(httpResponse.getMessage()));
+                        return;
+                    }
+
+                    if (response.body() == null) {
+                        profileResult.postValue(ProfileResult.error("Something went wrong"));
+                        return;
+                    }
+
+                    HttpResponse<UserProfile> httpResponse = response.body();
+                    if (!httpResponse.isSuccess()) {
+                        profileResult.postValue(ProfileResult.error(httpResponse.getMessage()));
+                        return;
+                    }
+
+                    profileResult.postValue(ProfileResult.success(httpResponse.getData()));
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<HttpResponse<UserProfile>> call, @NonNull Throwable t) {
+                profileResult.postValue(ProfileResult.error("Something went wrong"));
+            }
+        });
     }
 }
